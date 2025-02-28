@@ -15,13 +15,13 @@ const Navbar: React.FC = () => {
       <div className="flex items-center">
         <Link to="/" className="flex items-center mr-8">
           <img 
-            src="public/lovable-uploads/4759fd8c-73c1-4f97-9bff-3e48b566f827.png" 
+            src="/lovable-uploads/4759fd8c-73c1-4f97-9bff-3e48b566f827.png" 
             alt="IPVC Logo" 
             className="h-8 mr-3"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               console.error("Erro ao carregar imagem:", target.src);
-              target.src = "public/placeholder.svg";
+              target.src = "/placeholder.svg";
             }}
           />
           <span className="font-semibold text-xl text-gray-800">Previsão de Abandono Escolar</span>

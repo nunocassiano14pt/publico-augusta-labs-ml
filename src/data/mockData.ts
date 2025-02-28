@@ -1,49 +1,49 @@
 
-import { Prediction, Student, StudentDetail, StatisticsData } from '../types';
+import { Prediction, Student, StudentDetail, StatisticsData, ChurnTrend } from '../types';
 
 // Mock data para o histórico de previsões
 export const predictionsMock: Prediction[] = [
   {
     id: '1',
-    name: 'TEST',
-    date: 'Sep 16, 2024, 02:05 PM',
-    status: 'Pending',
-    access: ['User', 'Faculty'],
+    name: 'Previsão 1',
+    date: '01/01/2024',
+    status: 'Sucesso',
+    access: ['Utilizador', 'Docente'],
   },
   {
     id: '2',
-    name: 'test 3',
-    date: 'Sep 16, 2024, 12:30 AM',
-    status: 'Pending',
-    access: ['User', 'Faculty'],
+    name: 'Previsão 2',
+    date: '01/02/2024',
+    status: 'Sucesso',
+    access: ['Utilizador', 'Docente'],
   },
   {
     id: '3',
-    name: 'test 2',
-    date: 'Sep 16, 2024, 12:30 AM',
-    status: 'Pending',
-    access: ['User'],
+    name: 'Previsão 3',
+    date: '01/03/2024',
+    status: 'Sucesso',
+    access: ['Utilizador'],
   },
   {
     id: '4',
-    name: 'SHARE',
-    date: 'Sep 16, 2024, 12:28 AM',
-    status: 'Pending',
-    access: ['User', 'Faculty'],
+    name: 'Previsão 4',
+    date: '01/04/2024',
+    status: 'Sucesso',
+    access: ['Utilizador', 'Docente'],
   },
   {
     id: '5',
-    name: '',
-    date: 'Sep 11, 2024, 10:41 PM',
-    status: 'Pending',
-    access: ['User'],
+    name: 'Previsão 5',
+    date: '01/05/2024',
+    status: 'Pendente',
+    access: ['Utilizador'],
   },
   {
     id: '6',
-    name: '',
-    date: 'Sep 11, 2024, 10:33 PM',
-    status: 'Success',
-    access: ['User'],
+    name: 'Previsão 6',
+    date: '01/06/2024',
+    status: 'Sucesso',
+    access: ['Utilizador'],
   },
 ];
 
@@ -51,46 +51,62 @@ export const predictionsMock: Prediction[] = [
 export const studentsMock: Student[] = [
   {
     cod_pessoa: '122300',
-    cod_estudante: '1959',
-    ano_letivo: '2019',
-    data_extracao: '2023-07-11 18:56:21',
+    nome_aluno: 'Ana Silva',
+    matricula: 'Licenciatura em Gestão',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
     churn: 100,
   },
   {
     cod_pessoa: '330041',
-    cod_estudante: '1647',
-    ano_letivo: '2019',
-    data_extracao: '2023-07-11 18:56:21',
+    nome_aluno: 'João Oliveira',
+    matricula: 'Licenciatura em Engenharia Informática',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
     churn: 88.89,
   },
   {
     cod_pessoa: '263480',
-    cod_estudante: '1802',
-    ano_letivo: '2019',
-    data_extracao: '2023-07-11 18:56:21',
+    nome_aluno: 'Maria Costa',
+    matricula: 'Mestrado em Química',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
     churn: 81.82,
   },
   {
     cod_pessoa: '344035',
-    cod_estudante: '501',
-    ano_letivo: '2019',
-    data_extracao: '2023-07-11 18:56:21',
+    nome_aluno: 'Pedro Santos',
+    matricula: 'CTeSP em Gestão Hoteleira',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
     churn: 73.91,
   },
   {
     cod_pessoa: '295719',
-    cod_estudante: '2246',
-    ano_letivo: '2019',
-    data_extracao: '2023-07-11 18:56:21',
+    nome_aluno: 'Clara Mendes',
+    matricula: 'Licenciatura em Turismo',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
     churn: 73.91,
   },
   {
     cod_pessoa: '206340',
-    cod_estudante: '2962',
-    ano_letivo: '2019',
-    data_extracao: '2023-07-11 18:56:21',
+    nome_aluno: 'Bruno Ferreira',
+    matricula: 'Licenciatura em Design',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
     churn: 73.91,
   },
+];
+
+// Mock data para tendências mensais
+export const churnTrendMock: ChurnTrend[] = [
+  { month: 'Janeiro', value: 65.2 },
+  { month: 'Fevereiro', value: 68.5 },
+  { month: 'Março', value: 71.3 },
+  { month: 'Abril', value: 74.8 },
+  { month: 'Maio', value: 73.1 },
+  { month: 'Junho', value: 73.9 }
 ];
 
 // Mock data para detalhes do estudante
@@ -99,7 +115,7 @@ export const studentDetailMock: StudentDetail = {
   churnProbability: 73.91,
   positiveReasons: [
     {
-      feature: 'regime_ingresso_nome',
+      feature: 'regime_ingresso',
       description: 'Contingentes especiais Madeira',
       impact: 16.40,
     },
@@ -116,7 +132,7 @@ export const studentDetailMock: StudentDetail = {
   ],
   negativeReasons: [
     {
-      feature: 'estudante_ocupacao',
+      feature: 'ocupacao',
       description: 'Estudante',
       impact: -9.10,
     },
@@ -131,6 +147,7 @@ export const studentDetailMock: StudentDetail = {
       impact: -0.90,
     },
   ],
+  trends: churnTrendMock
 };
 
 // Mock data para estatísticas
@@ -148,17 +165,37 @@ export const idadeStatisticsMock: StatisticsData = {
   counts: [1, 5, 7, 10, 3, 5, 3, 1, 1, 2, 1],
 };
 
+export const cursoStatisticsMock: StatisticsData = {
+  variable: 'curso',
+  categories: ['Gestão', 'Informática', 'Turismo', 'Educação', 'Design'],
+  percentages: [35.2, 28.7, 15.3, 12.1, 8.7],
+  counts: [48, 39, 21, 16, 12],
+};
+
+export const anoLetivosStatisticsMock: StatisticsData = {
+  variable: 'ano_letivo',
+  categories: ['1º Ano', '2º Ano', '3º Ano', 'Mestrado'],
+  percentages: [42.5, 31.2, 18.7, 7.6],
+  counts: [57, 42, 25, 10],
+};
+
+export const localResidenciaStatisticsMock: StatisticsData = {
+  variable: 'local_residencia',
+  categories: ['Viana do Castelo', 'Braga', 'Porto', 'Outros'],
+  percentages: [62.3, 18.5, 12.7, 6.5],
+  counts: [84, 25, 17, 9],
+};
+
 // Lista de variáveis disponíveis para análise
 export const availableVariables = [
   'ano_letivo',
-  'data_extracao',
-  'data_referencia',
   'sexo',
-  'estado_civil',
   'idade',
-  'pais_naturalidade',
-  'pais_nacionalidade',
-  'estrangeiro',
+  'curso',
+  'local_residencia',
+  'escolaridade_pais',
+  'bolsa_estudos',
   'deslocado',
-  'necess_educ_especiais',
+  'trabalhador_estudante',
+  'media_entrada'
 ];

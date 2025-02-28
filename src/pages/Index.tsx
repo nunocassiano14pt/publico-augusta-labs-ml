@@ -11,10 +11,10 @@ const Index = () => {
       <div className="max-w-7xl mx-auto animate-fadeIn">
         <div className="text-center mb-12 mt-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Churn Prediction Dashboard
+            Previsão de Abandono Escolar
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Analyze and track student information to predict and prevent churn.
+            Analisar e monitorizar informações de alunos para prever e prevenir o abandono escolar.
           </p>
         </div>
 
@@ -24,9 +24,9 @@ const Index = () => {
               <div className="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mb-4">
                 <BarChart2 size={28} className="text-teal" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Predictions</h3>
+              <h3 className="text-lg font-semibold mb-2">Previsões</h3>
               <p className="text-gray-500 text-sm">
-                View and manage historical prediction data
+                Ver e gerir o histórico de previsões
               </p>
             </div>
           </Link>
@@ -36,9 +36,9 @@ const Index = () => {
               <div className="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mb-4">
                 <Database size={28} className="text-teal" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Results</h3>
+              <h3 className="text-lg font-semibold mb-2">Resultados</h3>
               <p className="text-gray-500 text-sm">
-                Analyze student prediction results by cluster
+                Analisar resultados dos alunos por curso
               </p>
             </div>
           </Link>
@@ -48,9 +48,9 @@ const Index = () => {
               <div className="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mb-4">
                 <BookOpen size={28} className="text-teal" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Student Details</h3>
+              <h3 className="text-lg font-semibold mb-2">Detalhes</h3>
               <p className="text-gray-500 text-sm">
-                View detailed student prediction factors
+                Ver detalhes individuais dos alunos
               </p>
             </div>
           </Link>
@@ -60,9 +60,9 @@ const Index = () => {
               <div className="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mb-4">
                 <TrendingUp size={28} className="text-teal" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Statistics</h3>
+              <h3 className="text-lg font-semibold mb-2">Estatísticas</h3>
               <p className="text-gray-500 text-sm">
-                Explore churn trends by variable
+                Explorar tendências por variáveis
               </p>
             </div>
           </Link>
@@ -70,27 +70,27 @@ const Index = () => {
 
         <div className="dashboard-card mb-6">
           <div className="p-6">
-            <h2 className="text-xl font-semibold mb-4">About Churn Prediction</h2>
+            <h2 className="text-xl font-semibold mb-4">Sobre o Sistema de Previsão</h2>
             <p className="text-gray-600 mb-4">
-              This platform provides insights into student churn risk, allowing educational institutions to take proactive measures to improve retention rates. The prediction model analyzes various factors that may influence a student's likelihood of dropping out.
+              Esta plataforma fornece insights sobre o risco de abandono dos alunos, permitindo às instituições de ensino tomar medidas proativas para melhorar as taxas de retenção. O modelo de previsão analisa vários fatores que podem influenciar a probabilidade de um aluno abandonar os estudos.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
               <div className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="font-medium mb-2">Data Analysis</h3>
+                <h3 className="font-medium mb-2">Análise de Dados</h3>
                 <p className="text-sm text-gray-500">
-                  Analyze historical student data to identify patterns and risk factors.
+                  Analisar dados históricos dos alunos para identificar padrões e fatores de risco.
                 </p>
               </div>
               <div className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="font-medium mb-2">Prediction Models</h3>
+                <h3 className="font-medium mb-2">Modelos de Previsão</h3>
                 <p className="text-sm text-gray-500">
-                  Use advanced machine learning algorithms to predict churn probability.
+                  Utilizar algoritmos avançados de machine learning para prever a probabilidade de abandono.
                 </p>
               </div>
               <div className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="font-medium mb-2">Intervention Strategies</h3>
+                <h3 className="font-medium mb-2">Estratégias de Intervenção</h3>
                 <p className="text-sm text-gray-500">
-                  Develop targeted interventions based on identified risk factors.
+                  Desenvolver intervenções específicas com base nos fatores de risco identificados.
                 </p>
               </div>
             </div>

@@ -10,7 +10,7 @@ import { toast } from 'sonner';
 
 const Results = () => {
   const handleExportCSV = () => {
-    toast.info("Exporting CSV... This is a demo functionality");
+    toast.info("A exportar CSV... Esta é uma funcionalidade de demonstração");
   };
 
   return (
@@ -20,13 +20,13 @@ const Results = () => {
           <div>
             <Breadcrumb
               items={[
-                { label: 'Churn Prediction', path: '/' },
-                { label: 'Prediction Results' },
+                { label: 'Previsão de Abandono', path: '/' },
+                { label: 'Resultados' },
               ]}
             />
-            <PageTitle title="Prediction Results" />
+            <PageTitle title="Resultados da Previsão" />
           </div>
-          <StatisticsLink to="/statistics" label="Prediction Statistics" />
+          <StatisticsLink to="/statistics" label="Estatísticas" />
         </div>
         
         <div className="dashboard-card mb-6">

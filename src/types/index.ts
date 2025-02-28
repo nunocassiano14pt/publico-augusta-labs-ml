@@ -1,9 +1,9 @@
 
 // Tipos para as dashboards
 
-export type Status = 'Pending' | 'Success' | 'Failed';
+export type Status = 'Pendente' | 'Sucesso' | 'Falha';
 
-export type AccessType = 'User' | 'Faculty' | 'Admin';
+export type AccessType = 'Utilizador' | 'Docente' | 'Administrador';
 
 export interface Prediction {
   id: string;
@@ -15,7 +15,8 @@ export interface Prediction {
 
 export interface Student {
   cod_pessoa: string;
-  cod_estudante: string;
+  nome_aluno: string;
+  matricula: string;
   ano_letivo: string;
   data_extracao: string;
   churn: number;
@@ -28,11 +29,17 @@ export type FeatureImpact = {
   impact: number;
 };
 
+export interface ChurnTrend {
+  month: string;
+  value: number;
+}
+
 export interface StudentDetail {
   studentId: string;
   churnProbability: number;
   positiveReasons: FeatureImpact[];
   negativeReasons: FeatureImpact[];
+  trends: ChurnTrend[];
 }
 
 export interface StatisticsData {

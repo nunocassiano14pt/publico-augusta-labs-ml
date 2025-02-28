@@ -21,17 +21,17 @@ const StudentDetails = () => {
           <div>
             <Breadcrumb
               items={[
-                { label: 'Churn Prediction', path: '/' },
-                { label: 'Prediction Results', path: '/results' },
-                { label: 'Student Details' },
+                { label: 'Previsão de Abandono', path: '/' },
+                { label: 'Resultados', path: '/results' },
+                { label: 'Detalhes do Aluno' },
               ]}
             />
             <PageTitle 
-              title={`Student Details: ${student?.cod_pessoa || id}`} 
-              subtitle={`Student code: ${student?.cod_estudante || 'N/A'}`}
+              title={`Detalhes do Aluno: ${student?.nome_aluno || 'Aluno'}`} 
+              subtitle={`Código: ${student?.cod_pessoa || id} | Matrícula: ${student?.matricula || 'N/A'}`}
             />
           </div>
-          <StatisticsLink to="/statistics" label="Prediction Statistics" />
+          <StatisticsLink to="/statistics" label="Estatísticas" />
         </div>
         
         <div className="dashboard-card mb-6">

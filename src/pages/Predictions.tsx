@@ -24,15 +24,15 @@ const Predictions = () => {
   };
 
   const handleAddPrediction = () => {
-    toast.info("This functionality is not implemented in the demo");
+    toast.info("Esta funcionalidade não está implementada na demonstração");
   };
 
   return (
     <Layout>
       <div className="max-w-7xl mx-auto">
         <PageTitle 
-          title="Churn Prediction" 
-          subtitle="Analyze and track student information to predict and prevent churn."
+          title="Previsão de Abandono Escolar" 
+          subtitle="Analise e monitorize informações dos alunos para prever e prevenir o abandono."
         />
         
         <div className="dashboard-card mb-6">

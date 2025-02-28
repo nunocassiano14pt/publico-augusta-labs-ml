@@ -13,8 +13,9 @@ const Navbar: React.FC = () => {
   return (
     <div className="h-16 border-b border-gray-200 px-4 flex items-center justify-between bg-white">
       <div className="flex items-center">
-        <Link to="/" className="font-semibold text-xl text-gray-800 mr-8">
-          Churn Prediction
+        <Link to="/" className="flex items-center mr-8">
+          <img src="public/lovable-uploads/4759fd8c-73c1-4f97-9bff-3e48b566f827.png" alt="IPVC Logo" className="h-8 mr-3" />
+          <span className="font-semibold text-xl text-gray-800">Previsão de Abandono Escolar</span>
         </Link>
         <nav className="flex space-x-1">
           <Link
@@ -40,7 +41,7 @@ const Navbar: React.FC = () => {
           >
             <div className="flex items-center">
               <BarChart size={18} className="mr-2" />
-              Predictions
+              Previsões
             </div>
           </Link>
           <Link
@@ -53,7 +54,7 @@ const Navbar: React.FC = () => {
           >
             <div className="flex items-center">
               <Users size={18} className="mr-2" />
-              Results
+              Resultados
             </div>
           </Link>
           <Link
@@ -66,13 +67,13 @@ const Navbar: React.FC = () => {
           >
             <div className="flex items-center">
               <LineChart size={18} className="mr-2" />
-              Statistics
+              Estatísticas
             </div>
           </Link>
         </nav>
       </div>
       <div>
-        <span className="text-sm text-teal-dark font-medium">University Statistics</span>
+        <span className="text-sm text-teal-dark font-medium">IPVC</span>
       </div>
     </div>
   );

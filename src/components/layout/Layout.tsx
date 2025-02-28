@@ -13,7 +13,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <main className="flex-1 p-6">{children}</main>
       <footer className="bg-white border-t border-gray-200 p-4 text-center">
         <div className="max-w-7xl mx-auto">
-          <img src="https://lovable-uploads.s3.amazonaws.com/9c9ef711-2988-4eb2-b136-3e83df55e905.png" alt="Logos" className="h-10 mx-auto" />
+          <img src="public/lovable-uploads/94ead842-b713-43ea-af15-0f4a0b0d862d.png" alt="Logos financiamento" className="h-16 mx-auto" />
         </div>
       </footer>
     </div>

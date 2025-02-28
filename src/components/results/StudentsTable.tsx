@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Student } from '../../types';
-import { MoreHorizontal, HelpCircle, ArrowDown, Download } from 'lucide-react';
+import { MoreHorizontal, ArrowDown, Download } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -15,7 +15,7 @@ const StudentsTable: React.FC<StudentsTableProps> = ({ students, onExportCSV }) 
     <div className="animate-fadeIn">
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center space-x-2">
-          <h2 className="text-lg font-medium">Students</h2>
+          <h2 className="text-lg font-medium">Alunos</h2>
           <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full text-xs font-medium">
             {students.length}
           </span>
@@ -32,19 +32,19 @@ const StudentsTable: React.FC<StudentsTableProps> = ({ students, onExportCSV }) 
           <thead>
             <tr>
               <th className="flex items-center">
-                cod_pessoa <ArrowDown size={14} className="ml-1 text-gray-400" />
+                Código <ArrowDown size={14} className="ml-1 text-gray-400" />
               </th>
               <th className="flex items-center">
-                cod_estudante <ArrowDown size={14} className="ml-1 text-gray-400" />
+                Nome <ArrowDown size={14} className="ml-1 text-gray-400" />
               </th>
               <th className="flex items-center">
-                ano_letivo <ArrowDown size={14} className="ml-1 text-gray-400" />
+                Matrícula <ArrowDown size={14} className="ml-1 text-gray-400" />
               </th>
               <th className="flex items-center">
-                data_extracao <ArrowDown size={14} className="ml-1 text-gray-400" />
+                Ano Letivo <ArrowDown size={14} className="ml-1 text-gray-400" />
               </th>
               <th className="flex items-center">
-                churns <ArrowDown size={14} className="ml-1 text-gray-400" />
+                Risco de Abandono <ArrowDown size={14} className="ml-1 text-gray-400" />
               </th>
               <th className="w-10"></th>
             </tr>
@@ -53,9 +53,9 @@ const StudentsTable: React.FC<StudentsTableProps> = ({ students, onExportCSV }) 
             {students.map((student) => (
               <tr key={student.cod_pessoa} className="animate-fadeIn">
                 <td>{student.cod_pessoa}</td>
-                <td>{student.cod_estudante}</td>
+                <td>{student.nome_aluno}</td>
+                <td>{student.matricula}</td>
                 <td>{student.ano_letivo}</td>
-                <td>{student.data_extracao}</td>
                 <td>
                   <div className="risk-indicator">
                     {student.churn >= 80 ? (

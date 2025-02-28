@@ -4,6 +4,7 @@ import { StudentDetail } from '../../types';
 import { HelpCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import ChurnTrendChart from './ChurnTrendChart';
 
 interface StudentDetailsCardProps {
   details: StudentDetail;
@@ -14,7 +15,7 @@ const StudentDetailsCard: React.FC<StudentDetailsCardProps> = ({ details }) => {
     <div className="animate-fadeIn">
       <div className="mb-6">
         <div className="flex items-center">
-          <h2 className="text-lg font-medium">Churn Probability:</h2>
+          <h2 className="text-lg font-medium">Probabilidade de Abandono:</h2>
           <div className="ml-2 risk-indicator medium">
             <span className="mr-1 font-bold">—</span>
             {details.churnProbability.toFixed(2)}%
@@ -23,21 +24,21 @@ const StudentDetailsCard: React.FC<StudentDetailsCardProps> = ({ details }) => {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Positive Reasons */}
+        {/* Fatores Positivos */}
         <div className="dashboard-card">
           <div className="flex items-center mb-4">
             <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-2">
               <span className="text-green-600 text-lg">+</span>
             </div>
-            <h3 className="text-md font-medium">Positive Reasons</h3>
-            <p className="text-xs text-gray-500 ml-2">Increases likelihood of Churn</p>
+            <h3 className="text-md font-medium">Fatores de Risco</h3>
+            <p className="text-xs text-gray-500 ml-2">Aumentam probabilidade de abandono</p>
           </div>
           <table className="w-full">
             <thead>
               <tr>
-                <th className="text-left pb-3 text-xs font-medium text-gray-500">Feature</th>
+                <th className="text-left pb-3 text-xs font-medium text-gray-500">Fator</th>
                 <th className="text-right pb-3 text-xs font-medium text-gray-500 flex items-center justify-end">
-                  Impact
+                  Impacto
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -46,7 +47,7 @@ const StudentDetailsCard: React.FC<StudentDetailsCardProps> = ({ details }) => {
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p className="text-xs">Impact on churn probability</p>
+                        <p className="text-xs">Impacto na probabilidade de abandono</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -71,21 +72,21 @@ const StudentDetailsCard: React.FC<StudentDetailsCardProps> = ({ details }) => {
           </table>
         </div>
         
-        {/* Negative Reasons */}
+        {/* Fatores Negativos */}
         <div className="dashboard-card">
           <div className="flex items-center mb-4">
             <div className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center mr-2">
               <span className="text-red-600 text-lg">-</span>
             </div>
-            <h3 className="text-md font-medium">Negative Reasons</h3>
-            <p className="text-xs text-gray-500 ml-2">Decreases likelihood of Churn</p>
+            <h3 className="text-md font-medium">Fatores de Proteção</h3>
+            <p className="text-xs text-gray-500 ml-2">Diminuem probabilidade de abandono</p>
           </div>
           <table className="w-full">
             <thead>
               <tr>
-                <th className="text-left pb-3 text-xs font-medium text-gray-500">Feature</th>
+                <th className="text-left pb-3 text-xs font-medium text-gray-500">Fator</th>
                 <th className="text-right pb-3 text-xs font-medium text-gray-500 flex items-center justify-end">
-                  Impact
+                  Impacto
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -94,7 +95,7 @@ const StudentDetailsCard: React.FC<StudentDetailsCardProps> = ({ details }) => {
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p className="text-xs">Impact on churn probability</p>
+                        <p className="text-xs">Impacto na probabilidade de abandono</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -119,6 +120,9 @@ const StudentDetailsCard: React.FC<StudentDetailsCardProps> = ({ details }) => {
           </table>
         </div>
       </div>
+      
+      {/* Gráfico de tendências */}
+      <ChurnTrendChart data={details.trends} />
     </div>
   );
 };

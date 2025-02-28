@@ -15,10 +15,10 @@ const PredictionTable: React.FC<PredictionTableProps> = ({ predictions }) => {
       <table className="data-table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Date</th>
+            <th>Nome</th>
+            <th>Data</th>
             <th className="flex items-center">
-              Status
+              Estado
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -27,12 +27,12 @@ const PredictionTable: React.FC<PredictionTableProps> = ({ predictions }) => {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p className="text-xs">Prediction status: Pending or Success</p>
+                    <p className="text-xs">Estado da previsão: Pendente ou Sucesso</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             </th>
-            <th>Access</th>
+            <th>Acesso</th>
             <th className="w-10"></th>
           </tr>
         </thead>
@@ -42,7 +42,7 @@ const PredictionTable: React.FC<PredictionTableProps> = ({ predictions }) => {
               <td>{prediction.name || '—'}</td>
               <td>{prediction.date}</td>
               <td>
-                <span className={`status-badge ${prediction.status.toLowerCase()}`}>
+                <span className={`status-badge ${prediction.status === 'Sucesso' ? 'success' : 'pending'}`}>
                   {prediction.status}
                 </span>
               </td>

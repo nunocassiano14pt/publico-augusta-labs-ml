@@ -7,7 +7,14 @@ import StatisticsLink from '../components/common/StatisticsLink';
 import VariableSelect from '../components/statistics/VariableSelect';
 import PercentageChart from '../components/statistics/PercentageChart';
 import CountChart from '../components/statistics/CountChart';
-import { sexoStatisticsMock, idadeStatisticsMock, availableVariables } from '../data/mockData';
+import { 
+  sexoStatisticsMock, 
+  idadeStatisticsMock, 
+  cursoStatisticsMock,
+  anoLetivosStatisticsMock,
+  localResidenciaStatisticsMock,
+  availableVariables 
+} from '../data/mockData';
 
 const Statistics = () => {
   const [selectedVariable, setSelectedVariable] = useState('sexo');
@@ -24,7 +31,7 @@ const Statistics = () => {
           name: category,
           value: sexoStatisticsMock.counts[index],
         })),
-        title: `${selectedVariable} distribution`,
+        title: `Distribuição por ${selectedVariable}`,
       };
     } else if (selectedVariable === 'idade') {
       return {
@@ -36,7 +43,43 @@ const Statistics = () => {
           name: category,
           value: idadeStatisticsMock.counts[index],
         })),
-        title: `${selectedVariable} distribution`,
+        title: `Distribuição por ${selectedVariable}`,
+      };
+    } else if (selectedVariable === 'curso') {
+      return {
+        percentageData: cursoStatisticsMock.categories.map((category, index) => ({
+          name: category,
+          value: cursoStatisticsMock.percentages[index],
+        })),
+        countData: cursoStatisticsMock.categories.map((category, index) => ({
+          name: category,
+          value: cursoStatisticsMock.counts[index],
+        })),
+        title: `Distribuição por ${selectedVariable}`,
+      };
+    } else if (selectedVariable === 'ano_letivo') {
+      return {
+        percentageData: anoLetivosStatisticsMock.categories.map((category, index) => ({
+          name: category,
+          value: anoLetivosStatisticsMock.percentages[index],
+        })),
+        countData: anoLetivosStatisticsMock.categories.map((category, index) => ({
+          name: category,
+          value: anoLetivosStatisticsMock.counts[index],
+        })),
+        title: `Distribuição por ${selectedVariable}`,
+      };
+    } else if (selectedVariable === 'local_residencia') {
+      return {
+        percentageData: localResidenciaStatisticsMock.categories.map((category, index) => ({
+          name: category,
+          value: localResidenciaStatisticsMock.percentages[index],
+        })),
+        countData: localResidenciaStatisticsMock.categories.map((category, index) => ({
+          name: category,
+          value: localResidenciaStatisticsMock.counts[index],
+        })),
+        title: `Distribuição por ${selectedVariable}`,
       };
     }
     
@@ -44,7 +87,7 @@ const Statistics = () => {
     return {
       percentageData: [],
       countData: [],
-      title: `${selectedVariable} distribution`,
+      title: `Distribuição por ${selectedVariable}`,
     };
   };
   
@@ -57,13 +100,13 @@ const Statistics = () => {
           <div>
             <Breadcrumb
               items={[
-                { label: 'Churn Prediction', path: '/' },
-                { label: 'Prediction Statistics' },
+                { label: 'Previsão de Abandono', path: '/' },
+                { label: 'Estatísticas' },
               ]}
             />
-            <PageTitle title="Prediction Statistics" />
+            <PageTitle title="Estatísticas de Abandono Escolar" />
           </div>
-          <StatisticsLink to="/results" label="Prediction Results" className="text-teal" />
+          <StatisticsLink to="/results" label="Resultados" className="text-teal" />
         </div>
         
         <div className="dashboard-card mb-6">
@@ -78,7 +121,7 @@ const Statistics = () => {
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="bg-white rounded-lg border border-gray-100 p-4">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">Percentage</h3>
+                <h3 className="text-sm font-medium text-gray-500 mb-2">Percentagem</h3>
                 <PercentageChart data={percentageData} />
               </div>
               

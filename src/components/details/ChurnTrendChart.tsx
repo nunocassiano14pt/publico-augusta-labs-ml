@@ -1,28 +1,13 @@
 
 import React from 'react';
 import { ChurnTrend } from '../../types';
-import { Line, LineChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
+import { LineChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
 
 interface ChurnTrendChartProps {
   data: ChurnTrend[];
 }
 
 const ChurnTrendChart: React.FC<ChurnTrendChartProps> = ({ data }) => {
-  // Encontrando o valor máximo para tooltip personalizado
-  const maxPoint = React.useMemo(() => {
-    let maxValue = 0;
-    let maxIndex = 0;
-    
-    data.forEach((item, index) => {
-      if (item.value > maxValue) {
-        maxValue = item.value;
-        maxIndex = index;
-      }
-    });
-    
-    return { ...data[maxIndex], index: maxIndex };
-  }, [data]);
-
   return (
     <div className="dashboard-card mt-6">
       <h3 className="text-lg font-medium mb-4">Evolução do Risco de Abandono</h3>
@@ -36,10 +21,6 @@ const ChurnTrendChart: React.FC<ChurnTrendChartProps> = ({ data }) => {
               <linearGradient id="colorRed" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#ff6b6b" stopOpacity={0.8}/>
                 <stop offset="95%" stopColor="#ff6b6b" stopOpacity={0.1}/>
-              </linearGradient>
-              <linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#4dabf7" stopOpacity={0.8}/>
-                <stop offset="95%" stopColor="#4dabf7" stopOpacity={0.1}/>
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" vertical={false} />
@@ -69,34 +50,20 @@ const ChurnTrendChart: React.FC<ChurnTrendChartProps> = ({ data }) => {
               strokeWidth={2}
               name="Valor"
               connectNulls
-              data={data.slice(0, maxPoint.index + 1)}
-            />
-            <Area 
-              type="monotone" 
-              dataKey="value" 
-              stroke="#4dabf7" 
-              fillOpacity={1}
-              fill="url(#colorBlue)" 
-              activeDot={{ r: 8 }}
-              dot={{ r: 4 }}
-              strokeWidth={2}
-              name="Valor"
-              connectNulls
-              data={data.slice(maxPoint.index)}
             />
           </AreaChart>
         </ResponsiveContainer>
       </div>
       <div className="flex justify-between text-xs text-gray-500 mt-2">
-        <div>Set 1</div>
-        <div>Out 1</div>
-        <div>Nov 1</div>
-        <div>Dez 1</div>
-        <div>Jan 1</div>
-        <div>Fev 1</div>
-        <div>Mar 1</div>
-        <div>Abr 1</div>
-        <div>Mai 1</div>
+        <div>Set 2023</div>
+        <div>Out 2023</div>
+        <div>Nov 2023</div>
+        <div>Dez 2023</div>
+        <div>Jan 2024</div>
+        <div>Fev 2024</div>
+        <div>Mar 2024</div>
+        <div>Abr 2024</div>
+        <div>Mai 2024</div>
       </div>
     </div>
   );

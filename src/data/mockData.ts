@@ -45,6 +45,34 @@ export const predictionsMock: Prediction[] = [
     status: 'Sucesso',
     access: ['Utilizador'],
   },
+  {
+    id: '7',
+    name: 'Previsão 7',
+    date: '01/07/2024',
+    status: 'Sucesso',
+    access: ['Utilizador', 'Docente', 'Administrador'],
+  },
+  {
+    id: '8',
+    name: 'Previsão 8',
+    date: '01/08/2024',
+    status: 'Sucesso',
+    access: ['Utilizador', 'Docente'],
+  },
+  {
+    id: '9',
+    name: 'Previsão 9',
+    date: '01/09/2024',
+    status: 'Pendente',
+    access: ['Utilizador'],
+  },
+  {
+    id: '10',
+    name: 'Previsão 10',
+    date: '01/10/2024',
+    status: 'Sucesso',
+    access: ['Utilizador', 'Administrador'],
+  },
 ];
 
 // Mock data para resultados de previsão
@@ -97,16 +125,64 @@ export const studentsMock: Student[] = [
     data_extracao: '01/06/2024',
     churn: 73.91,
   },
+  {
+    cod_pessoa: '189756',
+    nome_aluno: 'Rita Fonseca',
+    matricula: 'Licenciatura em Enfermagem',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 67.54,
+  },
+  {
+    cod_pessoa: '254387',
+    nome_aluno: 'Miguel Andrade',
+    matricula: 'CTeSP em Desenvolvimento Web',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 62.33,
+  },
+  {
+    cod_pessoa: '321456',
+    nome_aluno: 'Sofia Rodrigues',
+    matricula: 'Mestrado em Educação',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 58.90,
+  },
+  {
+    cod_pessoa: '176543',
+    nome_aluno: 'André Martins',
+    matricula: 'Licenciatura em Comunicação',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 52.15,
+  },
+  {
+    cod_pessoa: '287654',
+    nome_aluno: 'Beatriz Nunes',
+    matricula: 'Licenciatura em Contabilidade',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 47.82,
+  },
+  {
+    cod_pessoa: '312876',
+    nome_aluno: 'Carlos Lopes',
+    matricula: 'CTeSP em Redes e Sistemas',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 42.18,
+  },
 ];
 
 // Mock data para tendências mensais
 export const churnTrendMock: ChurnTrend[] = [
-  { month: 'Janeiro', value: 65.2 },
-  { month: 'Fevereiro', value: 68.5 },
-  { month: 'Março', value: 71.3 },
-  { month: 'Abril', value: 74.8 },
-  { month: 'Maio', value: 73.1 },
-  { month: 'Junho', value: 73.9 }
+  { month: 'Janeiro 2024', value: 65.2 },
+  { month: 'Fevereiro 2024', value: 68.5 },
+  { month: 'Março 2024', value: 71.3 },
+  { month: 'Abril 2024', value: 74.8 },
+  { month: 'Maio 2024', value: 73.1 },
+  { month: 'Junho 2024', value: 73.9 }
 ];
 
 // Mock data para detalhes do estudante

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import Layout from '../components/layout/Layout';
 import PageTitle from '../components/common/PageTitle';
 import Breadcrumb from '../components/common/Breadcrumb';
-import StatisticsLink from '../components/common/StatisticsLink';
 import VariableSelect from '../components/statistics/VariableSelect';
 import PercentageChart from '../components/statistics/PercentageChart';
 import CountChart from '../components/statistics/CountChart';
@@ -106,17 +105,14 @@ const Statistics = () => {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <Breadcrumb
-              items={[
-                { label: 'Previsão de Abandono', path: '/' },
-                { label: 'Estatísticas' },
-              ]}
-            />
-            <PageTitle title="Estatísticas de Abandono Escolar" />
-          </div>
-          <StatisticsLink to="/results" label="Resultados" className="text-teal" />
+        <div className="mb-6">
+          <Breadcrumb
+            items={[
+              { label: 'Previsão de Abandono', path: '/' },
+              { label: 'Estatísticas' },
+            ]}
+          />
+          <PageTitle title="Estatísticas de Abandono Escolar" />
         </div>
         
         <div className="dashboard-card mb-6">

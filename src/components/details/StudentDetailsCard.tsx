@@ -78,7 +78,7 @@ const StudentDetailsCard: React.FC<StudentDetailsCardProps> = ({ details }) => {
                   <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-2">
                     <span className="text-green-600 text-lg">+</span>
                   </div>
-                  <h3 className="text-md font-medium">Fatores de Risco</h3>
+                  <h3 className="text-md font-medium">Fatores Positivos</h3>
                   <p className="text-xs text-gray-500 ml-2">Aumentam probabilidade de abandono</p>
                 </div>
                 <table className="w-full">
@@ -126,7 +126,7 @@ const StudentDetailsCard: React.FC<StudentDetailsCardProps> = ({ details }) => {
                   <div className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center mr-2">
                     <span className="text-red-600 text-lg">-</span>
                   </div>
-                  <h3 className="text-md font-medium">Fatores de Proteção</h3>
+                  <h3 className="text-md font-medium">Fatores Negativos</h3>
                   <p className="text-xs text-gray-500 ml-2">Diminuem probabilidade de abandono</p>
                 </div>
                 <table className="w-full">

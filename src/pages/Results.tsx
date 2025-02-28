@@ -4,7 +4,6 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import PageTitle from '../components/common/PageTitle';
 import Breadcrumb from '../components/common/Breadcrumb';
-import StatisticsLink from '../components/common/StatisticsLink';
 import StudentsTable from '../components/results/StudentsTable';
 import { studentsMock, predictionsMock } from '../data/mockData';
 import { toast } from 'sonner';
@@ -32,21 +31,18 @@ const Results = () => {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <Breadcrumb
-              items={[
-                { label: 'Previsão de Abandono', path: '/' },
-                { label: 'Previsões', path: '/predictions' },
-                { label: prediction ? `Resultados: ${prediction.name}` : 'Resultados' },
-              ]}
-            />
-            <PageTitle 
-              title={prediction ? `Resultados: ${prediction.name}` : "Resultados da Previsão"} 
-              subtitle={prediction ? `Data: ${prediction.date}` : undefined}
-            />
-          </div>
-          <StatisticsLink to="/statistics" label="Estatísticas" />
+        <div className="mb-6">
+          <Breadcrumb
+            items={[
+              { label: 'Previsão de Abandono', path: '/' },
+              { label: 'Previsões', path: '/predictions' },
+              { label: prediction ? `Resultados: ${prediction.name}` : 'Resultados' },
+            ]}
+          />
+          <PageTitle 
+            title={prediction ? `Resultados: ${prediction.name}` : "Resultados da Previsão"} 
+            subtitle={prediction ? `Data: ${prediction.date}` : undefined}
+          />
         </div>
         
         <div className="dashboard-card mb-6">

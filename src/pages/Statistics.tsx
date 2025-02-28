@@ -83,10 +83,20 @@ const Statistics = () => {
       };
     }
     
-    // Dados padrão para outras variáveis
+    // Dados padrão para outras variáveis (para garantir que não haja dados vazios)
     return {
-      percentageData: [],
-      countData: [],
+      percentageData: [
+        { name: 'Categoria 1', value: 35.8 },
+        { name: 'Categoria 2', value: 24.3 },
+        { name: 'Categoria 3', value: 18.5 },
+        { name: 'Categoria 4', value: 21.4 }
+      ],
+      countData: [
+        { name: 'Categoria 1', value: 32 },
+        { name: 'Categoria 2', value: 21 },
+        { name: 'Categoria 3', value: 16 },
+        { name: 'Categoria 4', value: 19 }
+      ],
       title: `Distribuição por ${selectedVariable}`,
     };
   };

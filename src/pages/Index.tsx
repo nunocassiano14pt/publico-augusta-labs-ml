@@ -67,35 +67,6 @@ const Index = () => {
             </div>
           </Link>
         </div>
-
-        <div className="dashboard-card mb-6">
-          <div className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Sobre o Sistema de Previsão</h2>
-            <p className="text-gray-600 mb-4">
-              Esta plataforma fornece insights sobre o risco de abandono dos alunos, permitindo às instituições de ensino tomar medidas proativas para melhorar as taxas de retenção. O modelo de previsão analisa vários fatores que podem influenciar a probabilidade de um aluno abandonar os estudos.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="font-medium mb-2">Análise de Dados</h3>
-                <p className="text-sm text-gray-500">
-                  Analisar dados históricos dos alunos para identificar padrões e fatores de risco.
-                </p>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="font-medium mb-2">Modelos de Previsão</h3>
-                <p className="text-sm text-gray-500">
-                  Utilizar algoritmos avançados de machine learning para prever a probabilidade de abandono.
-                </p>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="font-medium mb-2">Estratégias de Intervenção</h3>
-                <p className="text-sm text-gray-500">
-                  Desenvolver intervenções específicas com base nos fatores de risco identificados.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </Layout>
   );

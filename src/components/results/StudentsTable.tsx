@@ -1,9 +1,9 @@
 
 import React from 'react';
 import { Student } from '../../types';
-import { MoreHorizontal, ArrowDown, Download } from 'lucide-react';
+import { MoreHorizontal, ArrowDown, ArrowUp, Download } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface StudentsTableProps {
   students: Student[];
@@ -11,6 +11,42 @@ interface StudentsTableProps {
 }
 
 const StudentsTable: React.FC<StudentsTableProps> = ({ students, onExportCSV }) => {
+  const navigate = useNavigate();
+  const [sortColumn, setSortColumn] = React.useState<keyof Student>('churn');
+  const [sortDirection, setSortDirection] = React.useState<'asc' | 'desc'>('desc');
+
+  const handleSort = (column: keyof Student) => {
+    if (sortColumn === column) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortColumn(column);
+      setSortDirection('asc');
+    }
+  };
+
+  const sortedStudents = React.useMemo(() => {
+    return [...students].sort((a, b) => {
+      const aValue = a[sortColumn];
+      const bValue = b[sortColumn];
+      
+      if (typeof aValue === 'number' && typeof bValue === 'number') {
+        return sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
+      }
+      
+      if (typeof aValue === 'string' && typeof bValue === 'string') {
+        return sortDirection === 'asc' 
+          ? aValue.localeCompare(bValue) 
+          : bValue.localeCompare(aValue);
+      }
+      
+      return 0;
+    });
+  }, [students, sortColumn, sortDirection]);
+
+  const handleRowClick = (studentId: string) => {
+    navigate(`/details/${studentId}`);
+  };
+
   return (
     <div className="animate-fadeIn">
       <div className="flex justify-between items-center mb-4">
@@ -31,27 +67,71 @@ const StudentsTable: React.FC<StudentsTableProps> = ({ students, onExportCSV }) 
         <table className="data-table">
           <thead>
             <tr>
-              <th className="flex items-center">
-                Código <ArrowDown size={14} className="ml-1 text-gray-400" />
+              <th 
+                className="cursor-pointer hover:bg-gray-100" 
+                onClick={() => handleSort('cod_pessoa')}
+              >
+                <div className="flex items-center">
+                  Código 
+                  {sortColumn === 'cod_pessoa' && (
+                    sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
+                  )}
+                </div>
               </th>
-              <th className="flex items-center">
-                Nome <ArrowDown size={14} className="ml-1 text-gray-400" />
+              <th 
+                className="cursor-pointer hover:bg-gray-100" 
+                onClick={() => handleSort('nome_aluno')}
+              >
+                <div className="flex items-center">
+                  Nome 
+                  {sortColumn === 'nome_aluno' && (
+                    sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
+                  )}
+                </div>
               </th>
-              <th className="flex items-center">
-                Matrícula <ArrowDown size={14} className="ml-1 text-gray-400" />
+              <th 
+                className="cursor-pointer hover:bg-gray-100" 
+                onClick={() => handleSort('matricula')}
+              >
+                <div className="flex items-center">
+                  Matrícula 
+                  {sortColumn === 'matricula' && (
+                    sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
+                  )}
+                </div>
               </th>
-              <th className="flex items-center">
-                Ano Letivo <ArrowDown size={14} className="ml-1 text-gray-400" />
+              <th 
+                className="cursor-pointer hover:bg-gray-100" 
+                onClick={() => handleSort('ano_letivo')}
+              >
+                <div className="flex items-center">
+                  Ano Letivo 
+                  {sortColumn === 'ano_letivo' && (
+                    sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
+                  )}
+                </div>
               </th>
-              <th className="flex items-center">
-                Risco de Abandono <ArrowDown size={14} className="ml-1 text-gray-400" />
+              <th 
+                className="cursor-pointer hover:bg-gray-100" 
+                onClick={() => handleSort('churn')}
+              >
+                <div className="flex items-center">
+                  Risco de Abandono 
+                  {sortColumn === 'churn' && (
+                    sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
+                  )}
+                </div>
               </th>
               <th className="w-10"></th>
             </tr>
           </thead>
           <tbody>
-            {students.map((student) => (
-              <tr key={student.cod_pessoa} className="animate-fadeIn">
+            {sortedStudents.map((student) => (
+              <tr 
+                key={student.cod_pessoa} 
+                className="animate-fadeIn cursor-pointer hover:bg-gray-50"
+                onClick={() => handleRowClick(student.cod_pessoa)}
+              >
                 <td>{student.cod_pessoa}</td>
                 <td>{student.nome_aluno}</td>
                 <td>{student.matricula}</td>
@@ -76,7 +156,7 @@ const StudentsTable: React.FC<StudentsTableProps> = ({ students, onExportCSV }) 
                     )}
                   </div>
                 </td>
-                <td>
+                <td onClick={(e) => e.stopPropagation()}>
                   <Button variant="ghost" size="icon" className="h-8 w-8">
                     <MoreHorizontal size={16} />
                   </Button>

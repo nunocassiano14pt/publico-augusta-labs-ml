@@ -11,6 +11,9 @@ import FactorsBarChart from '../components/statistics/FactorsBarChart';
 import CourseUnitsTable from '../components/statistics/CourseUnitsTable';
 import { TabsContent } from "@/components/ui/tabs";
 import { ArrowDown } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import StudentsTable from '../components/results/StudentsTable';
+import { studentsMock } from '../data/mockData';
 
 import { 
   predictionComparisonMock,
@@ -24,28 +27,34 @@ import {
 } from '../data/statisticsMockData';
 
 const Statistics = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
   const [activeLevel, setActiveLevel] = useState('course-unit');
   const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
   const [selectedSchool, setSelectedSchool] = useState<string | null>(null);
   
+  // Function to handle exporting CSV (just a mock)
+  const handleExportCSV = () => {
+    alert("Exportação de CSV (funcionalidade de demonstração)");
+  };
+  
   const handleUnitClick = (unitId: string) => {
     setSelectedUnit(unitId);
-    // Aqui você pode adicionar mais lógica se necessário
-    alert(`Unidade curricular selecionada: ${unitId}`);
+    // In a real app, we would filter students by the unit ID
+    // For demo purposes, we'll just set the state to show the "details view"
   };
 
   const handleCourseClick = (courseId: string) => {
     setSelectedCourse(courseId);
     setActiveLevel('course-unit');
-    // Aqui você pode adicionar mais lógica se necessário
+    // Here we would filter units by the course ID
   };
 
   const handleSchoolClick = (schoolId: string) => {
     setSelectedSchool(schoolId);
     setActiveLevel('course');
-    // Aqui você pode adicionar mais lógica se necessário
+    // Here we would filter courses by the school ID
   };
   
   return (
@@ -97,35 +106,59 @@ const Statistics = () => {
                   <div>
                     <h2 className="text-xl font-semibold mb-4">Estatísticas por Unidade Curricular</h2>
                     
-                    <div className="mb-6">
-                      <CourseUnitsTable 
-                        units={courseUnitsMock}
-                        onUnitClick={handleUnitClick}
-                      />
-                    </div>
-                    
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                      <div className="bg-white rounded-lg border border-gray-100 p-4">
-                        <h3 className="text-lg font-medium mb-4">Distribuição de Risco</h3>
-                        <RiskDistributionChart data={riskDistributionMock} />
+                    {selectedUnit ? (
+                      <div>
+                        <div className="mb-4 flex items-center">
+                          <button 
+                            onClick={() => setSelectedUnit(null)}
+                            className="text-blue-600 hover:text-blue-800 mr-2 text-sm"
+                          >
+                            &larr; Voltar às Unidades Curriculares
+                          </button>
+                          <h3 className="text-lg font-medium">
+                            Alunos da Unidade Curricular: {courseUnitsMock.find(unit => unit.id === selectedUnit)?.name || selectedUnit}
+                          </h3>
+                        </div>
+                        
+                        <div className="mb-6">
+                          <StudentsTable 
+                            students={studentsMock.slice(0, 10)} // Simulating filtered students
+                            onExportCSV={handleExportCSV} 
+                          />
+                        </div>
                       </div>
-                      
-                      <div className="bg-white rounded-lg border border-gray-100 p-4 lg:col-span-2">
-                        <FactorsBarChart 
-                          data={positiveFactorsMock} 
-                          title="Fatores Positivos Mais Frequentes" 
-                          color="#10b981"
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="bg-white rounded-lg border border-gray-100 p-4">
-                      <FactorsBarChart 
-                        data={negativeFactorsMock} 
-                        title="Fatores Negativos Mais Frequentes" 
-                        color="#f43f5e"
-                      />
-                    </div>
+                    ) : (
+                      <>
+                        <div className="mb-6">
+                          <CourseUnitsTable 
+                            units={courseUnitsMock}
+                            onUnitClick={handleUnitClick}
+                          />
+                        </div>
+                        
+                        <div className="space-y-6">
+                          <div className="bg-white rounded-lg border border-gray-100 p-4">
+                            <RiskDistributionChart data={riskDistributionMock} />
+                          </div>
+                          
+                          <div className="bg-white rounded-lg border border-gray-100 p-4">
+                            <FactorsBarChart 
+                              data={positiveFactorsMock} 
+                              title="Fatores Positivos Mais Frequentes" 
+                              color="#10b981"
+                            />
+                          </div>
+                          
+                          <div className="bg-white rounded-lg border border-gray-100 p-4">
+                            <FactorsBarChart 
+                              data={negativeFactorsMock} 
+                              title="Fatores Negativos Mais Frequentes" 
+                              color="#f43f5e"
+                            />
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
                 )}
                 
@@ -183,27 +216,26 @@ const Statistics = () => {
                       </div>
                     </div>
                     
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                    <div className="space-y-6">
                       <div className="bg-white rounded-lg border border-gray-100 p-4">
-                        <h3 className="text-lg font-medium mb-4">Distribuição de Risco</h3>
                         <RiskDistributionChart data={riskDistributionMock} />
                       </div>
                       
-                      <div className="bg-white rounded-lg border border-gray-100 p-4 lg:col-span-2">
+                      <div className="bg-white rounded-lg border border-gray-100 p-4">
                         <FactorsBarChart 
                           data={positiveFactorsMock} 
                           title="Fatores Positivos Mais Frequentes" 
                           color="#10b981"
                         />
                       </div>
-                    </div>
-                    
-                    <div className="bg-white rounded-lg border border-gray-100 p-4">
-                      <FactorsBarChart 
-                        data={negativeFactorsMock} 
-                        title="Fatores Negativos Mais Frequentes" 
-                        color="#f43f5e"
-                      />
+                      
+                      <div className="bg-white rounded-lg border border-gray-100 p-4">
+                        <FactorsBarChart 
+                          data={negativeFactorsMock} 
+                          title="Fatores Negativos Mais Frequentes" 
+                          color="#f43f5e"
+                        />
+                      </div>
                     </div>
                   </div>
                 )}
@@ -262,27 +294,26 @@ const Statistics = () => {
                       </div>
                     </div>
                     
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                    <div className="space-y-6">
                       <div className="bg-white rounded-lg border border-gray-100 p-4">
-                        <h3 className="text-lg font-medium mb-4">Distribuição de Risco</h3>
                         <RiskDistributionChart data={riskDistributionMock} />
                       </div>
                       
-                      <div className="bg-white rounded-lg border border-gray-100 p-4 lg:col-span-2">
+                      <div className="bg-white rounded-lg border border-gray-100 p-4">
                         <FactorsBarChart 
                           data={positiveFactorsMock} 
                           title="Fatores Positivos Mais Frequentes" 
                           color="#10b981"
                         />
                       </div>
-                    </div>
-                    
-                    <div className="bg-white rounded-lg border border-gray-100 p-4">
-                      <FactorsBarChart 
-                        data={negativeFactorsMock} 
-                        title="Fatores Negativos Mais Frequentes" 
-                        color="#f43f5e"
-                      />
+                      
+                      <div className="bg-white rounded-lg border border-gray-100 p-4">
+                        <FactorsBarChart 
+                          data={negativeFactorsMock} 
+                          title="Fatores Negativos Mais Frequentes" 
+                          color="#f43f5e"
+                        />
+                      </div>
                     </div>
                   </div>
                 )}
@@ -308,6 +339,9 @@ const Statistics = () => {
                               <tr 
                                 key={institution.id} 
                                 className="animate-fadeIn cursor-pointer hover:bg-gray-50"
+                                onClick={() => {
+                                  setActiveLevel('school');
+                                }}
                               >
                                 <td>{institution.id}</td>
                                 <td>{institution.name}</td>
@@ -340,27 +374,26 @@ const Statistics = () => {
                       </div>
                     </div>
                     
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                    <div className="space-y-6">
                       <div className="bg-white rounded-lg border border-gray-100 p-4">
-                        <h3 className="text-lg font-medium mb-4">Distribuição de Risco</h3>
                         <RiskDistributionChart data={riskDistributionMock} />
                       </div>
                       
-                      <div className="bg-white rounded-lg border border-gray-100 p-4 lg:col-span-2">
+                      <div className="bg-white rounded-lg border border-gray-100 p-4">
                         <FactorsBarChart 
                           data={positiveFactorsMock} 
                           title="Fatores Positivos Mais Frequentes" 
                           color="#10b981"
                         />
                       </div>
-                    </div>
-                    
-                    <div className="bg-white rounded-lg border border-gray-100 p-4">
-                      <FactorsBarChart 
-                        data={negativeFactorsMock} 
-                        title="Fatores Negativos Mais Frequentes" 
-                        color="#f43f5e"
-                      />
+                      
+                      <div className="bg-white rounded-lg border border-gray-100 p-4">
+                        <FactorsBarChart 
+                          data={negativeFactorsMock} 
+                          title="Fatores Negativos Mais Frequentes" 
+                          color="#f43f5e"
+                        />
+                      </div>
                     </div>
                   </div>
                 )}

@@ -33,7 +33,8 @@ const RiskDistributionChart: React.FC<RiskDistributionChartProps> = ({ data }) =
 
   return (
     <div className="h-64">
-      <ResponsiveContainer width="100%" height="100%">
+      <h3 className="text-sm font-medium text-gray-500 mb-2">Distribuição por Previsão de Desistência</h3>
+      <ResponsiveContainer width="100%" height="85%">
         <PieChart>
           <Pie
             data={data}
@@ -50,7 +51,7 @@ const RiskDistributionChart: React.FC<RiskDistributionChartProps> = ({ data }) =
             ))}
           </Pie>
           <Tooltip 
-            formatter={(value: any, name: any, props: any) => [value, 'Alunos']}
+            formatter={(value: any, name: any, props: any) => [`${value} alunos (${props.payload.percentage}%)`, 'Previsão']}
             labelFormatter={(label: any, props: any) => {
               if (props && props.payload && props.payload[0]) {
                 return props.payload[0].payload.category;

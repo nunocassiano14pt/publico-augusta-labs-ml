@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { BarChart, Users, LineChart, Home } from 'lucide-react';
+import { Home } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const location = useLocation();
@@ -38,45 +38,6 @@ const Navbar: React.FC = () => {
             <div className="flex items-center">
               <Home size={18} className="mr-2" />
               Dashboard
-            </div>
-          </Link>
-          <Link
-            to="/predictions"
-            className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-              isActive('/predictions')
-                ? 'bg-gray-100 text-gray-900'
-                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-            }`}
-          >
-            <div className="flex items-center">
-              <BarChart size={18} className="mr-2" />
-              Previsões
-            </div>
-          </Link>
-          <Link
-            to="/results"
-            className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-              isActive('/results')
-                ? 'bg-gray-100 text-gray-900'
-                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-            }`}
-          >
-            <div className="flex items-center">
-              <Users size={18} className="mr-2" />
-              Resultados
-            </div>
-          </Link>
-          <Link
-            to="/statistics"
-            className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-              isActive('/statistics')
-                ? 'bg-gray-100 text-gray-900'
-                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-            }`}
-          >
-            <div className="flex items-center">
-              <LineChart size={18} className="mr-2" />
-              Estatísticas
             </div>
           </Link>
         </nav>

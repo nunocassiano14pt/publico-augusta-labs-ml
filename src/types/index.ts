@@ -1,4 +1,3 @@
-
 // Tipos para as dashboards
 
 export type Status = 'Pendente' | 'Sucesso' | 'Falha';
@@ -42,9 +41,60 @@ export interface StudentDetail {
   trends: ChurnTrend[];
 }
 
+// Tipos para as estatísticas
 export interface StatisticsData {
   variable: string;
   categories: string[];
   percentages: number[];
   counts: number[];
+}
+
+// Novos tipos para as estatísticas
+export interface PredictionComparison {
+  month: string;
+  predicted: number;
+  actual: number;
+}
+
+export interface RiskDistribution {
+  category: string;
+  count: number;
+  percentage: number;
+}
+
+export interface FactorFrequency {
+  factor: string;
+  count: number;
+  percentage: number;
+}
+
+export interface CourseUnit {
+  id: string;
+  name: string;
+  risk: number;
+  studentCount: number;
+}
+
+export interface Course {
+  id: string;
+  name: string;
+  risk: number;
+  unitCount: number;
+  studentCount: number;
+}
+
+export interface School {
+  id: string;
+  name: string;
+  risk: number;
+  courseCount: number;
+  studentCount: number;
+}
+
+export interface Institution {
+  id: string;
+  name: string;
+  risk: number;
+  schoolCount: number;
+  studentCount: number;
 }

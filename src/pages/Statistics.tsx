@@ -1,106 +1,51 @@
-
 import React, { useState } from 'react';
 import Layout from '../components/layout/Layout';
 import PageTitle from '../components/common/PageTitle';
 import Breadcrumb from '../components/common/Breadcrumb';
-import VariableSelect from '../components/statistics/VariableSelect';
-import PercentageChart from '../components/statistics/PercentageChart';
-import CountChart from '../components/statistics/CountChart';
+import StatisticsTabs from '../components/statistics/StatisticsTabs';
+import UserLevelTabs from '../components/statistics/UserLevelTabs';
+import PredictionComparisonChart from '../components/statistics/PredictionComparisonChart';
+import RiskDistributionChart from '../components/statistics/RiskDistributionChart';
+import FactorsBarChart from '../components/statistics/FactorsBarChart';
+import CourseUnitsTable from '../components/statistics/CourseUnitsTable';
+import { TabsContent } from "@/components/ui/tabs";
+import { ArrowDown } from 'lucide-react';
+
 import { 
-  sexoStatisticsMock, 
-  idadeStatisticsMock, 
-  cursoStatisticsMock,
-  anoLetivosStatisticsMock,
-  localResidenciaStatisticsMock,
-  availableVariables 
-} from '../data/mockData';
+  predictionComparisonMock,
+  riskDistributionMock,
+  positiveFactorsMock,
+  negativeFactorsMock,
+  courseUnitsMock,
+  coursesMock,
+  schoolsMock,
+  institutionsMock
+} from '../data/statisticsMockData';
 
 const Statistics = () => {
-  const [selectedVariable, setSelectedVariable] = useState('sexo');
+  const [activeTab, setActiveTab] = useState('overview');
+  const [activeLevel, setActiveLevel] = useState('course-unit');
+  const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
+  const [selectedSchool, setSelectedSchool] = useState<string | null>(null);
   
-  // Formatando os dados para o gráfico com base na variável selecionada
-  const getChartData = () => {
-    if (selectedVariable === 'sexo') {
-      return {
-        percentageData: sexoStatisticsMock.categories.map((category, index) => ({
-          name: category,
-          value: sexoStatisticsMock.percentages[index],
-        })),
-        countData: sexoStatisticsMock.categories.map((category, index) => ({
-          name: category,
-          value: sexoStatisticsMock.counts[index],
-        })),
-        title: `Distribuição por ${selectedVariable}`,
-      };
-    } else if (selectedVariable === 'idade') {
-      return {
-        percentageData: idadeStatisticsMock.categories.map((category, index) => ({
-          name: category,
-          value: idadeStatisticsMock.percentages[index],
-        })),
-        countData: idadeStatisticsMock.categories.map((category, index) => ({
-          name: category,
-          value: idadeStatisticsMock.counts[index],
-        })),
-        title: `Distribuição por ${selectedVariable}`,
-      };
-    } else if (selectedVariable === 'curso') {
-      return {
-        percentageData: cursoStatisticsMock.categories.map((category, index) => ({
-          name: category,
-          value: cursoStatisticsMock.percentages[index],
-        })),
-        countData: cursoStatisticsMock.categories.map((category, index) => ({
-          name: category,
-          value: cursoStatisticsMock.counts[index],
-        })),
-        title: `Distribuição por ${selectedVariable}`,
-      };
-    } else if (selectedVariable === 'ano_letivo') {
-      return {
-        percentageData: anoLetivosStatisticsMock.categories.map((category, index) => ({
-          name: category,
-          value: anoLetivosStatisticsMock.percentages[index],
-        })),
-        countData: anoLetivosStatisticsMock.categories.map((category, index) => ({
-          name: category,
-          value: anoLetivosStatisticsMock.counts[index],
-        })),
-        title: `Distribuição por ${selectedVariable}`,
-      };
-    } else if (selectedVariable === 'local_residencia') {
-      return {
-        percentageData: localResidenciaStatisticsMock.categories.map((category, index) => ({
-          name: category,
-          value: localResidenciaStatisticsMock.percentages[index],
-        })),
-        countData: localResidenciaStatisticsMock.categories.map((category, index) => ({
-          name: category,
-          value: localResidenciaStatisticsMock.counts[index],
-        })),
-        title: `Distribuição por ${selectedVariable}`,
-      };
-    }
-    
-    // Dados padrão para outras variáveis (para garantir que não haja dados vazios)
-    return {
-      percentageData: [
-        { name: 'Categoria 1', value: 35.8 },
-        { name: 'Categoria 2', value: 24.3 },
-        { name: 'Categoria 3', value: 18.5 },
-        { name: 'Categoria 4', value: 21.4 }
-      ],
-      countData: [
-        { name: 'Categoria 1', value: 32 },
-        { name: 'Categoria 2', value: 21 },
-        { name: 'Categoria 3', value: 16 },
-        { name: 'Categoria 4', value: 19 }
-      ],
-      title: `Distribuição por ${selectedVariable}`,
-    };
+  const handleUnitClick = (unitId: string) => {
+    setSelectedUnit(unitId);
+    // Aqui você pode adicionar mais lógica se necessário
+    alert(`Unidade curricular selecionada: ${unitId}`);
   };
-  
-  const { percentageData, countData, title } = getChartData();
+
+  const handleCourseClick = (courseId: string) => {
+    setSelectedCourse(courseId);
+    setActiveLevel('course-unit');
+    // Aqui você pode adicionar mais lógica se necessário
+  };
+
+  const handleSchoolClick = (schoolId: string) => {
+    setSelectedSchool(schoolId);
+    setActiveLevel('course');
+    // Aqui você pode adicionar mais lógica se necessário
+  };
   
   return (
     <Layout>
@@ -117,24 +62,309 @@ const Statistics = () => {
         
         <div className="dashboard-card mb-6">
           <div className="p-6">
-            <div className="mb-6 w-56">
-              <VariableSelect 
-                variables={availableVariables}
-                selectedVariable={selectedVariable}
-                onSelect={setSelectedVariable}
+            <div className="mb-6">
+              <StatisticsTabs 
+                activeTab={activeTab}
+                onTabChange={setActiveTab}
               />
             </div>
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="bg-white rounded-lg border border-gray-100 p-4">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">Percentagem</h3>
-                <PercentageChart data={percentageData} />
+            {activeTab === 'overview' && (
+              <div className="space-y-6">
+                <div>
+                  <h2 className="text-xl font-semibold mb-4">Alunos Previstos vs Reais</h2>
+                  <div className="bg-white rounded-lg border border-gray-100 p-4">
+                    <p className="text-sm text-gray-500 mb-4">
+                      Este gráfico compara o número de alunos previstos para abandonar com o número real de desistências ao longo do tempo.
+                    </p>
+                    <PredictionComparisonChart data={predictionComparisonMock} />
+                  </div>
+                </div>
               </div>
-              
-              <div className="bg-white rounded-lg border border-gray-100 p-4">
-                <CountChart data={countData} title={title} />
+            )}
+            
+            {activeTab === 'by-user' && (
+              <div className="space-y-6">
+                <div className="mb-6">
+                  <UserLevelTabs 
+                    activeLevel={activeLevel}
+                    onLevelChange={setActiveLevel}
+                  />
+                </div>
+                
+                {activeLevel === 'course-unit' && (
+                  <div>
+                    <h2 className="text-xl font-semibold mb-4">Estatísticas por Unidade Curricular</h2>
+                    
+                    <div className="mb-6">
+                      <CourseUnitsTable 
+                        units={courseUnitsMock}
+                        onUnitClick={handleUnitClick}
+                      />
+                    </div>
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                      <div className="bg-white rounded-lg border border-gray-100 p-4">
+                        <h3 className="text-lg font-medium mb-4">Distribuição de Risco</h3>
+                        <RiskDistributionChart data={riskDistributionMock} />
+                      </div>
+                      
+                      <div className="bg-white rounded-lg border border-gray-100 p-4 lg:col-span-2">
+                        <FactorsBarChart 
+                          data={positiveFactorsMock} 
+                          title="Fatores Positivos Mais Frequentes" 
+                          color="#10b981"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="bg-white rounded-lg border border-gray-100 p-4">
+                      <FactorsBarChart 
+                        data={negativeFactorsMock} 
+                        title="Fatores Negativos Mais Frequentes" 
+                        color="#f43f5e"
+                      />
+                    </div>
+                  </div>
+                )}
+                
+                {activeLevel === 'course' && (
+                  <div>
+                    <h2 className="text-xl font-semibold mb-4">Estatísticas por Curso</h2>
+                    
+                    <div className="mb-6">
+                      <div className="overflow-hidden rounded-lg border border-gray-200">
+                        <table className="data-table">
+                          <thead>
+                            <tr>
+                              <th>Código</th>
+                              <th>Nome</th>
+                              <th>Nº UCs</th>
+                              <th>Nº Alunos</th>
+                              <th>Risco Médio</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {coursesMock.map((course) => (
+                              <tr 
+                                key={course.id} 
+                                className="animate-fadeIn cursor-pointer hover:bg-gray-50"
+                                onClick={() => handleCourseClick(course.id)}
+                              >
+                                <td>{course.id}</td>
+                                <td>{course.name}</td>
+                                <td>{course.unitCount}</td>
+                                <td>{course.studentCount}</td>
+                                <td>
+                                  <div className="risk-indicator">
+                                    {course.risk >= 80 ? (
+                                      <div className="risk-indicator high">
+                                        <ArrowDown size={14} className="mr-1 transform rotate-180" />
+                                        {course.risk.toFixed(2)}%
+                                      </div>
+                                    ) : course.risk >= 70 ? (
+                                      <div className="risk-indicator medium">
+                                        <span className="mr-1 font-bold">—</span>
+                                        {course.risk.toFixed(2)}%
+                                      </div>
+                                    ) : (
+                                      <div className="risk-indicator low">
+                                        <ArrowDown size={14} className="mr-1" />
+                                        {course.risk.toFixed(2)}%
+                                      </div>
+                                    )}
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                      <div className="bg-white rounded-lg border border-gray-100 p-4">
+                        <h3 className="text-lg font-medium mb-4">Distribuição de Risco</h3>
+                        <RiskDistributionChart data={riskDistributionMock} />
+                      </div>
+                      
+                      <div className="bg-white rounded-lg border border-gray-100 p-4 lg:col-span-2">
+                        <FactorsBarChart 
+                          data={positiveFactorsMock} 
+                          title="Fatores Positivos Mais Frequentes" 
+                          color="#10b981"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="bg-white rounded-lg border border-gray-100 p-4">
+                      <FactorsBarChart 
+                        data={negativeFactorsMock} 
+                        title="Fatores Negativos Mais Frequentes" 
+                        color="#f43f5e"
+                      />
+                    </div>
+                  </div>
+                )}
+                
+                {activeLevel === 'school' && (
+                  <div>
+                    <h2 className="text-xl font-semibold mb-4">Estatísticas por Escola</h2>
+                    
+                    <div className="mb-6">
+                      <div className="overflow-hidden rounded-lg border border-gray-200">
+                        <table className="data-table">
+                          <thead>
+                            <tr>
+                              <th>Código</th>
+                              <th>Nome</th>
+                              <th>Nº Cursos</th>
+                              <th>Nº Alunos</th>
+                              <th>Risco Médio</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {schoolsMock.map((school) => (
+                              <tr 
+                                key={school.id} 
+                                className="animate-fadeIn cursor-pointer hover:bg-gray-50"
+                                onClick={() => handleSchoolClick(school.id)}
+                              >
+                                <td>{school.id}</td>
+                                <td>{school.name}</td>
+                                <td>{school.courseCount}</td>
+                                <td>{school.studentCount}</td>
+                                <td>
+                                  <div className="risk-indicator">
+                                    {school.risk >= 80 ? (
+                                      <div className="risk-indicator high">
+                                        <ArrowDown size={14} className="mr-1 transform rotate-180" />
+                                        {school.risk.toFixed(2)}%
+                                      </div>
+                                    ) : school.risk >= 70 ? (
+                                      <div className="risk-indicator medium">
+                                        <span className="mr-1 font-bold">—</span>
+                                        {school.risk.toFixed(2)}%
+                                      </div>
+                                    ) : (
+                                      <div className="risk-indicator low">
+                                        <ArrowDown size={14} className="mr-1" />
+                                        {school.risk.toFixed(2)}%
+                                      </div>
+                                    )}
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                      <div className="bg-white rounded-lg border border-gray-100 p-4">
+                        <h3 className="text-lg font-medium mb-4">Distribuição de Risco</h3>
+                        <RiskDistributionChart data={riskDistributionMock} />
+                      </div>
+                      
+                      <div className="bg-white rounded-lg border border-gray-100 p-4 lg:col-span-2">
+                        <FactorsBarChart 
+                          data={positiveFactorsMock} 
+                          title="Fatores Positivos Mais Frequentes" 
+                          color="#10b981"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="bg-white rounded-lg border border-gray-100 p-4">
+                      <FactorsBarChart 
+                        data={negativeFactorsMock} 
+                        title="Fatores Negativos Mais Frequentes" 
+                        color="#f43f5e"
+                      />
+                    </div>
+                  </div>
+                )}
+                
+                {activeLevel === 'institution' && (
+                  <div>
+                    <h2 className="text-xl font-semibold mb-4">Estatísticas por Instituição</h2>
+                    
+                    <div className="mb-6">
+                      <div className="overflow-hidden rounded-lg border border-gray-200">
+                        <table className="data-table">
+                          <thead>
+                            <tr>
+                              <th>Código</th>
+                              <th>Nome</th>
+                              <th>Nº Escolas</th>
+                              <th>Nº Alunos</th>
+                              <th>Risco Médio</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {institutionsMock.map((institution) => (
+                              <tr 
+                                key={institution.id} 
+                                className="animate-fadeIn cursor-pointer hover:bg-gray-50"
+                              >
+                                <td>{institution.id}</td>
+                                <td>{institution.name}</td>
+                                <td>{institution.schoolCount}</td>
+                                <td>{institution.studentCount}</td>
+                                <td>
+                                  <div className="risk-indicator">
+                                    {institution.risk >= 80 ? (
+                                      <div className="risk-indicator high">
+                                        <ArrowDown size={14} className="mr-1 transform rotate-180" />
+                                        {institution.risk.toFixed(2)}%
+                                      </div>
+                                    ) : institution.risk >= 70 ? (
+                                      <div className="risk-indicator medium">
+                                        <span className="mr-1 font-bold">—</span>
+                                        {institution.risk.toFixed(2)}%
+                                      </div>
+                                    ) : (
+                                      <div className="risk-indicator low">
+                                        <ArrowDown size={14} className="mr-1" />
+                                        {institution.risk.toFixed(2)}%
+                                      </div>
+                                    )}
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                      <div className="bg-white rounded-lg border border-gray-100 p-4">
+                        <h3 className="text-lg font-medium mb-4">Distribuição de Risco</h3>
+                        <RiskDistributionChart data={riskDistributionMock} />
+                      </div>
+                      
+                      <div className="bg-white rounded-lg border border-gray-100 p-4 lg:col-span-2">
+                        <FactorsBarChart 
+                          data={positiveFactorsMock} 
+                          title="Fatores Positivos Mais Frequentes" 
+                          color="#10b981"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="bg-white rounded-lg border border-gray-100 p-4">
+                      <FactorsBarChart 
+                        data={negativeFactorsMock} 
+                        title="Fatores Negativos Mais Frequentes" 
+                        color="#f43f5e"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

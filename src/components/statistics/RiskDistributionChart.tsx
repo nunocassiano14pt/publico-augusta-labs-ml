@@ -11,7 +11,7 @@ const COLORS = ['#ff6b6b', '#ffa94d', '#74c0fc'];
 const RADIAN = Math.PI / 180;
 
 const RiskDistributionChart: React.FC<RiskDistributionChartProps> = ({ data }) => {
-  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }: any) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.6;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -50,8 +50,13 @@ const RiskDistributionChart: React.FC<RiskDistributionChartProps> = ({ data }) =
             ))}
           </Pie>
           <Tooltip 
-            formatter={(value, name, props) => [value, 'Alunos']}
-            labelFormatter={(label, props) => props.payload[0].payload.category}
+            formatter={(value: any, name: any, props: any) => [value, 'Alunos']}
+            labelFormatter={(label: any, props: any) => {
+              if (props && props.payload && props.payload[0]) {
+                return props.payload[0].payload.category;
+              }
+              return label;
+            }}
           />
           <Legend />
         </PieChart>

@@ -71,9 +71,10 @@ const PredictionComparisonChart: React.FC<PredictionComparisonChartProps> = ({ d
             fill="url(#colorPredicted)" 
             activeDot={{ 
               r: 8,
-              onClick: (data, index) => {
-                const { payload } = data;
-                alert(`Mês: ${payload.month}\nPrevistos: ${payload.predicted}\nReais: ${payload.actual}`);
+              onClick: (data: any) => {
+                if (data && data.payload) {
+                  alert(`Mês: ${data.payload.month}\nPrevistos: ${data.payload.predicted}\nReais: ${data.payload.actual}`);
+                }
               }
             }}
             name="predicted"
@@ -86,9 +87,10 @@ const PredictionComparisonChart: React.FC<PredictionComparisonChartProps> = ({ d
             fill="url(#colorActual)" 
             activeDot={{ 
               r: 8,
-              onClick: (data, index) => {
-                const { payload } = data;
-                alert(`Mês: ${payload.month}\nPrevistos: ${payload.predicted}\nReais: ${payload.actual}`);
+              onClick: (data: any) => {
+                if (data && data.payload) {
+                  alert(`Mês: ${data.payload.month}\nPrevistos: ${data.payload.predicted}\nReais: ${data.payload.actual}`);
+                }
               }
             }}
             name="actual"

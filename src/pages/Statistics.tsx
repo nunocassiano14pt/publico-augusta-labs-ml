@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Layout from '../components/layout/Layout';
 import PageTitle from '../components/common/PageTitle';
@@ -34,7 +33,6 @@ const Statistics = () => {
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
   const [selectedSchool, setSelectedSchool] = useState<string | null>(null);
   
-  // Function to handle exporting CSV (just a mock)
   const handleExportCSV = () => {
     alert("Exportação de CSV (funcionalidade de demonstração)");
   };
@@ -55,6 +53,11 @@ const Statistics = () => {
     setSelectedSchool(schoolId);
     setActiveLevel('course');
     // Here we would filter courses by the school ID
+  };
+
+  const handleInstitutionClick = (institutionId: string) => {
+    setActiveLevel('school');
+    // Here we would filter schools by the institution ID
   };
   
   return (
@@ -339,9 +342,7 @@ const Statistics = () => {
                               <tr 
                                 key={institution.id} 
                                 className="animate-fadeIn cursor-pointer hover:bg-gray-50"
-                                onClick={() => {
-                                  setActiveLevel('school');
-                                }}
+                                onClick={() => handleInstitutionClick(institution.id)}
                               >
                                 <td>{institution.id}</td>
                                 <td>{institution.name}</td>

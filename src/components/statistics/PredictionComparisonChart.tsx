@@ -31,6 +31,11 @@ const PredictionComparisonChart: React.FC<PredictionComparisonChartProps> = ({ d
   const latestDifference = ((latestMonth.predicted - latestMonth.actual) / latestMonth.predicted * 100).toFixed(1);
   const isPositiveDiff = parseFloat(latestDifference) > 0;
 
+  // Função para calcular a diferença percentual para qualquer mês
+  const calculateDifference = (predicted: number, actual: number) => {
+    return ((predicted - actual) / predicted * 100).toFixed(1);
+  };
+
   return (
     <div className="space-y-4">
       {/* KPI showing percentage difference */}
@@ -88,6 +93,28 @@ const PredictionComparisonChart: React.FC<PredictionComparisonChartProps> = ({ d
               }}
               labelStyle={{ fontSize: 12, fontWeight: 'bold' }}
               contentStyle={{ borderRadius: '6px', border: '1px solid #E5E7EB' }}
+              content={({ active, payload, label }) => {
+                if (active && payload && payload.length) {
+                  const predicted = payload[0].payload.predicted;
+                  const actual = payload[0].payload.actual;
+                  const diff = calculateDifference(predicted, actual);
+                  const isPositive = parseFloat(diff) > 0;
+                  
+                  return (
+                    <div className="bg-white p-3 shadow-md rounded-md border border-gray-200">
+                      <p className="font-bold">{label}</p>
+                      <p className="text-sm">Previstos: <span className="font-semibold">{predicted}</span></p>
+                      <p className="text-sm">Reais: <span className="font-semibold">{actual}</span></p>
+                      <p className="text-sm mt-1">
+                        Diferença: <span className={`font-semibold ${isPositive ? 'text-red-500' : 'text-green-500'}`}>
+                          {isPositive ? '+' : ''}{diff}%
+                        </span>
+                      </p>
+                    </div>
+                  );
+                }
+                return null;
+              }}
             />
             <Legend 
               payload={[

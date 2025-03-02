@@ -54,37 +54,118 @@ export const negativeFactorsMock: FactorFrequency[] = [
   { factor: 'Dificuldade com disciplinas específicas', count: 24, percentage: 30 }
 ];
 
-// Dados de unidades curriculares
-export const courseUnitsMock: CourseUnit[] = [
-  { id: 'uc1', name: 'Programação I', risk: 73.5, studentCount: 28 },
-  { id: 'uc2', name: 'Algoritmos e Estruturas de Dados', risk: 67.2, studentCount: 25 },
-  { id: 'uc3', name: 'Cálculo I', risk: 82.1, studentCount: 32 },
-  { id: 'uc4', name: 'Estatística', risk: 58.4, studentCount: 26 },
-  { id: 'uc5', name: 'Sistemas Operativos', risk: 71.8, studentCount: 24 },
-  { id: 'uc6', name: 'Redes de Computadores', risk: 65.3, studentCount: 27 },
-  { id: 'uc7', name: 'Bases de Dados', risk: 59.8, studentCount: 29 },
-  { id: 'uc8', name: 'Computação Gráfica', risk: 77.3, studentCount: 22 }
+// Dados de unidades curriculares - Escola Superior de Educação
+export const eduCourseUnitsMock: CourseUnit[] = [
+  { id: 'uc1', name: 'Ciências Físico-Naturais I', risk: 73.5, studentCount: 28 },
+  { id: 'uc2', name: 'Elementos da Matemática', risk: 67.2, studentCount: 25 },
+  { id: 'uc3', name: 'Comunicação Oral e Escrita', risk: 82.1, studentCount: 32 }
 ];
 
-// Dados de cursos
+// Dados de unidades curriculares - Escola Superior Agrária
+export const agroCourseUnitsMock: CourseUnit[] = [
+  { id: 'uc4', name: 'Botânica Geral', risk: 58.4, studentCount: 26 },
+  { id: 'uc5', name: 'Edafologia', risk: 71.8, studentCount: 24 },
+  { id: 'uc6', name: 'Agricultura Geral', risk: 65.3, studentCount: 27 }
+];
+
+// Dados de unidades curriculares - Escola Superior de Tecnologia e Gestão
+export const techCourseUnitsMock: CourseUnit[] = [
+  { id: 'uc7', name: 'Programação', risk: 59.8, studentCount: 29 },
+  { id: 'uc8', name: 'Sistemas Operativos', risk: 77.3, studentCount: 22 },
+  { id: 'uc9', name: 'Redes de Computadores', risk: 67.5, studentCount: 25 }
+];
+
+// Dados de unidades curriculares - Escola Superior de Saúde
+export const healthCourseUnitsMock: CourseUnit[] = [
+  { id: 'uc10', name: 'Fundamentos de Enfermagem', risk: 63.2, studentCount: 31 },
+  { id: 'uc11', name: 'Anatomia e Fisiologia', risk: 68.7, studentCount: 30 },
+  { id: 'uc12', name: 'Microbiologia e Parasitologia', risk: 75.4, studentCount: 28 }
+];
+
+// Dados de unidades curriculares - Escola Superior de Ciências Empresariais
+export const businessCourseUnitsMock: CourseUnit[] = [
+  { id: 'uc13', name: 'Contabilidade Financeira', risk: 71.2, studentCount: 26 },
+  { id: 'uc14', name: 'Fiscalidade', risk: 78.5, studentCount: 25 },
+  { id: 'uc15', name: 'Gestão Financeira', risk: 69.3, studentCount: 28 }
+];
+
+// Dados de unidades curriculares - Escola Superior de Desporto e Lazer
+export const sportCourseUnitsMock: CourseUnit[] = [
+  { id: 'uc16', name: 'Fisiologia do Exercício', risk: 62.8, studentCount: 32 },
+  { id: 'uc17', name: 'Biomecânica', risk: 70.5, studentCount: 30 },
+  { id: 'uc18', name: 'Treino Desportivo', risk: 65.7, studentCount: 29 }
+];
+
+// Combine all course units for general access
+export const courseUnitsMock: CourseUnit[] = [
+  ...eduCourseUnitsMock,
+  ...agroCourseUnitsMock,
+  ...techCourseUnitsMock,
+  ...healthCourseUnitsMock,
+  ...businessCourseUnitsMock,
+  ...sportCourseUnitsMock
+];
+
+// Dados de cursos - Escola Superior de Educação
+export const eduCoursesMock: Course[] = [
+  { id: 'c1', name: 'Artes e Cinema Digital', risk: 62.8, unitCount: 8, studentCount: 105 },
+  { id: 'c2', name: 'Artes Plásticas e Tecnologias Artísticas', risk: 57.2, unitCount: 7, studentCount: 95 },
+  { id: 'c3', name: 'Educação Básica', risk: 68.5, unitCount: 9, studentCount: 130 }
+];
+
+// Dados de cursos - Escola Superior Agrária
+export const agroCoursesMock: Course[] = [
+  { id: 'c4', name: 'Agronomia', risk: 59.7, unitCount: 8, studentCount: 110 },
+  { id: 'c5', name: 'Biotecnologia', risk: 62.1, unitCount: 9, studentCount: 95 },
+  { id: 'c6', name: 'Enfermagem Veterinária', risk: 65.3, unitCount: 10, studentCount: 120 }
+];
+
+// Dados de cursos - Escola Superior de Tecnologia e Gestão
+export const techCoursesMock: Course[] = [
+  { id: 'c7', name: 'Engenharia Informática', risk: 72.1, unitCount: 10, studentCount: 150 },
+  { id: 'c8', name: 'Engenharia Mecânica', risk: 68.5, unitCount: 9, studentCount: 130 },
+  { id: 'c9', name: 'Design do Produto', risk: 58.7, unitCount: 8, studentCount: 110 }
+];
+
+// Dados de cursos - Escola Superior de Saúde
+export const healthCoursesMock: Course[] = [
+  { id: 'c10', name: 'Enfermagem', risk: 54.3, unitCount: 12, studentCount: 160 }
+];
+
+// Dados de cursos - Escola Superior de Ciências Empresariais
+export const businessCoursesMock: Course[] = [
+  { id: 'c11', name: 'Contabilidade e Fiscalidade', risk: 65.8, unitCount: 9, studentCount: 120 },
+  { id: 'c12', name: 'Gestão da Logística e Distribuição', risk: 61.3, unitCount: 8, studentCount: 105 },
+  { id: 'c13', name: 'Marketing e Comunicação Empresarial', risk: 57.9, unitCount: 7, studentCount: 95 }
+];
+
+// Dados de cursos - Escola Superior de Desporto e Lazer
+export const sportCoursesMock: Course[] = [
+  { id: 'c14', name: 'Animação Desportiva e Turismo Ativo', risk: 59.2, unitCount: 8, studentCount: 100 },
+  { id: 'c15', name: 'Ciências do Desporto e Lazer', risk: 64.7, unitCount: 9, studentCount: 110 }
+];
+
+// Combine all courses for general access
 export const coursesMock: Course[] = [
-  { id: 'c1', name: 'Eng. Informática', risk: 68.5, unitCount: 12, studentCount: 150 },
-  { id: 'c2', name: 'Eng. Mecânica', risk: 72.1, unitCount: 10, studentCount: 130 },
-  { id: 'c3', name: 'Gestão', risk: 58.7, unitCount: 9, studentCount: 145 },
-  { id: 'c4', name: 'Contabilidade', risk: 54.3, unitCount: 8, studentCount: 120 },
-  { id: 'c5', name: 'Design', risk: 62.8, unitCount: 11, studentCount: 105 },
-  { id: 'c6', name: 'Turismo', risk: 57.2, unitCount: 7, studentCount: 95 }
+  ...eduCoursesMock,
+  ...agroCoursesMock,
+  ...techCoursesMock,
+  ...healthCoursesMock,
+  ...businessCoursesMock,
+  ...sportCoursesMock
 ];
 
 // Dados de escolas
 export const schoolsMock: School[] = [
-  { id: 's1', name: 'Escola Superior de Tecnologia e Gestão', risk: 65.3, courseCount: 8, studentCount: 520 },
-  { id: 's2', name: 'Escola Superior de Educação', risk: 59.7, courseCount: 5, studentCount: 380 },
-  { id: 's3', name: 'Escola Superior de Ciências Empresariais', risk: 62.1, courseCount: 7, studentCount: 450 },
-  { id: 's4', name: 'Escola Superior de Saúde', risk: 53.8, courseCount: 6, studentCount: 400 }
+  { id: 's1', name: 'Escola Superior de Educação', risk: 62.8, courseCount: 3, studentCount: 330 },
+  { id: 's2', name: 'Escola Superior Agrária', risk: 62.4, courseCount: 3, studentCount: 325 },
+  { id: 's3', name: 'Escola Superior de Tecnologia e Gestão', risk: 66.4, courseCount: 3, studentCount: 390 },
+  { id: 's4', name: 'Escola Superior de Saúde', risk: 54.3, courseCount: 1, studentCount: 160 },
+  { id: 's5', name: 'Escola Superior de Ciências Empresariais', risk: 61.7, courseCount: 3, studentCount: 320 },
+  { id: 's6', name: 'Escola Superior de Desporto e Lazer', risk: 62.0, courseCount: 2, studentCount: 210 }
 ];
 
 // Dados de instituições
 export const institutionsMock: Institution[] = [
-  { id: 'i1', name: 'Instituto Politécnico de Viana do Castelo', risk: 61.2, schoolCount: 6, studentCount: 1750 }
+  { id: 'i1', name: 'Instituto Politécnico de Viana do Castelo', risk: 61.6, schoolCount: 6, studentCount: 1735 }
 ];

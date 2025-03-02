@@ -87,7 +87,6 @@ const PredictionTable: React.FC<PredictionTableProps> = ({ predictions }) => {
                 </Tooltip>
               </TooltipProvider>
             </th>
-            <th>Acesso</th>
             <th className="w-10"></th>
           </tr>
         </thead>
@@ -104,13 +103,6 @@ const PredictionTable: React.FC<PredictionTableProps> = ({ predictions }) => {
                 <span className={`status-badge ${prediction.status === 'Sucesso' ? 'success' : 'pending'}`}>
                   {prediction.status}
                 </span>
-              </td>
-              <td>
-                {prediction.access.map((type) => (
-                  <span key={type} className="access-badge">
-                    {type}
-                  </span>
-                ))}
               </td>
               <td onClick={(e) => e.stopPropagation()}>
                 <Button variant="ghost" size="icon" className="h-8 w-8">

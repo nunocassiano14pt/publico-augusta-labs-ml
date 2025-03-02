@@ -5,7 +5,6 @@ import PageTitle from '../components/common/PageTitle';
 import PredictionHeader from '../components/predictions/PredictionHeader';
 import PredictionTable from '../components/predictions/PredictionTable';
 import { predictionsMock } from '../data/mockData';
-import { toast } from 'sonner';
 
 const Predictions = () => {
   const [predictions, setPredictions] = useState(predictionsMock);
@@ -23,10 +22,6 @@ const Predictions = () => {
     setFilteredPredictions(filtered);
   };
 
-  const handleAddPrediction = () => {
-    toast.info("Esta funcionalidade não está implementada na demonstração");
-  };
-
   return (
     <Layout>
       <div className="max-w-7xl mx-auto">
@@ -39,7 +34,6 @@ const Predictions = () => {
           <div className="p-6">
             <PredictionHeader 
               count={predictions.length} 
-              onAdd={handleAddPrediction} 
               onSearch={handleSearch} 
             />
             <PredictionTable predictions={filteredPredictions} />

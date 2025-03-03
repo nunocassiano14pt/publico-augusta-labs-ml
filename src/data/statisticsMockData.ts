@@ -54,18 +54,25 @@ export const negativeFactorsMock: FactorFrequency[] = [
   { factor: 'Dificuldade com disciplinas específicas', count: 24, percentage: 30 }
 ];
 
-// Dados de unidades curriculares - Escola Superior de Educação
+// Dados de unidades curriculares - Artes e Cinema Digital
+export const artesDigitalCourseUnitsMock: CourseUnit[] = [
+  { id: 'uc1', name: 'Introdução ao Cinema Digital', risk: 58.2, studentCount: 35 },
+  { id: 'uc2', name: 'Técnicas de Animação', risk: 61.5, studentCount: 32 },
+  { id: 'uc3', name: 'Edição de Vídeo', risk: 55.8, studentCount: 38 }
+];
+
+// Dados de unidades curriculares - Educação Básica
 export const eduCourseUnitsMock: CourseUnit[] = [
-  { id: 'uc1', name: 'Ciências Físico-Naturais I', risk: 73.5, studentCount: 28 },
-  { id: 'uc2', name: 'Elementos da Matemática', risk: 67.2, studentCount: 25 },
-  { id: 'uc3', name: 'Comunicação Oral e Escrita', risk: 82.1, studentCount: 32 }
+  { id: 'uc4', name: 'Ciências Físico-Naturais I', risk: 73.5, studentCount: 28 },
+  { id: 'uc5', name: 'Elementos da Matemática', risk: 67.2, studentCount: 25 },
+  { id: 'uc6', name: 'Comunicação Oral e Escrita', risk: 82.1, studentCount: 32 }
 ];
 
 // Dados de cursos - Escola Superior de Educação
 export const eduCoursesMock: Course[] = [
-  { id: 'c1', name: 'Artes e Cinema Digital', risk: 62.8, unitCount: 0, studentCount: 105 },
-  { id: 'c2', name: 'Artes Plásticas e Tecnologias Artísticas', risk: 57.2, unitCount: 0, studentCount: 95 },
-  { id: 'c3', name: 'Educação Básica', risk: 68.5, unitCount: 3, studentCount: 130, units: eduCourseUnitsMock }
+  { id: 'c1', name: 'Artes e Cinema Digital', risk: 58.7, unitCount: 3, studentCount: 330, units: artesDigitalCourseUnitsMock },
+  { id: 'c2', name: 'Artes Plásticas e Tecnologias Artísticas', risk: 57.2, unitCount: 0, studentCount: 0 },
+  { id: 'c3', name: 'Educação Básica', risk: 68.5, unitCount: 3, studentCount: 0, units: eduCourseUnitsMock }
 ];
 
 // Dados de escolas
@@ -80,6 +87,7 @@ export const institutionsMock: Institution[] = [
 
 // Combine all course units for general access
 export const courseUnitsMock: CourseUnit[] = [
+  ...artesDigitalCourseUnitsMock,
   ...eduCourseUnitsMock
 ];
 
@@ -87,3 +95,4 @@ export const courseUnitsMock: CourseUnit[] = [
 export const coursesMock: Course[] = [
   ...eduCoursesMock
 ];
+

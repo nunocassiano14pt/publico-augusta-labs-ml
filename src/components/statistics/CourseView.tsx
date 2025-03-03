@@ -10,6 +10,7 @@ interface CourseViewProps {
   positiveFactorsData: FactorFrequency[];
   negativeFactorsData: FactorFrequency[];
   onCourseClick: (courseId: string) => void;
+  schoolName?: string;
 }
 
 const CourseView: React.FC<CourseViewProps> = ({
@@ -17,11 +18,14 @@ const CourseView: React.FC<CourseViewProps> = ({
   riskDistributionData,
   positiveFactorsData,
   negativeFactorsData,
-  onCourseClick
+  onCourseClick,
+  schoolName
 }) => {
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">Estatísticas por Curso</h2>
+      <h2 className="text-xl font-semibold mb-4">
+        {schoolName ? `Cursos de ${schoolName}` : "Estatísticas por Curso"}
+      </h2>
       
       <div className="mb-6">
         <div className="overflow-hidden rounded-lg border border-gray-200">

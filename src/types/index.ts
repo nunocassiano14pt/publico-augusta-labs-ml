@@ -1,3 +1,4 @@
+
 // Tipos para as dashboards
 
 export type Status = 'Pendente' | 'Sucesso' | 'Falha';
@@ -81,6 +82,7 @@ export interface Course {
   risk: number;
   unitCount: number;
   studentCount: number;
+  units?: CourseUnit[]; // Relação com unidades curriculares
 }
 
 export interface School {
@@ -89,6 +91,7 @@ export interface School {
   risk: number;
   courseCount: number;
   studentCount: number;
+  courses?: Course[]; // Relação com cursos
 }
 
 export interface Institution {
@@ -97,4 +100,5 @@ export interface Institution {
   risk: number;
   schoolCount: number;
   studentCount: number;
+  schools?: School[]; // Relação com escolas
 }

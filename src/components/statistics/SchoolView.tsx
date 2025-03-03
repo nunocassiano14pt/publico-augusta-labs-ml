@@ -10,6 +10,7 @@ interface SchoolViewProps {
   positiveFactorsData: FactorFrequency[];
   negativeFactorsData: FactorFrequency[];
   onSchoolClick: (schoolId: string) => void;
+  schoolName?: string;
 }
 
 const SchoolView: React.FC<SchoolViewProps> = ({
@@ -17,11 +18,14 @@ const SchoolView: React.FC<SchoolViewProps> = ({
   riskDistributionData,
   positiveFactorsData,
   negativeFactorsData,
-  onSchoolClick
+  onSchoolClick,
+  schoolName
 }) => {
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">Estatísticas por Escola</h2>
+      <h2 className="text-xl font-semibold mb-4">
+        {schoolName ? `Cursos de ${schoolName}` : "Estatísticas por Escola"}
+      </h2>
       
       <div className="mb-6">
         <div className="overflow-hidden rounded-lg border border-gray-200">

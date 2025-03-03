@@ -10,6 +10,7 @@ interface InstitutionViewProps {
   positiveFactorsData: FactorFrequency[];
   negativeFactorsData: FactorFrequency[];
   onInstitutionClick: (institutionId: string) => void;
+  institutionName?: string;
 }
 
 const InstitutionView: React.FC<InstitutionViewProps> = ({
@@ -17,11 +18,14 @@ const InstitutionView: React.FC<InstitutionViewProps> = ({
   riskDistributionData,
   positiveFactorsData,
   negativeFactorsData,
-  onInstitutionClick
+  onInstitutionClick,
+  institutionName
 }) => {
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">Estatísticas por Instituição</h2>
+      <h2 className="text-xl font-semibold mb-4">
+        {institutionName ? `Escolas de ${institutionName}` : "Estatísticas por Instituição"}
+      </h2>
       
       <div className="mb-6">
         <div className="overflow-hidden rounded-lg border border-gray-200">

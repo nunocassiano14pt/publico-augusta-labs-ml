@@ -80,7 +80,7 @@ export const studentsMock: Student[] = [
   {
     cod_pessoa: '122300',
     nome_aluno: 'Ana Silva',
-    matricula: 'Licenciatura em Gestão',
+    matricula: 'Licenciatura em Artes e Cinema Digital',
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 100,
@@ -88,7 +88,7 @@ export const studentsMock: Student[] = [
   {
     cod_pessoa: '330041',
     nome_aluno: 'João Oliveira',
-    matricula: 'Licenciatura em Engenharia Informática',
+    matricula: 'Licenciatura em Artes e Cinema Digital',
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 88.89,
@@ -96,7 +96,7 @@ export const studentsMock: Student[] = [
   {
     cod_pessoa: '263480',
     nome_aluno: 'Maria Costa',
-    matricula: 'Mestrado em Química',
+    matricula: 'Licenciatura em Artes e Cinema Digital',
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 81.82,
@@ -104,7 +104,7 @@ export const studentsMock: Student[] = [
   {
     cod_pessoa: '344035',
     nome_aluno: 'Pedro Santos',
-    matricula: 'CTeSP em Gestão Hoteleira',
+    matricula: 'Licenciatura em Artes e Cinema Digital',
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 73.91,
@@ -112,7 +112,7 @@ export const studentsMock: Student[] = [
   {
     cod_pessoa: '295719',
     nome_aluno: 'Clara Mendes',
-    matricula: 'Licenciatura em Turismo',
+    matricula: 'Licenciatura em Artes e Cinema Digital',
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 73.91,
@@ -120,7 +120,7 @@ export const studentsMock: Student[] = [
   {
     cod_pessoa: '206340',
     nome_aluno: 'Bruno Ferreira',
-    matricula: 'Licenciatura em Design',
+    matricula: 'Licenciatura em Artes e Cinema Digital',
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 73.91,
@@ -128,7 +128,7 @@ export const studentsMock: Student[] = [
   {
     cod_pessoa: '189756',
     nome_aluno: 'Rita Fonseca',
-    matricula: 'Licenciatura em Enfermagem',
+    matricula: 'Licenciatura em Artes e Cinema Digital',
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 67.54,
@@ -136,7 +136,7 @@ export const studentsMock: Student[] = [
   {
     cod_pessoa: '254387',
     nome_aluno: 'Miguel Andrade',
-    matricula: 'CTeSP em Desenvolvimento Web',
+    matricula: 'Licenciatura em Artes e Cinema Digital',
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 62.33,
@@ -144,7 +144,7 @@ export const studentsMock: Student[] = [
   {
     cod_pessoa: '321456',
     nome_aluno: 'Sofia Rodrigues',
-    matricula: 'Mestrado em Educação',
+    matricula: 'Licenciatura em Artes e Cinema Digital',
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 58.90,
@@ -152,7 +152,7 @@ export const studentsMock: Student[] = [
   {
     cod_pessoa: '176543',
     nome_aluno: 'André Martins',
-    matricula: 'Licenciatura em Comunicação',
+    matricula: 'Licenciatura em Artes e Cinema Digital',
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 52.15,
@@ -160,7 +160,7 @@ export const studentsMock: Student[] = [
   {
     cod_pessoa: '287654',
     nome_aluno: 'Beatriz Nunes',
-    matricula: 'Licenciatura em Contabilidade',
+    matricula: 'Licenciatura em Artes e Cinema Digital',
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 47.82,
@@ -168,7 +168,7 @@ export const studentsMock: Student[] = [
   {
     cod_pessoa: '312876',
     nome_aluno: 'Carlos Lopes',
-    matricula: 'CTeSP em Redes e Sistemas',
+    matricula: 'Licenciatura em Artes e Cinema Digital',
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 42.18,

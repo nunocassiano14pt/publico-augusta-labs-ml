@@ -26,8 +26,8 @@ const Statistics = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [activeLevel, setActiveLevel] = useState('course-unit');
   const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
-  const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
-  const [selectedSchool, setSelectedSchool] = useState<string | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<string | null>('c1'); // Default to Artes e Cinema Digital
+  const [selectedSchool, setSelectedSchool] = useState<string | null>('s1'); // Default to Escola Superior de Educação
   
   const handleExportCSV = () => {
     alert("Exportação de CSV (funcionalidade de demonstração)");
@@ -55,6 +55,10 @@ const Statistics = () => {
     setActiveLevel('school');
     // Here we would filter schools by the institution ID
   };
+  
+  // Get the filtered units based on selected course
+  const selectedCourseData = coursesMock.find(course => course.id === selectedCourse);
+  const filteredUnits = selectedCourseData?.units || courseUnitsMock;
   
   return (
     <Layout>
@@ -86,7 +90,7 @@ const Statistics = () => {
               <ByUserTab 
                 activeLevel={activeLevel}
                 onLevelChange={setActiveLevel}
-                units={courseUnitsMock}
+                units={filteredUnits}
                 selectedUnit={selectedUnit}
                 courses={coursesMock}
                 selectedCourse={selectedCourse}

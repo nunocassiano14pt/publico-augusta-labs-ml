@@ -70,6 +70,10 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
   onInstitutionClick,
   onExportCSV
 }) => {
+  // Find the selected course name to pass to CourseUnitView
+  const selectedCourseData = selectedCourse ? courses.find(course => course.id === selectedCourse) : null;
+  const courseName = selectedCourseData?.name || "Artes e Cinema Digital";
+  
   return (
     <div className="space-y-6">
       <div className="mb-6">
@@ -90,6 +94,7 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
           onUnitClick={onUnitClick}
           onExportCSV={onExportCSV}
           onBack={onBackToUnits}
+          courseName={courseName}
         />
       )}
       
@@ -100,6 +105,7 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
           positiveFactorsData={positiveFactorsData}
           negativeFactorsData={negativeFactorsData}
           onCourseClick={onCourseClick}
+          schoolName={selectedSchool ? schools.find(school => school.id === selectedSchool)?.name : undefined}
         />
       )}
       
@@ -110,6 +116,8 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
           positiveFactorsData={positiveFactorsData}
           negativeFactorsData={negativeFactorsData}
           onSchoolClick={onSchoolClick}
+          schoolName={selectedSchool ? schools.find(school => school.id === selectedSchool)?.name : undefined}
+          selectedSchool={selectedSchool}
         />
       )}
       

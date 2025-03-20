@@ -20,6 +20,7 @@ export interface Student {
   ano_letivo: string;
   data_extracao: string;
   churn: number;
+  courseUnitIds?: string[]; // Added this property
 }
 
 export type FeatureImpact = {
@@ -74,6 +75,7 @@ export interface CourseUnit {
   name: string;
   risk: number;
   studentCount: number;
+  courseId?: string; // Added this property
 }
 
 export interface Course {
@@ -83,6 +85,8 @@ export interface Course {
   unitCount: number;
   studentCount: number;
   units?: CourseUnit[]; // Relação com unidades curriculares
+  schoolId?: string; // Added this property
+  type?: string; // Added this property - can be 'licenciatura', 'ctesp', 'mestrado'
 }
 
 export interface School {
@@ -92,6 +96,7 @@ export interface School {
   courseCount: number;
   studentCount: number;
   courses?: Course[]; // Relação com cursos
+  institutionId?: string; // Added this property
 }
 
 export interface Institution {
@@ -102,3 +107,4 @@ export interface Institution {
   studentCount: number;
   schools?: School[]; // Relação com escolas
 }
+

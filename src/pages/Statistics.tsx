@@ -94,7 +94,8 @@ const Statistics = () => {
     : courseUnitsMock;
   
   const filteredStudents = selectedUnit
-    ? studentsMock.filter(student => student.courseUnitIds?.includes(selectedUnit))
+    ? studentsMock.filter(student => 
+        student.courseUnitIds && student.courseUnitIds.includes(selectedUnit))
     : [];
   
   return (

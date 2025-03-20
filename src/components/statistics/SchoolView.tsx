@@ -23,6 +23,10 @@ const SchoolView: React.FC<SchoolViewProps> = ({
 }) => {
   return (
     <div>
+      <h2 className="text-xl font-semibold mb-4">
+        {institutionName ? `Escolas de ${institutionName}` : "Estatísticas por Escola"}
+      </h2>
+      
       <div className="mb-6">
         <div className="overflow-hidden rounded-lg border border-gray-200">
           <table className="data-table">

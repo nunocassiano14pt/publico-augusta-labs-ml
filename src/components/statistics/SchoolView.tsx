@@ -1,9 +1,8 @@
 
 import React from 'react';
 import RiskDetailGraphs from './RiskDetailGraphs';
-import { School, RiskDistribution, FactorFrequency, Course } from '../../types';
+import { School, RiskDistribution, FactorFrequency } from '../../types';
 import { ArrowDown } from 'lucide-react';
-import CourseView from './CourseView';
 
 interface SchoolViewProps {
   schools: School[];
@@ -11,8 +10,7 @@ interface SchoolViewProps {
   positiveFactorsData: FactorFrequency[];
   negativeFactorsData: FactorFrequency[];
   onSchoolClick: (schoolId: string) => void;
-  schoolName?: string;
-  selectedSchool?: string | null;
+  institutionName?: string;
 }
 
 const SchoolView: React.FC<SchoolViewProps> = ({
@@ -21,32 +19,10 @@ const SchoolView: React.FC<SchoolViewProps> = ({
   positiveFactorsData,
   negativeFactorsData,
   onSchoolClick,
-  schoolName,
-  selectedSchool
+  institutionName
 }) => {
-  // Find the selected school and its courses
-  const selectedSchoolData = selectedSchool ? schools.find(school => school.id === selectedSchool) : null;
-  const schoolCourses = selectedSchoolData?.courses || [];
-  
-  if (selectedSchool && selectedSchoolData) {
-    return (
-      <CourseView 
-        courses={schoolCourses}
-        riskDistributionData={riskDistributionData}
-        positiveFactorsData={positiveFactorsData}
-        negativeFactorsData={negativeFactorsData}
-        onCourseClick={onSchoolClick} // Reusing the onSchoolClick function for course clicks
-        schoolName={selectedSchoolData.name}
-      />
-    );
-  }
-  
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">
-        {schoolName ? `Escolas de ${schoolName}` : "Estatísticas por Escola"}
-      </h2>
-      
       <div className="mb-6">
         <div className="overflow-hidden rounded-lg border border-gray-200">
           <table className="data-table">

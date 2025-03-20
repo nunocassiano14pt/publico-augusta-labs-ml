@@ -11,6 +11,7 @@ interface CourseViewProps {
   negativeFactorsData: FactorFrequency[];
   onCourseClick: (courseId: string) => void;
   schoolName?: string;
+  courseTypeName?: string;
 }
 
 const CourseView: React.FC<CourseViewProps> = ({
@@ -19,12 +20,17 @@ const CourseView: React.FC<CourseViewProps> = ({
   positiveFactorsData,
   negativeFactorsData,
   onCourseClick,
-  schoolName
+  schoolName,
+  courseTypeName
 }) => {
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4">
-        {schoolName ? `Cursos de ${schoolName}` : "Estatísticas por Curso"}
+        {schoolName && courseTypeName 
+          ? `${courseTypeName} de ${schoolName}` 
+          : schoolName 
+            ? `Cursos de ${schoolName}` 
+            : "Estatísticas por Curso"}
       </h2>
       
       <div className="mb-6">

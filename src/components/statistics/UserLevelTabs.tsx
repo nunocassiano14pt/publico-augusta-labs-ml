@@ -1,26 +1,27 @@
 
 import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface UserLevelTabsProps {
-  activeLevel: string;
-  onLevelChange: (level: string) => void;
+  level: string;
+  onBackClick?: () => void;
+  parent?: string;
 }
 
-const UserLevelTabs: React.FC<UserLevelTabsProps> = ({ activeLevel, onLevelChange }) => {
+const UserLevelTabs: React.FC<UserLevelTabsProps> = ({ level, onBackClick, parent }) => {
   return (
-    <Tabs 
-      defaultValue={activeLevel} 
-      className="w-full" 
-      onValueChange={onLevelChange}
-    >
-      <TabsList className="w-full">
-        <TabsTrigger value="course-unit" className="flex-1">Unidade Curricular</TabsTrigger>
-        <TabsTrigger value="course" className="flex-1">Curso</TabsTrigger>
-        <TabsTrigger value="school" className="flex-1">Escola</TabsTrigger>
-        <TabsTrigger value="institution" className="flex-1">Instituição</TabsTrigger>
-      </TabsList>
-    </Tabs>
+    <div className="flex items-center mb-4">
+      {onBackClick && (
+        <button 
+          onClick={onBackClick}
+          className="text-blue-600 hover:text-blue-800 mr-2 text-sm"
+        >
+          &larr; Voltar para {parent}
+        </button>
+      )}
+      <h2 className="text-xl font-semibold">
+        {level}
+      </h2>
+    </div>
   );
 };
 

@@ -4,8 +4,6 @@ import Layout from '../components/layout/Layout';
 import PageTitle from '../components/common/PageTitle';
 import Breadcrumb from '../components/common/Breadcrumb';
 import StatisticsTabs from '../components/statistics/StatisticsTabs';
-import { TabsContent } from "@/components/ui/tabs";
-import { useNavigate } from 'react-router-dom';
 import { studentsMock } from '../data/mockData';
 import OverviewTab from '../components/statistics/OverviewTab';
 import ByUserTab from '../components/statistics/ByUserTab';
@@ -22,43 +20,82 @@ import {
 } from '../data/statisticsMockData';
 
 const Statistics = () => {
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
-  const [activeLevel, setActiveLevel] = useState('course-unit');
+  
+  // Navigation state
+  const [selectedInstitution, setSelectedInstitution] = useState<string | null>(null);
+  const [selectedSchool, setSelectedSchool] = useState<string | null>(null);
+  const [selectedCourseType, setSelectedCourseType] = useState<string | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
   const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
-  const [selectedCourse, setSelectedCourse] = useState<string | null>('c1'); // Default to Artes e Cinema Digital
-  const [selectedSchool, setSelectedSchool] = useState<string | null>('s1'); // Default to Escola Superior de Educação
   
   const handleExportCSV = () => {
     alert("Exportação de CSV (funcionalidade de demonstração)");
   };
   
-  const handleUnitClick = (unitId: string) => {
-    setSelectedUnit(unitId);
-    // In a real app, we would filter students by the unit ID
-    // For demo purposes, we'll just set the state to show the "details view"
-  };
-
-  const handleCourseClick = (courseId: string) => {
-    setSelectedCourse(courseId);
-    setActiveLevel('course-unit');
-    // Here we would filter units by the course ID
-  };
-
-  const handleSchoolClick = (schoolId: string) => {
-    setSelectedSchool(schoolId);
-    setActiveLevel('course');
-    // Here we would filter courses by the school ID
-  };
-
+  // Handle navigation clicks
   const handleInstitutionClick = (institutionId: string) => {
-    setActiveLevel('school');
-    // Here we would filter schools by the institution ID
+    setSelectedInstitution(institutionId);
+    setSelectedSchool(null);
+    setSelectedCourseType(null);
+    setSelectedCourse(null);
+    setSelectedUnit(null);
   };
   
-  // Get the filtered units based on selected course
-  const selectedCourseData = coursesMock.find(course => course.id === selectedCourse);
-  const filteredUnits = selectedCourseData?.units || courseUnitsMock;
+  const handleSchoolClick = (schoolId: string) => {
+    setSelectedSchool(schoolId);
+    setSelectedCourseType(null);
+    setSelectedCourse(null);
+    setSelectedUnit(null);
+  };
+  
+  const handleCourseTypeClick = (courseType: string) => {
+    setSelectedCourseType(courseType);
+    setSelectedCourse(null);
+    setSelectedUnit(null);
+  };
+  
+  const handleCourseClick = (courseId: string) => {
+    setSelectedCourse(courseId);
+    setSelectedUnit(null);
+  };
+  
+  const handleUnitClick = (unitId: string) => {
+    setSelectedUnit(unitId);
+  };
+  
+  const handleBackClick = () => {
+    // Determine which level to go back to
+    if (selectedUnit) {
+      setSelectedUnit(null);
+    } else if (selectedCourse) {
+      setSelectedCourse(null);
+    } else if (selectedCourseType) {
+      setSelectedCourseType(null);
+    } else if (selectedSchool) {
+      setSelectedSchool(null);
+    } else if (selectedInstitution) {
+      setSelectedInstitution(null);
+    }
+  };
+  
+  // Filter data based on selections
+  const filteredSchools = selectedInstitution
+    ? schoolsMock.filter(school => school.institutionId === selectedInstitution)
+    : schoolsMock;
+  
+  const filteredCourses = selectedSchool && selectedCourseType
+    ? coursesMock.filter(course => 
+        course.schoolId === selectedSchool && course.type === selectedCourseType)
+    : coursesMock;
+  
+  const filteredUnits = selectedCourse
+    ? courseUnitsMock.filter(unit => unit.courseId === selectedCourse)
+    : courseUnitsMock;
+  
+  const filteredStudents = selectedUnit
+    ? studentsMock.filter(student => student.courseUnitIds?.includes(selectedUnit))
+    : [];
   
   return (
     <Layout>
@@ -88,24 +125,25 @@ const Statistics = () => {
             
             {activeTab === 'by-user' && (
               <ByUserTab 
-                activeLevel={activeLevel}
-                onLevelChange={setActiveLevel}
+                institutions={institutionsMock}
+                selectedInstitution={selectedInstitution}
+                schools={filteredSchools}
+                selectedSchool={selectedSchool}
+                selectedCourseType={selectedCourseType}
+                courses={filteredCourses}
+                selectedCourse={selectedCourse}
                 units={filteredUnits}
                 selectedUnit={selectedUnit}
-                courses={coursesMock}
-                selectedCourse={selectedCourse}
-                schools={schoolsMock}
-                selectedSchool={selectedSchool}
-                institutions={institutionsMock}
                 riskDistributionData={riskDistributionMock}
                 positiveFactorsData={positiveFactorsMock}
                 negativeFactorsData={negativeFactorsMock}
-                students={studentsMock.slice(0, 10)}
-                onUnitClick={handleUnitClick}
-                onBackToUnits={() => setSelectedUnit(null)}
-                onCourseClick={handleCourseClick}
-                onSchoolClick={handleSchoolClick}
+                students={filteredStudents}
                 onInstitutionClick={handleInstitutionClick}
+                onSchoolClick={handleSchoolClick}
+                onCourseTypeClick={handleCourseTypeClick}
+                onCourseClick={handleCourseClick}
+                onUnitClick={handleUnitClick}
+                onBackClick={handleBackClick}
                 onExportCSV={handleExportCSV}
               />
             )}

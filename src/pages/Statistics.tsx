@@ -20,7 +20,7 @@ import {
 } from '../data/statisticsMockData';
 
 const Statistics = () => {
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('by-user');
   
   // Navigation state
   const [selectedInstitution, setSelectedInstitution] = useState<string | null>(null);
@@ -93,8 +93,25 @@ const Statistics = () => {
     ? courseUnitsMock.filter(unit => unit.courseId === selectedCourse)
     : courseUnitsMock;
   
+  // Ensure students have courseUnitIds assigned
+  const enhancedStudents = studentsMock.map(student => {
+    if (!student.courseUnitIds) {
+      // Assign random course unit IDs if they don't exist
+      const randomUnitIds = courseUnitsMock
+        .sort(() => 0.5 - Math.random())
+        .slice(0, Math.floor(Math.random() * 3) + 1)
+        .map(unit => unit.id);
+      
+      return {
+        ...student,
+        courseUnitIds: randomUnitIds
+      };
+    }
+    return student;
+  });
+  
   const filteredStudents = selectedUnit
-    ? studentsMock.filter(student => 
+    ? enhancedStudents.filter(student => 
         student.courseUnitIds && student.courseUnitIds.includes(selectedUnit))
     : [];
   
@@ -138,6 +155,7 @@ const Statistics = () => {
                 riskDistributionData={riskDistributionMock}
                 positiveFactorsData={positiveFactorsMock}
                 negativeFactorsData={negativeFactorsMock}
+                predictionComparisonData={predictionComparisonMock}
                 students={filteredStudents}
                 onInstitutionClick={handleInstitutionClick}
                 onSchoolClick={handleSchoolClick}

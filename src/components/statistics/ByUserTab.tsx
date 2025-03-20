@@ -5,6 +5,7 @@ import CourseUnitView from './CourseUnitView';
 import CourseView from './CourseView';
 import SchoolView from './SchoolView';
 import InstitutionView from './InstitutionView';
+import PredictionComparisonChart from './PredictionComparisonChart';
 import { 
   CourseUnit, 
   Course, 
@@ -12,7 +13,8 @@ import {
   Institution, 
   RiskDistribution, 
   FactorFrequency,
-  Student
+  Student,
+  PredictionComparison
 } from '../../types';
 
 interface ByUserTabProps {
@@ -47,6 +49,7 @@ interface ByUserTabProps {
   riskDistributionData: RiskDistribution[];
   positiveFactorsData: FactorFrequency[];
   negativeFactorsData: FactorFrequency[];
+  predictionComparisonData: PredictionComparison[];
   
   // Students for selected unit
   students: Student[];
@@ -66,6 +69,7 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
   riskDistributionData,
   positiveFactorsData,
   negativeFactorsData,
+  predictionComparisonData,
   students,
   onInstitutionClick,
   onSchoolClick,
@@ -144,27 +148,38 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
           parent="Escolas"
         />
         <div className="mb-6">
-          <div className="overflow-hidden rounded-lg border border-gray-200">
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Descrição</th>
-                </tr>
-              </thead>
-              <tbody>
-                {courseTypes.map((type) => (
-                  <tr 
-                    key={type.id} 
-                    className="animate-fadeIn cursor-pointer hover:bg-gray-50"
-                    onClick={() => onCourseTypeClick(type.id)}
-                  >
-                    <td>{type.name}</td>
-                    <td>{type.description}</td>
+          <h2 className="text-xl font-semibold mb-4">
+            Tipos de Curso em {selectedSchoolData?.name || 'Escola'}
+          </h2>
+          
+          <div className="mb-6">
+            <div className="overflow-hidden rounded-lg border border-gray-200">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {courseTypes.map((type) => (
+                    <tr 
+                      key={type.id} 
+                      className="animate-fadeIn cursor-pointer hover:bg-gray-50"
+                      onClick={() => onCourseTypeClick(type.id)}
+                    >
+                      <td>{type.name}</td>
+                      <td>{type.description}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div className="mt-8">
+            <h3 className="text-lg font-medium mb-4">Comparação de Previsões por Tipo de Curso</h3>
+            <PredictionComparisonChart data={predictionComparisonData} />
           </div>
         </div>
       </div>
@@ -193,6 +208,7 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
           riskDistributionData={riskDistributionData}
           positiveFactorsData={positiveFactorsData}
           negativeFactorsData={negativeFactorsData}
+          predictionComparisonData={predictionComparisonData}
           onCourseClick={onCourseClick}
           schoolName={selectedSchoolData?.name}
           courseTypeName={courseTypeName}

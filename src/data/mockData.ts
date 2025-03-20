@@ -83,6 +83,7 @@ export const studentsMock: Student[] = [
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 87.5,
+    courseUnitIds: ['UC001', 'UC002', 'UC003']
   },
   {
     cod_pessoa: '330041',
@@ -91,6 +92,7 @@ export const studentsMock: Student[] = [
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 72.4,
+    courseUnitIds: ['UC001', 'UC004', 'UC005']
   },
   {
     cod_pessoa: '263480',
@@ -99,6 +101,7 @@ export const studentsMock: Student[] = [
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 58.7,
+    courseUnitIds: ['UC002', 'UC004', 'UC006']
   },
   {
     cod_pessoa: '344035',
@@ -107,6 +110,7 @@ export const studentsMock: Student[] = [
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 73.9,
+    courseUnitIds: ['UC007', 'UC008', 'UC009']
   },
   {
     cod_pessoa: '295719',
@@ -115,6 +119,7 @@ export const studentsMock: Student[] = [
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 81.3,
+    courseUnitIds: ['UC007', 'UC010', 'UC011']
   },
   {
     cod_pessoa: '206340',
@@ -123,6 +128,7 @@ export const studentsMock: Student[] = [
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 65.8,
+    courseUnitIds: ['UC012', 'UC013', 'UC014']
   },
   {
     cod_pessoa: '189756',
@@ -131,6 +137,7 @@ export const studentsMock: Student[] = [
     ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 52.3,
+    courseUnitIds: ['UC012', 'UC015', 'UC016']
   },
   {
     cod_pessoa: '254387',
@@ -458,3 +465,7 @@ export const availableVariables = [
   'trabalhador_estudante',
   'media_entrada'
 ];
+
+
+
+

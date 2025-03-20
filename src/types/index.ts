@@ -107,4 +107,3 @@ export interface Institution {
   studentCount: number;
   schools?: School[]; // Relação com escolas
 }
-

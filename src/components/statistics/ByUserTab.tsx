@@ -6,6 +6,7 @@ import CourseView from './CourseView';
 import SchoolView from './SchoolView';
 import InstitutionView from './InstitutionView';
 import CourseTypeView from './CourseTypeView';
+import AcademicYearView from './AcademicYearView';
 import { 
   CourseUnit, 
   Course, 
@@ -14,7 +15,8 @@ import {
   RiskDistribution, 
   FactorFrequency,
   Student,
-  PredictionComparison
+  PredictionComparison,
+  AcademicYear
 } from '../../types';
 
 interface ByUserTabProps {
@@ -36,6 +38,11 @@ interface ByUserTabProps {
   courses: Course[];
   selectedCourse: string | null;
   onCourseClick: (courseId: string) => void;
+  
+  // Academic Year Level
+  academicYears: AcademicYear[];
+  selectedAcademicYear: number | null;
+  onAcademicYearClick: (year: number) => void;
   
   // Course Unit Level
   units: CourseUnit[];
@@ -64,6 +71,8 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
   selectedCourseType,
   courses,
   selectedCourse,
+  academicYears,
+  selectedAcademicYear,
   units,
   selectedUnit,
   riskDistributionData,
@@ -75,6 +84,7 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
   onSchoolClick,
   onCourseTypeClick,
   onCourseClick,
+  onAcademicYearClick,
   onUnitClick,
   onBackClick,
   onExportCSV
@@ -173,8 +183,23 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
       );
     }
     
-    // 5. Show Course Units within the selected Course
-    if (selectedCourse && !selectedUnit) {
+    // 5. Show Academic Years within the selected Course
+    if (selectedCourse && !selectedAcademicYear) {
+      return (
+        <AcademicYearView 
+          academicYears={academicYears}
+          riskDistributionData={riskDistributionData}
+          positiveFactorsData={positiveFactorsData}
+          negativeFactorsData={negativeFactorsData}
+          predictionComparisonData={predictionComparisonData}
+          onAcademicYearClick={onAcademicYearClick}
+          courseName={selectedCourseData?.name}
+        />
+      );
+    }
+    
+    // 6. Show Course Units within the selected Academic Year
+    if (selectedAcademicYear && !selectedUnit) {
       return (
         <CourseUnitView 
           units={units}
@@ -188,11 +213,12 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
           onExportCSV={onExportCSV}
           onBack={() => {}}
           courseName={selectedCourseData?.name}
+          academicYear={selectedAcademicYear}
         />
       );
     }
     
-    // 6. Show Students for the selected Course Unit
+    // 7. Show Students for the selected Course Unit
     if (selectedUnit) {
       return (
         <CourseUnitView 
@@ -207,6 +233,7 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
           onExportCSV={onExportCSV}
           onBack={onBackClick}
           courseName={selectedCourseData?.name}
+          academicYear={selectedAcademicYear}
         />
       );
     }
@@ -222,8 +249,11 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
     if (selectedUnit) {
       return `Alunos - ${selectedUnitData?.name || 'Unidade Curricular'}`;
     } 
+    if (selectedAcademicYear) {
+      return `Unidades Curriculares - ${selectedAcademicYear}º Ano - ${selectedCourseData?.name || 'Curso'}`;
+    }
     if (selectedCourse) {
-      return `Unidades Curriculares - ${selectedCourseData?.name || 'Curso'}`;
+      return `Anos Letivos - ${selectedCourseData?.name || 'Curso'}`;
     }
     if (selectedCourseType) {
       const courseTypeNames: {[key: string]: string} = {
@@ -247,6 +277,9 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
   const getParentLevel = () => {
     if (selectedUnit) {
       return "Unidades Curriculares";
+    }
+    if (selectedAcademicYear) {
+      return "Anos Letivos";
     }
     if (selectedCourse) {
       return "Cursos";

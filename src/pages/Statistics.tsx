@@ -7,6 +7,7 @@ import StatisticsTabs from '../components/statistics/StatisticsTabs';
 import { studentsMock } from '../data/mockData';
 import ByUserTab from '../components/statistics/ByUserTab';
 import { useStatisticsNavigation } from '../hooks/useStatisticsNavigation';
+import { AcademicYear } from '../types';
 
 import { 
   predictionComparisonMock,
@@ -22,7 +23,7 @@ import {
 const Statistics = () => {
   const [activeTab, setActiveTab] = useState('by-user');
   
-  // Use the new navigation hook
+  // Use the navigation hook
   const navigation = useStatisticsNavigation();
   
   const handleExportCSV = () => {
@@ -39,9 +40,65 @@ const Statistics = () => {
         course.schoolId === navigation.selectedSchool && course.type === navigation.selectedCourseType)
     : coursesMock;
   
-  const filteredUnits = navigation.selectedCourse
-    ? courseUnitsMock.filter(unit => unit.courseId === navigation.selectedCourse)
-    : courseUnitsMock;
+  // Assign academic years to courses if not already present
+  const coursesWithAcademicYears = filteredCourses.map(course => {
+    if (!course.academicYears) {
+      // For licenciaturas: 3 years, mestrados: 2 years, ctesp: 2 years
+      let yearCount = 3;
+      if (course.type === 'mestrado' || course.type === 'ctesp') {
+        yearCount = 2;
+      }
+      
+      course.academicYears = Array.from({ length: yearCount }, (_, i) => i + 1);
+    }
+    return course;
+  });
+  
+  // Generate academic year data for the selected course
+  const academicYearsData: AcademicYear[] = [];
+  
+  if (navigation.selectedCourse) {
+    const selectedCourse = coursesWithAcademicYears.find(course => course.id === navigation.selectedCourse);
+    
+    if (selectedCourse && selectedCourse.academicYears) {
+      selectedCourse.academicYears.forEach(year => {
+        // Calculate how many units belong to this year
+        const yearUnits = courseUnitsMock.filter(unit => 
+          unit.courseId === navigation.selectedCourse && 
+          (!unit.academicYear || unit.academicYear === year)
+        );
+        
+        // Assign academic year to units if not already assigned
+        yearUnits.forEach(unit => {
+          if (!unit.academicYear) {
+            unit.academicYear = year;
+          }
+        });
+        
+        // Calculate risk based on unit risks
+        const totalRisk = yearUnits.reduce((sum, unit) => sum + unit.risk, 0);
+        const avgRisk = yearUnits.length > 0 ? totalRisk / yearUnits.length : 0;
+        
+        academicYearsData.push({
+          id: `${navigation.selectedCourse}-year-${year}`,
+          year: year,
+          courseId: navigation.selectedCourse,
+          risk: avgRisk,
+          unitCount: yearUnits.length,
+          studentCount: Math.floor(Math.random() * 50) + 30 // Random number of students per year
+        });
+      });
+    }
+  }
+  
+  // Filter units by the selected academic year
+  const filteredUnits = navigation.selectedCourse && navigation.selectedAcademicYear
+    ? courseUnitsMock.filter(unit => 
+        unit.courseId === navigation.selectedCourse && 
+        unit.academicYear === navigation.selectedAcademicYear)
+    : navigation.selectedCourse 
+      ? courseUnitsMock.filter(unit => unit.courseId === navigation.selectedCourse)
+      : courseUnitsMock;
 
   // Get all course unit IDs
   const allUnitIds = courseUnitsMock.map(unit => unit.id);
@@ -126,8 +183,10 @@ const Statistics = () => {
               schools={filteredSchools}
               selectedSchool={navigation.selectedSchool}
               selectedCourseType={navigation.selectedCourseType}
-              courses={filteredCourses}
+              courses={coursesWithAcademicYears}
               selectedCourse={navigation.selectedCourse}
+              academicYears={academicYearsData}
+              selectedAcademicYear={navigation.selectedAcademicYear}
               units={filteredUnits}
               selectedUnit={navigation.selectedUnit}
               riskDistributionData={riskDistributionMock}
@@ -139,6 +198,7 @@ const Statistics = () => {
               onSchoolClick={navigation.handleSchoolClick}
               onCourseTypeClick={navigation.handleCourseTypeClick}
               onCourseClick={navigation.handleCourseClick}
+              onAcademicYearClick={navigation.handleAcademicYearClick}
               onUnitClick={navigation.handleUnitClick}
               onBackClick={navigation.handleBackClick}
               onExportCSV={handleExportCSV}

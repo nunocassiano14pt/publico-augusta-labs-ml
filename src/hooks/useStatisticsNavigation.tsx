@@ -6,6 +6,7 @@ export function useStatisticsNavigation() {
   const [selectedSchool, setSelectedSchool] = useState<string | null>(null);
   const [selectedCourseType, setSelectedCourseType] = useState<string | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
+  const [selectedAcademicYear, setSelectedAcademicYear] = useState<number | null>(null);
   const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
 
   const handleInstitutionClick = (institutionId: string) => {
@@ -13,6 +14,7 @@ export function useStatisticsNavigation() {
     setSelectedSchool(null);
     setSelectedCourseType(null);
     setSelectedCourse(null);
+    setSelectedAcademicYear(null);
     setSelectedUnit(null);
   };
   
@@ -20,17 +22,25 @@ export function useStatisticsNavigation() {
     setSelectedSchool(schoolId);
     setSelectedCourseType(null);
     setSelectedCourse(null);
+    setSelectedAcademicYear(null);
     setSelectedUnit(null);
   };
   
   const handleCourseTypeClick = (courseType: string) => {
     setSelectedCourseType(courseType);
     setSelectedCourse(null);
+    setSelectedAcademicYear(null);
     setSelectedUnit(null);
   };
   
   const handleCourseClick = (courseId: string) => {
     setSelectedCourse(courseId);
+    setSelectedAcademicYear(null);
+    setSelectedUnit(null);
+  };
+  
+  const handleAcademicYearClick = (year: number) => {
+    setSelectedAcademicYear(year);
     setSelectedUnit(null);
   };
   
@@ -42,6 +52,8 @@ export function useStatisticsNavigation() {
     // Determine which level to go back to
     if (selectedUnit) {
       setSelectedUnit(null);
+    } else if (selectedAcademicYear) {
+      setSelectedAcademicYear(null);
     } else if (selectedCourse) {
       setSelectedCourse(null);
     } else if (selectedCourseType) {
@@ -58,11 +70,13 @@ export function useStatisticsNavigation() {
     selectedSchool,
     selectedCourseType,
     selectedCourse,
+    selectedAcademicYear,
     selectedUnit,
     handleInstitutionClick,
     handleSchoolClick,
     handleCourseTypeClick,
     handleCourseClick,
+    handleAcademicYearClick,
     handleUnitClick,
     handleBackClick
   };

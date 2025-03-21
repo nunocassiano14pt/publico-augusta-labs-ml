@@ -18,6 +18,7 @@ interface CourseUnitViewProps {
   onExportCSV: () => void;
   onBack: () => void;
   courseName?: string;
+  academicYear?: number | null;
 }
 
 const CourseUnitView: React.FC<CourseUnitViewProps> = ({
@@ -31,14 +32,18 @@ const CourseUnitView: React.FC<CourseUnitViewProps> = ({
   onUnitClick,
   onExportCSV,
   onBack,
-  courseName
+  courseName,
+  academicYear
 }) => {
   const selectedUnitData = units.find(unit => unit.id === selectedUnit);
+  const academicYearText = academicYear ? `${academicYear}º Ano - ` : '';
 
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4">
-        {courseName ? `Estatísticas do Curso: ${courseName}` : "Estatísticas por Unidade Curricular"}
+        {courseName 
+          ? `Estatísticas do ${academicYearText}${courseName}` 
+          : "Estatísticas por Unidade Curricular"}
       </h2>
       
       {selectedUnit ? (
@@ -52,7 +57,8 @@ const CourseUnitView: React.FC<CourseUnitViewProps> = ({
             </button>
             <h3 className="text-lg font-medium">
               Alunos da Unidade Curricular: {selectedUnitData?.name || selectedUnit}
-              {courseName && ` (${courseName})`}
+              {courseName && academicYear && ` (${academicYear}º Ano - ${courseName})`}
+              {courseName && !academicYear && ` (${courseName})`}
             </h3>
           </div>
           

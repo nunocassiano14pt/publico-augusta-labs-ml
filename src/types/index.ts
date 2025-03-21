@@ -75,7 +75,17 @@ export interface CourseUnit {
   name: string;
   risk: number;
   studentCount: number;
-  courseId?: string; // Added this property
+  courseId?: string;
+  academicYear?: number; // Added academic year property
+}
+
+export interface AcademicYear {
+  id: string;
+  year: number;
+  courseId: string;
+  risk: number;
+  unitCount: number;
+  studentCount: number;
 }
 
 export interface Course {
@@ -84,9 +94,10 @@ export interface Course {
   risk: number;
   unitCount: number;
   studentCount: number;
-  units?: CourseUnit[]; // Relação com unidades curriculares
-  schoolId?: string; // Added this property
-  type?: string; // Added this property - can be 'licenciatura', 'ctesp', 'mestrado'
+  units?: CourseUnit[];
+  schoolId?: string;
+  type?: string;
+  academicYears?: number[]; // Added academic years array
 }
 
 export interface School {
@@ -95,8 +106,8 @@ export interface School {
   risk: number;
   courseCount: number;
   studentCount: number;
-  courses?: Course[]; // Relação com cursos
-  institutionId?: string; // Added this property
+  courses?: Course[];
+  institutionId?: string;
 }
 
 export interface Institution {
@@ -105,5 +116,5 @@ export interface Institution {
   risk: number;
   schoolCount: number;
   studentCount: number;
-  schools?: School[]; // Relação com escolas
+  schools?: School[];
 }

@@ -6,6 +6,7 @@ import Breadcrumb from '../components/common/Breadcrumb';
 import StatisticsTabs from '../components/statistics/StatisticsTabs';
 import { studentsMock } from '../data/mockData';
 import ByUserTab from '../components/statistics/ByUserTab';
+import { useStatisticsNavigation } from '../hooks/useStatisticsNavigation';
 
 import { 
   predictionComparisonMock,
@@ -21,75 +22,25 @@ import {
 const Statistics = () => {
   const [activeTab, setActiveTab] = useState('by-user');
   
-  // Navigation state
-  const [selectedInstitution, setSelectedInstitution] = useState<string | null>(null);
-  const [selectedSchool, setSelectedSchool] = useState<string | null>(null);
-  const [selectedCourseType, setSelectedCourseType] = useState<string | null>(null);
-  const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
-  const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
+  // Use the new navigation hook
+  const navigation = useStatisticsNavigation();
   
   const handleExportCSV = () => {
     alert("Exportação de CSV (funcionalidade de demonstração)");
   };
   
-  // Handle navigation clicks
-  const handleInstitutionClick = (institutionId: string) => {
-    setSelectedInstitution(institutionId);
-    setSelectedSchool(null);
-    setSelectedCourseType(null);
-    setSelectedCourse(null);
-    setSelectedUnit(null);
-  };
-  
-  const handleSchoolClick = (schoolId: string) => {
-    setSelectedSchool(schoolId);
-    setSelectedCourseType(null);
-    setSelectedCourse(null);
-    setSelectedUnit(null);
-  };
-  
-  const handleCourseTypeClick = (courseType: string) => {
-    setSelectedCourseType(courseType);
-    setSelectedCourse(null);
-    setSelectedUnit(null);
-  };
-  
-  const handleCourseClick = (courseId: string) => {
-    setSelectedCourse(courseId);
-    setSelectedUnit(null);
-  };
-  
-  const handleUnitClick = (unitId: string) => {
-    setSelectedUnit(unitId);
-  };
-  
-  const handleBackClick = () => {
-    // Determine which level to go back to
-    if (selectedUnit) {
-      setSelectedUnit(null);
-    } else if (selectedCourse) {
-      setSelectedCourse(null);
-    } else if (selectedCourseType) {
-      setSelectedCourseType(null);
-    } else if (selectedSchool) {
-      setSelectedSchool(null);
-    } else if (selectedInstitution) {
-      setSelectedInstitution(null);
-    }
-  };
-  
   // Filter data based on selections
-  const filteredSchools = selectedInstitution
-    ? schoolsMock.filter(school => school.institutionId === selectedInstitution)
+  const filteredSchools = navigation.selectedInstitution
+    ? schoolsMock.filter(school => school.institutionId === navigation.selectedInstitution)
     : schoolsMock;
   
-  const filteredCourses = selectedSchool && selectedCourseType
+  const filteredCourses = navigation.selectedSchool && navigation.selectedCourseType
     ? coursesMock.filter(course => 
-        course.schoolId === selectedSchool && course.type === selectedCourseType)
+        course.schoolId === navigation.selectedSchool && course.type === navigation.selectedCourseType)
     : coursesMock;
   
-  const filteredUnits = selectedCourse
-    ? courseUnitsMock.filter(unit => unit.courseId === selectedCourse)
+  const filteredUnits = navigation.selectedCourse
+    ? courseUnitsMock.filter(unit => unit.courseId === navigation.selectedCourse)
     : courseUnitsMock;
 
   // Ensure all course units have associated students
@@ -122,9 +73,9 @@ const Statistics = () => {
   });
   
   // Filter students by the selected unit
-  const filteredStudents = selectedUnit
+  const filteredStudents = navigation.selectedUnit
     ? enhancedStudents.filter(student => 
-        student.courseUnitIds && student.courseUnitIds.includes(selectedUnit))
+        student.courseUnitIds && student.courseUnitIds.includes(navigation.selectedUnit))
     : [];
   
   return (
@@ -151,25 +102,25 @@ const Statistics = () => {
             
             <ByUserTab 
               institutions={institutionsMock}
-              selectedInstitution={selectedInstitution}
+              selectedInstitution={navigation.selectedInstitution}
               schools={filteredSchools}
-              selectedSchool={selectedSchool}
-              selectedCourseType={selectedCourseType}
+              selectedSchool={navigation.selectedSchool}
+              selectedCourseType={navigation.selectedCourseType}
               courses={filteredCourses}
-              selectedCourse={selectedCourse}
+              selectedCourse={navigation.selectedCourse}
               units={filteredUnits}
-              selectedUnit={selectedUnit}
+              selectedUnit={navigation.selectedUnit}
               riskDistributionData={riskDistributionMock}
               positiveFactorsData={positiveFactorsMock}
               negativeFactorsData={negativeFactorsMock}
               predictionComparisonData={predictionComparisonMock}
               students={filteredStudents}
-              onInstitutionClick={handleInstitutionClick}
-              onSchoolClick={handleSchoolClick}
-              onCourseTypeClick={handleCourseTypeClick}
-              onCourseClick={handleCourseClick}
-              onUnitClick={handleUnitClick}
-              onBackClick={handleBackClick}
+              onInstitutionClick={navigation.handleInstitutionClick}
+              onSchoolClick={navigation.handleSchoolClick}
+              onCourseTypeClick={navigation.handleCourseTypeClick}
+              onCourseClick={navigation.handleCourseClick}
+              onUnitClick={navigation.handleUnitClick}
+              onBackClick={navigation.handleBackClick}
               onExportCSV={handleExportCSV}
             />
           </div>

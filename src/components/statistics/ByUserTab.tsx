@@ -5,8 +5,7 @@ import CourseUnitView from './CourseUnitView';
 import CourseView from './CourseView';
 import SchoolView from './SchoolView';
 import InstitutionView from './InstitutionView';
-import PredictionComparisonChart from './PredictionComparisonChart';
-import RiskDetailGraphs from './RiskDetailGraphs';
+import CourseTypeView from './CourseTypeView';
 import { 
   CourseUnit, 
   Course, 
@@ -29,7 +28,7 @@ interface ByUserTabProps {
   selectedSchool: string | null;
   onSchoolClick: (schoolId: string) => void;
   
-  // Course Type Level (added)
+  // Course Type Level
   selectedCourseType: string | null;
   onCourseTypeClick: (courseType: string) => void;
   
@@ -93,11 +92,22 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
     ? courses.find(course => course.id === selectedCourse) 
     : null;
   
-  // 1. Show Institution view (top level)
-  if (!selectedInstitution) {
-    return (
-      <div className="space-y-6">
-        <UserLevelTabs level="Estatísticas por Instituição" />
+  const selectedUnitData = selectedUnit
+    ? units.find(unit => unit.id === selectedUnit)
+    : null;
+
+  // Define course types data
+  const courseTypes = [
+    { id: "licenciatura", name: "Licenciaturas", description: "Cursos de 1º ciclo" },
+    { id: "ctesp", name: "CTeSP", description: "Cursos Técnicos Superiores Profissionais" },
+    { id: "mestrado", name: "Mestrados", description: "Cursos de 2º ciclo" }
+  ];
+  
+  // Define the appropriate view based on the selected levels
+  const renderView = () => {
+    // 1. Show Institution view (top level)
+    if (!selectedInstitution) {
+      return (
         <InstitutionView 
           institutions={institutions}
           riskDistributionData={riskDistributionData}
@@ -106,19 +116,12 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
           predictionComparisonData={predictionComparisonData}
           onInstitutionClick={onInstitutionClick}
         />
-      </div>
-    );
-  }
-  
-  // 2. Show Schools within the selected Institution
-  if (selectedInstitution && !selectedSchool) {
-    return (
-      <div className="space-y-6">
-        <UserLevelTabs 
-          level={`Escolas de ${selectedInstitutionData?.name || 'Instituição'}`}
-          onBackClick={onBackClick}
-          parent="Instituições"
-        />
+      );
+    }
+    
+    // 2. Show Schools within the selected Institution
+    if (selectedInstitution && !selectedSchool) {
+      return (
         <SchoolView 
           schools={schools}
           riskDistributionData={riskDistributionData}
@@ -128,87 +131,35 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
           onSchoolClick={onSchoolClick}
           institutionName={selectedInstitutionData?.name}
         />
-      </div>
-    );
-  }
-  
-  // 3. Show Course Types within the selected School
-  if (selectedSchool && !selectedCourseType) {
-    const courseTypes = [
-      { id: "licenciatura", name: "Licenciaturas", description: "Cursos de 1º ciclo" },
-      { id: "ctesp", name: "CTeSP", description: "Cursos Técnicos Superiores Profissionais" },
-      { id: "mestrado", name: "Mestrados", description: "Cursos de 2º ciclo" }
-    ];
+      );
+    }
     
-    return (
-      <div className="space-y-6">
-        <UserLevelTabs 
-          level={`Tipos de Curso - ${selectedSchoolData?.name || 'Escola'}`}
-          onBackClick={onBackClick}
-          parent="Escolas"
+    // 3. Show Course Types within the selected School
+    if (selectedSchool && !selectedCourseType) {
+      return (
+        <CourseTypeView 
+          schoolName={selectedSchoolData?.name}
+          courseTypes={courseTypes}
+          riskDistributionData={riskDistributionData}
+          positiveFactorsData={positiveFactorsData}
+          negativeFactorsData={negativeFactorsData}
+          predictionComparisonData={predictionComparisonData}
+          onCourseTypeClick={onCourseTypeClick}
         />
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-4">
-            Tipos de Curso em {selectedSchoolData?.name || 'Escola'}
-          </h2>
-          
-          <div className="mb-6">
-            <div className="overflow-hidden rounded-lg border border-gray-200">
-              <table className="data-table">
-                <thead>
-                  <tr>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {courseTypes.map((type) => (
-                    <tr 
-                      key={type.id} 
-                      className="animate-fadeIn cursor-pointer hover:bg-gray-50"
-                      onClick={() => onCourseTypeClick(type.id)}
-                    >
-                      <td>{type.name}</td>
-                      <td>{type.description}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          
-          <div className="mt-8 mb-8">
-            <h3 className="text-lg font-medium mb-4">Comparação de Previsões por Tipo de Curso</h3>
-            <PredictionComparisonChart data={predictionComparisonData} />
-          </div>
-          
-          <RiskDetailGraphs 
-            riskDistributionData={riskDistributionData}
-            positiveFactorsData={positiveFactorsData}
-            negativeFactorsData={negativeFactorsData}
-          />
-        </div>
-      </div>
-    );
-  }
-  
-  // 4. Show Courses within the selected Course Type
-  if (selectedCourseType && !selectedCourse) {
-    const courseTypeNames = {
-      "licenciatura": "Licenciaturas",
-      "ctesp": "CTeSP",
-      "mestrado": "Mestrados"
-    };
+      );
+    }
     
-    const courseTypeName = selectedCourseType ? courseTypeNames[selectedCourseType as keyof typeof courseTypeNames] : "";
-    
-    return (
-      <div className="space-y-6">
-        <UserLevelTabs 
-          level={`${courseTypeName} - ${selectedSchoolData?.name || 'Escola'}`}
-          onBackClick={onBackClick}
-          parent="Tipos de Curso"
-        />
+    // 4. Show Courses within the selected Course Type
+    if (selectedCourseType && !selectedCourse) {
+      const courseTypeNames: {[key: string]: string} = {
+        "licenciatura": "Licenciaturas",
+        "ctesp": "CTeSP",
+        "mestrado": "Mestrados"
+      };
+      
+      const courseTypeName = selectedCourseType ? courseTypeNames[selectedCourseType] || "" : "";
+      
+      return (
         <CourseView 
           courses={courses}
           riskDistributionData={riskDistributionData}
@@ -219,19 +170,12 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
           schoolName={selectedSchoolData?.name}
           courseTypeName={courseTypeName}
         />
-      </div>
-    );
-  }
-  
-  // 5. Show Course Units within the selected Course
-  if (selectedCourse && !selectedUnit) {
-    return (
-      <div className="space-y-6">
-        <UserLevelTabs 
-          level={`Unidades Curriculares - ${selectedCourseData?.name || 'Curso'}`}
-          onBackClick={onBackClick}
-          parent="Cursos"
-        />
+      );
+    }
+    
+    // 5. Show Course Units within the selected Course
+    if (selectedCourse && !selectedUnit) {
+      return (
         <CourseUnitView 
           units={units}
           selectedUnit={null}
@@ -245,45 +189,90 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
           onBack={() => {}}
           courseName={selectedCourseData?.name}
         />
-      </div>
-    );
-  }
-  
-  // 6. Show Students for the selected Course Unit
-  if (selectedUnit) {
-    const selectedUnitData = units.find(unit => unit.id === selectedUnit);
+      );
+    }
     
-    return (
-      <div className="space-y-6">
-        <UserLevelTabs 
-          level={`Alunos - ${selectedUnitData?.name || 'Unidade Curricular'}`}
-          onBackClick={onBackClick}
-          parent="Unidades Curriculares"
+    // 6. Show Students for the selected Course Unit
+    if (selectedUnit) {
+      return (
+        <CourseUnitView 
+          units={units}
+          selectedUnit={selectedUnit}
+          riskDistributionData={riskDistributionData}
+          positiveFactorsData={positiveFactorsData}
+          negativeFactorsData={negativeFactorsData}
+          predictionComparisonData={predictionComparisonData}
+          students={students}
+          onUnitClick={onUnitClick}
+          onExportCSV={onExportCSV}
+          onBack={onBackClick}
+          courseName={selectedCourseData?.name}
         />
-        <div className="mb-6">
-          <CourseUnitView 
-            units={units}
-            selectedUnit={selectedUnit}
-            riskDistributionData={riskDistributionData}
-            positiveFactorsData={positiveFactorsData}
-            negativeFactorsData={negativeFactorsData}
-            predictionComparisonData={predictionComparisonData}
-            students={students}
-            onUnitClick={onUnitClick}
-            onExportCSV={onExportCSV}
-            onBack={onBackClick}
-            courseName={selectedCourseData?.name}
-          />
-        </div>
-      </div>
+      );
+    }
+    
+    // Fallback (should not happen)
+    return (
+      <p>Selecione uma opção para visualizar estatísticas.</p>
     );
-  }
-  
-  // Fallback (should not happen)
+  };
+
+  // Get the correct tab level title
+  const getTabLevelTitle = () => {
+    if (selectedUnit) {
+      return `Alunos - ${selectedUnitData?.name || 'Unidade Curricular'}`;
+    } 
+    if (selectedCourse) {
+      return `Unidades Curriculares - ${selectedCourseData?.name || 'Curso'}`;
+    }
+    if (selectedCourseType) {
+      const courseTypeNames: {[key: string]: string} = {
+        "licenciatura": "Licenciaturas",
+        "ctesp": "CTeSP",
+        "mestrado": "Mestrados"
+      };
+      const courseTypeName = selectedCourseType ? courseTypeNames[selectedCourseType] || "" : "";
+      return `${courseTypeName} - ${selectedSchoolData?.name || 'Escola'}`;
+    }
+    if (selectedSchool) {
+      return `Tipos de Curso - ${selectedSchoolData?.name || 'Escola'}`;
+    }
+    if (selectedInstitution) {
+      return `Escolas de ${selectedInstitutionData?.name || 'Instituição'}`;
+    }
+    return "Estatísticas por Instituição";
+  };
+
+  // Get parent level for breadcrumb navigation
+  const getParentLevel = () => {
+    if (selectedUnit) {
+      return "Unidades Curriculares";
+    }
+    if (selectedCourse) {
+      return "Cursos";
+    }
+    if (selectedCourseType) {
+      return "Tipos de Curso";
+    }
+    if (selectedSchool) {
+      return "Escolas";
+    }
+    if (selectedInstitution) {
+      return "Instituições";
+    }
+    return "";
+  };
+
   return (
     <div className="space-y-6">
-      <UserLevelTabs level="Estatísticas" />
-      <p>Selecione uma opção para visualizar estatísticas.</p>
+      <UserLevelTabs 
+        level={getTabLevelTitle()}
+        onBackClick={selectedInstitution ? onBackClick : undefined}
+        parent={getParentLevel()}
+      />
+      <div className="mb-6">
+        {renderView()}
+      </div>
     </div>
   );
 };

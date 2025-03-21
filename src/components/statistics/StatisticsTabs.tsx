@@ -15,8 +15,7 @@ const StatisticsTabs: React.FC<StatisticsTabsProps> = ({ activeTab, onTabChange 
       onValueChange={onTabChange}
     >
       <TabsList className="w-full">
-        <TabsTrigger value="overview" className="flex-1">Visão Geral</TabsTrigger>
-        <TabsTrigger value="by-user" className="flex-1">Por Utilizador</TabsTrigger>
+        <TabsTrigger value="by-user" className="flex-1">Estatísticas por Utilizador</TabsTrigger>
       </TabsList>
     </Tabs>
   );

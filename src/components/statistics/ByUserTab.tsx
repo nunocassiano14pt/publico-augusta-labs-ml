@@ -92,9 +92,6 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
     ? courses.find(course => course.id === selectedCourse) 
     : null;
   
-  // Determine which view to show based on the selection hierarchy
-  // We start at the institution level and drill down
-  
   // 1. Show Institution view (top level)
   if (!selectedInstitution) {
     return (
@@ -105,6 +102,7 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
           riskDistributionData={riskDistributionData}
           positiveFactorsData={positiveFactorsData}
           negativeFactorsData={negativeFactorsData}
+          predictionComparisonData={predictionComparisonData}
           onInstitutionClick={onInstitutionClick}
         />
       </div>
@@ -125,6 +123,7 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
           riskDistributionData={riskDistributionData}
           positiveFactorsData={positiveFactorsData}
           negativeFactorsData={negativeFactorsData}
+          predictionComparisonData={predictionComparisonData}
           onSchoolClick={onSchoolClick}
           institutionName={selectedInstitutionData?.name}
         />
@@ -177,10 +176,16 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
             </div>
           </div>
           
-          <div className="mt-8">
+          <div className="mt-8 mb-8">
             <h3 className="text-lg font-medium mb-4">Comparação de Previsões por Tipo de Curso</h3>
             <PredictionComparisonChart data={predictionComparisonData} />
           </div>
+          
+          <RiskDetailGraphs 
+            riskDistributionData={riskDistributionData}
+            positiveFactorsData={positiveFactorsData}
+            negativeFactorsData={negativeFactorsData}
+          />
         </div>
       </div>
     );
@@ -232,6 +237,7 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
           riskDistributionData={riskDistributionData}
           positiveFactorsData={positiveFactorsData}
           negativeFactorsData={negativeFactorsData}
+          predictionComparisonData={predictionComparisonData}
           students={[]}
           onUnitClick={onUnitClick}
           onExportCSV={onExportCSV}
@@ -260,6 +266,7 @@ const ByUserTab: React.FC<ByUserTabProps> = ({
             riskDistributionData={riskDistributionData}
             positiveFactorsData={positiveFactorsData}
             negativeFactorsData={negativeFactorsData}
+            predictionComparisonData={predictionComparisonData}
             students={students}
             onUnitClick={onUnitClick}
             onExportCSV={onExportCSV}

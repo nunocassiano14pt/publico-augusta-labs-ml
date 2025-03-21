@@ -3,7 +3,8 @@ import React from 'react';
 import CourseUnitsTable from './CourseUnitsTable';
 import RiskDetailGraphs from './RiskDetailGraphs';
 import StudentsTable from '../results/StudentsTable';
-import { CourseUnit, RiskDistribution, FactorFrequency, Student } from '../../types';
+import PredictionComparisonChart from './PredictionComparisonChart';
+import { CourseUnit, RiskDistribution, FactorFrequency, Student, PredictionComparison } from '../../types';
 
 interface CourseUnitViewProps {
   units: CourseUnit[];
@@ -11,6 +12,7 @@ interface CourseUnitViewProps {
   riskDistributionData: RiskDistribution[];
   positiveFactorsData: FactorFrequency[];
   negativeFactorsData: FactorFrequency[];
+  predictionComparisonData: PredictionComparison[];
   students: Student[];
   onUnitClick: (unitId: string) => void;
   onExportCSV: () => void;
@@ -24,6 +26,7 @@ const CourseUnitView: React.FC<CourseUnitViewProps> = ({
   riskDistributionData,
   positiveFactorsData,
   negativeFactorsData,
+  predictionComparisonData,
   students,
   onUnitClick,
   onExportCSV,
@@ -67,6 +70,11 @@ const CourseUnitView: React.FC<CourseUnitViewProps> = ({
               units={units}
               onUnitClick={onUnitClick}
             />
+          </div>
+          
+          <div className="mt-8 mb-8">
+            <h3 className="text-lg font-medium mb-4">Comparação de Previsões para Unidades Curriculares</h3>
+            <PredictionComparisonChart data={predictionComparisonData} />
           </div>
           
           <RiskDetailGraphs 

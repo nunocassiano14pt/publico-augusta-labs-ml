@@ -1,7 +1,8 @@
 
 import React from 'react';
 import RiskDetailGraphs from './RiskDetailGraphs';
-import { School, RiskDistribution, FactorFrequency } from '../../types';
+import PredictionComparisonChart from './PredictionComparisonChart';
+import { School, RiskDistribution, FactorFrequency, PredictionComparison } from '../../types';
 import { ArrowDown } from 'lucide-react';
 
 interface SchoolViewProps {
@@ -9,6 +10,7 @@ interface SchoolViewProps {
   riskDistributionData: RiskDistribution[];
   positiveFactorsData: FactorFrequency[];
   negativeFactorsData: FactorFrequency[];
+  predictionComparisonData: PredictionComparison[];
   onSchoolClick: (schoolId: string) => void;
   institutionName?: string;
 }
@@ -18,6 +20,7 @@ const SchoolView: React.FC<SchoolViewProps> = ({
   riskDistributionData,
   positiveFactorsData,
   negativeFactorsData,
+  predictionComparisonData,
   onSchoolClick,
   institutionName
 }) => {
@@ -75,6 +78,11 @@ const SchoolView: React.FC<SchoolViewProps> = ({
             </tbody>
           </table>
         </div>
+      </div>
+      
+      <div className="mt-8 mb-8">
+        <h3 className="text-lg font-medium mb-4">Comparação de Previsões por Escola</h3>
+        <PredictionComparisonChart data={predictionComparisonData} />
       </div>
       
       <RiskDetailGraphs 

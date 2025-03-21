@@ -5,7 +5,6 @@ import PageTitle from '../components/common/PageTitle';
 import Breadcrumb from '../components/common/Breadcrumb';
 import StatisticsTabs from '../components/statistics/StatisticsTabs';
 import { studentsMock } from '../data/mockData';
-import OverviewTab from '../components/statistics/OverviewTab';
 import ByUserTab from '../components/statistics/ByUserTab';
 
 import { 
@@ -95,7 +94,7 @@ const Statistics = () => {
   
   // Ensure students have courseUnitIds assigned
   const enhancedStudents = studentsMock.map(student => {
-    if (!student.courseUnitIds) {
+    if (!student.courseUnitIds || student.courseUnitIds.length === 0) {
       // Assign random course unit IDs if they don't exist
       const randomUnitIds = courseUnitsMock
         .sort(() => 0.5 - Math.random())
@@ -137,35 +136,29 @@ const Statistics = () => {
               />
             </div>
             
-            {activeTab === 'overview' && (
-              <OverviewTab predictionComparisonData={predictionComparisonMock} />
-            )}
-            
-            {activeTab === 'by-user' && (
-              <ByUserTab 
-                institutions={institutionsMock}
-                selectedInstitution={selectedInstitution}
-                schools={filteredSchools}
-                selectedSchool={selectedSchool}
-                selectedCourseType={selectedCourseType}
-                courses={filteredCourses}
-                selectedCourse={selectedCourse}
-                units={filteredUnits}
-                selectedUnit={selectedUnit}
-                riskDistributionData={riskDistributionMock}
-                positiveFactorsData={positiveFactorsMock}
-                negativeFactorsData={negativeFactorsMock}
-                predictionComparisonData={predictionComparisonMock}
-                students={filteredStudents}
-                onInstitutionClick={handleInstitutionClick}
-                onSchoolClick={handleSchoolClick}
-                onCourseTypeClick={handleCourseTypeClick}
-                onCourseClick={handleCourseClick}
-                onUnitClick={handleUnitClick}
-                onBackClick={handleBackClick}
-                onExportCSV={handleExportCSV}
-              />
-            )}
+            <ByUserTab 
+              institutions={institutionsMock}
+              selectedInstitution={selectedInstitution}
+              schools={filteredSchools}
+              selectedSchool={selectedSchool}
+              selectedCourseType={selectedCourseType}
+              courses={filteredCourses}
+              selectedCourse={selectedCourse}
+              units={filteredUnits}
+              selectedUnit={selectedUnit}
+              riskDistributionData={riskDistributionMock}
+              positiveFactorsData={positiveFactorsMock}
+              negativeFactorsData={negativeFactorsMock}
+              predictionComparisonData={predictionComparisonMock}
+              students={filteredStudents}
+              onInstitutionClick={handleInstitutionClick}
+              onSchoolClick={handleSchoolClick}
+              onCourseTypeClick={handleCourseTypeClick}
+              onCourseClick={handleCourseClick}
+              onUnitClick={handleUnitClick}
+              onBackClick={handleBackClick}
+              onExportCSV={handleExportCSV}
+            />
           </div>
         </div>
       </div>

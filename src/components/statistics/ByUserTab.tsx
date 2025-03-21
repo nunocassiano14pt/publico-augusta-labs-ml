@@ -6,6 +6,7 @@ import CourseView from './CourseView';
 import SchoolView from './SchoolView';
 import InstitutionView from './InstitutionView';
 import PredictionComparisonChart from './PredictionComparisonChart';
+import RiskDetailGraphs from './RiskDetailGraphs';
 import { 
   CourseUnit, 
   Course, 

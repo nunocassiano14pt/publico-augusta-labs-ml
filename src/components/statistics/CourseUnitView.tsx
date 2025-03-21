@@ -62,6 +62,17 @@ const CourseUnitView: React.FC<CourseUnitViewProps> = ({
               onExportCSV={onExportCSV} 
             />
           </div>
+          
+          <div className="mt-8 mb-8">
+            <h3 className="text-lg font-medium mb-4">Comparação de Previsões para {selectedUnitData?.name}</h3>
+            <PredictionComparisonChart data={predictionComparisonData} />
+          </div>
+          
+          <RiskDetailGraphs 
+            riskDistributionData={riskDistributionData}
+            positiveFactorsData={positiveFactorsData}
+            negativeFactorsData={negativeFactorsData}
+          />
         </div>
       ) : (
         <>

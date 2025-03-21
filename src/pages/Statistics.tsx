@@ -91,24 +91,37 @@ const Statistics = () => {
   const filteredUnits = selectedCourse
     ? courseUnitsMock.filter(unit => unit.courseId === selectedCourse)
     : courseUnitsMock;
+
+  // Ensure all course units have associated students
+  const unitsWithStudentAssociation = courseUnitsMock.reduce((acc, unit) => {
+    if (!acc.includes(unit.id)) {
+      acc.push(unit.id);
+    }
+    return acc;
+  }, [] as string[]);
   
   // Ensure students have courseUnitIds assigned
   const enhancedStudents = studentsMock.map(student => {
-    if (!student.courseUnitIds || student.courseUnitIds.length === 0) {
-      // Assign random course unit IDs if they don't exist
-      const randomUnitIds = courseUnitsMock
-        .sort(() => 0.5 - Math.random())
-        .slice(0, Math.floor(Math.random() * 3) + 1)
-        .map(unit => unit.id);
-      
-      return {
-        ...student,
-        courseUnitIds: randomUnitIds
-      };
-    }
-    return student;
+    // Assign consistent course unit IDs based on student ID
+    // This ensures the same students always appear in the same units
+    const studentIndex = parseInt(student.cod_pessoa) % unitsWithStudentAssociation.length;
+    const primaryUnitId = unitsWithStudentAssociation[studentIndex];
+    
+    // Assign 1-3 units to each student, always including their primary unit
+    const additionalUnits = unitsWithStudentAssociation
+      .filter(id => id !== primaryUnitId)
+      .sort(() => 0.5 - Math.random())
+      .slice(0, Math.floor(Math.random() * 2)); // 0, 1, or 2 additional units
+    
+    const assignedUnitIds = [primaryUnitId, ...additionalUnits];
+    
+    return {
+      ...student,
+      courseUnitIds: assignedUnitIds
+    };
   });
   
+  // Filter students by the selected unit
   const filteredStudents = selectedUnit
     ? enhancedStudents.filter(student => 
         student.courseUnitIds && student.courseUnitIds.includes(selectedUnit))

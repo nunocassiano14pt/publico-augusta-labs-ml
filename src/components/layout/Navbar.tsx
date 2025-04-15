@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
       <div className="flex items-center">
         <Link to="/" className="flex items-center mr-8">
           <img 
-            src="/lovable-uploads/0f6bca1e-0730-49a9-bd4b-57ff4a8025d7.png" 
+            src="/lovable-uploads/c087dc34-39da-4d76-a3a1-92a29b142bf7.png" 
             alt="Público Logo" 
             className="h-8 mr-3"
             onError={(e) => {
@@ -24,7 +24,6 @@ const Navbar: React.FC = () => {
               target.src = "/placeholder.svg";
             }}
           />
-          <span className="font-semibold text-xl text-gray-800">Previsão de Desistências de Subscrições</span>
         </Link>
         <nav className="flex space-x-1">
           <Link

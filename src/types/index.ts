@@ -20,6 +20,10 @@ export interface Subscriber {
   ano_subscricao: string;
   data_extracao: string;
   churn: number;
+  idade?: number;
+  tempo_subscricao?: number;
+  valor_medio_fatura?: number;
+  tipo_subscricao?: string;
 }
 
 export type FeatureImpact = {
@@ -40,4 +44,32 @@ export interface SubscriberDetail {
   positiveReasons: FeatureImpact[];
   negativeReasons: FeatureImpact[];
   trends: ChurnTrend[];
+}
+
+export interface AgeGroupChurn {
+  faixa_etaria: string;
+  probabilidade: number;
+  total_subscritores: number;
+}
+
+export interface SubscriptionTypeChurn {
+  tipo: string;
+  probabilidade: number;
+  total_subscritores: number;
+}
+
+export interface ChurnMetrics {
+  probabilidade_media: number;
+  total_subscritores: number;
+  churn_ultimo_mes: number;
+  melhor_retencao: string;
+  pior_retencao: string;
+  por_idade: AgeGroupChurn[];
+  por_tipo: SubscriptionTypeChurn[];
+}
+
+export interface PredictionComparison {
+  month: string;
+  predicted: number;
+  actual: number;
 }

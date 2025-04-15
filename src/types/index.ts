@@ -100,6 +100,7 @@ export interface Publication {
   publisherId?: string;
   type?: string;
   subscriptionPeriods?: number[]; // Períodos de assinatura disponíveis
+  academicYears?: number[]; // Para compatibilidade com Statistics.tsx
 }
 
 export interface Publisher {
@@ -157,6 +158,7 @@ export interface Course extends Publication {
   schoolId?: string;
   unitCount?: number;
   subscriberCount: number;
+  academicYears?: number[]; // Anos acadêmicos do curso
 }
 
 export interface School extends Publisher {

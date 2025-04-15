@@ -1,10 +1,12 @@
 
 import React from 'react';
-import CourseUnitsTable from './CourseUnitsTable';
+import { CourseUnit, RiskDistribution, FactorFrequency, PredictionComparison, Student } from '../../types';
 import RiskDetailGraphs from './RiskDetailGraphs';
-import StudentsTable from '../results/StudentsTable';
 import PredictionComparisonChart from './PredictionComparisonChart';
-import { CourseUnit, RiskDistribution, FactorFrequency, Student, PredictionComparison } from '../../types';
+import CourseUnitsTable from './CourseUnitsTable';
+import SubscribersTable from '../results/StudentsTable';
+import { ArrowLeft } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 
 interface CourseUnitViewProps {
   units: CourseUnit[];
@@ -35,42 +37,26 @@ const CourseUnitView: React.FC<CourseUnitViewProps> = ({
   courseName,
   academicYear
 }) => {
-  const selectedUnitData = units.find(unit => unit.id === selectedUnit);
-  const academicYearText = academicYear ? `${academicYear}º Ano - ` : '';
-
+  // Find the selected unit
+  const unit = selectedUnit ? units.find(unit => unit.id === selectedUnit) : null;
+  
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">
-        {courseName 
-          ? `Estatísticas do ${academicYearText}${courseName}` 
-          : "Estatísticas por Unidade Curricular"}
-      </h2>
-      
-      {selectedUnit ? (
+      {!selectedUnit ? (
         <div>
-          <div className="mb-4 flex items-center">
-            <button 
-              onClick={onBack}
-              className="text-blue-600 hover:text-blue-800 mr-2 text-sm"
-            >
-              &larr; Voltar às Unidades Curriculares
-            </button>
-            <h3 className="text-lg font-medium">
-              Alunos da Unidade Curricular: {selectedUnitData?.name || selectedUnit}
-              {courseName && academicYear && ` (${academicYear}º Ano - ${courseName})`}
-              {courseName && !academicYear && ` (${courseName})`}
-            </h3>
-          </div>
+          <h2 className="text-xl font-semibold mb-4">
+            {courseName && academicYear 
+              ? `Unidades Curriculares de ${academicYear}º Ano - ${courseName}` 
+              : "Unidades Curriculares"}
+          </h2>
           
-          <div className="mb-6">
-            <StudentsTable 
-              subscribers={students}
-              onExportCSV={onExportCSV} 
-            />
-          </div>
+          <CourseUnitsTable 
+            units={units} 
+            onUnitClick={onUnitClick} 
+          />
           
           <div className="mt-8 mb-8">
-            <h3 className="text-lg font-medium mb-4">Comparação de Previsões para {selectedUnitData?.name}</h3>
+            <h3 className="text-lg font-medium mb-4">Comparação de Previsões por Unidade Curricular</h3>
             <PredictionComparisonChart data={predictionComparisonData} />
           </div>
           
@@ -81,25 +67,27 @@ const CourseUnitView: React.FC<CourseUnitViewProps> = ({
           />
         </div>
       ) : (
-        <>
+        <div>
           <div className="mb-6">
-            <CourseUnitsTable 
-              units={units}
-              onUnitClick={onUnitClick}
-            />
+            <Button
+              variant="ghost"
+              className="flex items-center text-gray-700 hover:text-black"
+              onClick={onBack}
+            >
+              <ArrowLeft size={16} className="mr-2" />
+              Voltar para Unidades Curriculares
+            </Button>
+            
+            <h2 className="text-xl font-semibold mt-4 mb-6">
+              {unit ? unit.name : 'Unidade Curricular'}
+            </h2>
           </div>
           
-          <div className="mt-8 mb-8">
-            <h3 className="text-lg font-medium mb-4">Comparação de Previsões para Unidades Curriculares</h3>
-            <PredictionComparisonChart data={predictionComparisonData} />
-          </div>
-          
-          <RiskDetailGraphs 
-            riskDistributionData={riskDistributionData}
-            positiveFactorsData={positiveFactorsData}
-            negativeFactorsData={negativeFactorsData}
+          <SubscribersTable 
+            subscribers={students} 
+            onExportCSV={onExportCSV} 
           />
-        </>
+        </div>
       )}
     </div>
   );

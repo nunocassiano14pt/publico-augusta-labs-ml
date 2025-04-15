@@ -6,7 +6,7 @@ const Navbar: React.FC = () => {
   const isActive = (path: string) => {
     return location.pathname.startsWith(path);
   };
-  return <div className="h-16 border-b border-gray-200 px-4 flex items-center justify-between bg-[#d92323]">
+  return <div className="h-16 border-b border-gray-200 px-4 flex items-center justify-between bg-[#ce1813]">
       <div className="flex items-center">
         <Link to="/" className="flex items-center mr-8">
           <img src="/lovable-uploads/cecada76-8201-41fb-a8a4-c7674ed6314f.png" alt="Público Logo" className="h-10 mr-3" onError={e => {

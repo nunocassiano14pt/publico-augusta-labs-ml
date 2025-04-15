@@ -157,19 +157,3 @@ export interface Institution {
   risk: number;
   schools?: School[];
 }
-
-// Tipos para os planos de assinatura
-export interface SubscriptionPlan {
-  id: string;
-  title: string;
-  period: 'Trimestral' | 'Semestral' | 'Anual';
-  originalPrice: number;
-  currentPrice: number;
-  pricePerMonth: number;
-  isPopular?: boolean;
-  ctaLabel?: string;
-  cancelText?: string;
-  renewalText?: string;
-}
-
-export type SubscriptionModality = 'Digital' | 'Papel + Digital' | 'Empresas' | 'Estudantes';

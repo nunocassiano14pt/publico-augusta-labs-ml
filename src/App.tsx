@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import Predictions from "./pages/Predictions";
 import Results from "./pages/Results";
 import SubscriberDetails from "./pages/SubscriberDetails";
-import Subscriptions from "./pages/Subscriptions";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,7 +23,6 @@ const App = () => (
           <Route path="/predictions" element={<Predictions />} />
           <Route path="/results" element={<Results />} />
           <Route path="/details/:id" element={<SubscriberDetails />} />
-          <Route path="/subscriptions" element={<Subscriptions />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

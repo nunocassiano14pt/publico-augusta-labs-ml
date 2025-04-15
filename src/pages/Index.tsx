@@ -30,12 +30,6 @@ const Index = () => {
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
             Analisar e monitorizar informações de subscritores para prever e prevenir desistências.
           </p>
-          <Link 
-            to="/subscriptions" 
-            className="inline-flex items-center justify-center px-6 py-3 mt-4 bg-publico text-white font-medium rounded-lg hover:bg-publico/90 transition-colors"
-          >
-            Ver Planos de Assinatura
-          </Link>
         </div>
 
         {/* Main KPIs - made more slick and clearly clickable */}

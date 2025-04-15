@@ -86,14 +86,16 @@ export interface SubscriptionPeriod {
   risk: number;
   categoryCount: number;
   subscriberCount: number;
+  unitCount?: number; // Compatibilidade com AcademicYearView
 }
 
 export interface Publication {
   id: string;
   name: string;
   risk: number;
-  categoryCount: number;
+  categoryCount?: number;
   subscriberCount: number;
+  unitCount?: number; // Compatibilidade com CourseView
   categories?: ContentCategory[];
   publisherId?: string;
   type?: string;
@@ -104,8 +106,10 @@ export interface Publisher {
   id: string;
   name: string;
   risk: number;
-  publicationCount: number;
+  publicationCount?: number;
+  courseCount?: number; // Compatibilidade com SchoolView
   subscriberCount: number;
+  studentCount?: number; // Compatibilidade com SchoolView
   publications?: Publication[];
   mediaGroupId?: string;
 }
@@ -114,8 +118,10 @@ export interface MediaGroup {
   id: string;
   name: string;
   risk: number;
-  publisherCount: number;
+  publisherCount?: number;
+  schoolCount?: number; // Compatibilidade com InstitutionView
   subscriberCount: number;
+  studentCount?: number; // Compatibilidade com InstitutionView
   publishers?: Publisher[];
 }
 
@@ -134,27 +140,33 @@ export interface CourseUnit extends ContentCategory {
   // Alias para manter compatibilidade
   courseId?: string;
   academicYear?: number;
+  studentCount?: number; // Compatibilidade com CourseUnitsTable
 }
 
 export interface AcademicYear extends SubscriptionPeriod {
   // Alias para manter compatibilidade
   year: number;
   courseId: string;
+  unitCount?: number; // Compatibilidade com AcademicYearView
+  studentCount?: number; // Compatibilidade com AcademicYearView
 }
 
 export interface Course extends Publication {
   // Alias para manter compatibilidade
   units?: CourseUnit[];
   schoolId?: string;
+  unitCount?: number; // Compatibilidade com CourseView
 }
 
 export interface School extends Publisher {
   // Alias para manter compatibilidade
   courses?: Course[];
   institutionId?: string;
+  courseCount?: number; // Compatibilidade com SchoolView
 }
 
 export interface Institution extends MediaGroup {
   // Alias para manter compatibilidade
   schools?: School[];
+  schoolCount?: number; // Compatibilidade com InstitutionView
 }

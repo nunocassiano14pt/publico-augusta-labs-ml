@@ -2,7 +2,6 @@
 import React from 'react';
 import { CourseUnit } from '../../types';
 import { ArrowDown, ArrowUp } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
 interface CourseUnitsTableProps {
   units: CourseUnit[];
@@ -70,11 +69,11 @@ const CourseUnitsTable: React.FC<CourseUnitsTableProps> = ({ units, onUnitClick 
             </th>
             <th 
               className="cursor-pointer hover:bg-gray-100" 
-              onClick={() => handleSort('studentCount')}
+              onClick={() => handleSort('subscriberCount')}
             >
               <div className="flex items-center">
-                Nº Alunos 
-                {sortColumn === 'studentCount' && (
+                Nº Assinantes 
+                {sortColumn === 'subscriberCount' && (
                   sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
                 )}
               </div>
@@ -101,7 +100,7 @@ const CourseUnitsTable: React.FC<CourseUnitsTableProps> = ({ units, onUnitClick 
             >
               <td>{unit.id}</td>
               <td>{unit.name}</td>
-              <td>{unit.studentCount}</td>
+              <td>{unit.subscriberCount}</td>
               <td>
                 <div className="risk-indicator">
                   {unit.risk >= 80 ? (

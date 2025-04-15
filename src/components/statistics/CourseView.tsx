@@ -44,7 +44,7 @@ const CourseView: React.FC<CourseViewProps> = ({
                 <th>Código</th>
                 <th>Nome</th>
                 <th>Nº UCs</th>
-                <th>Nº Alunos</th>
+                <th>Nº Assinantes</th>
                 <th>Risco Médio</th>
               </tr>
             </thead>
@@ -57,8 +57,8 @@ const CourseView: React.FC<CourseViewProps> = ({
                 >
                   <td>{course.id}</td>
                   <td>{course.name}</td>
-                  <td>{course.unitCount}</td>
-                  <td>{course.studentCount}</td>
+                  <td>{course.categoryCount}</td>
+                  <td>{course.subscriberCount}</td>
                   <td>
                     <div className="risk-indicator">
                       {course.risk >= 80 ? (

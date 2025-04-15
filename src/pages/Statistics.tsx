@@ -84,8 +84,8 @@ const Statistics = () => {
           year: year,
           courseId: navigation.selectedCourse,
           risk: avgRisk,
-          unitCount: yearUnits.length,
-          studentCount: Math.floor(Math.random() * 50) + 30 // Random number of students per year
+          categoryCount: yearUnits.length,
+          subscriberCount: Math.floor(Math.random() * 50) + 30 // Random number of subscribers per year
         });
       });
     }
@@ -165,7 +165,7 @@ const Statistics = () => {
               { label: 'Estatísticas' },
             ]}
           />
-          <PageTitle title="Estatísticas de Abandono Escolar" />
+          <PageTitle title="Estatísticas de Abandono de Assinaturas" />
         </div>
         
         <div className="dashboard-card mb-6">

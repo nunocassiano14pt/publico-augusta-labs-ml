@@ -39,7 +39,7 @@ const AcademicYearView: React.FC<AcademicYearViewProps> = ({
               <tr>
                 <th>Ano</th>
                 <th>Nº UCs</th>
-                <th>Nº Alunos</th>
+                <th>Nº Assinantes</th>
                 <th>Risco Médio</th>
               </tr>
             </thead>
@@ -51,8 +51,8 @@ const AcademicYearView: React.FC<AcademicYearViewProps> = ({
                   onClick={() => onAcademicYearClick(academicYear.year)}
                 >
                   <td>{academicYear.year}º Ano</td>
-                  <td>{academicYear.unitCount}</td>
-                  <td>{academicYear.studentCount}</td>
+                  <td>{academicYear.categoryCount}</td>
+                  <td>{academicYear.subscriberCount}</td>
                   <td>
                     <div className="risk-indicator">
                       {academicYear.risk >= 80 ? (

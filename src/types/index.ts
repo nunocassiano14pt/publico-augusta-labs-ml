@@ -157,12 +157,3 @@ export interface Institution {
   risk: number;
   schools?: School[];
 }
-
-// Portugal districts map types
-export interface DistrictData {
-  name: string;
-  users: number;
-  coordinates: [number, number];
-  color?: string;
-}
-

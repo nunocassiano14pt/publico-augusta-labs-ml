@@ -75,10 +75,10 @@ export default {
                     DEFAULT: '#EF4444',
                     foreground: '#FFFFFF'
                 },
-                teal: {
-                    DEFAULT: '#3ABAB4',
-                    light: '#5EEAD4',
-                    dark: '#0F766E'
+                publico: {
+                    DEFAULT: '#e3000f',
+                    light: '#f0454f',
+                    dark: '#c20008'
                 },
                 status: {
                     pending: '#F8CB77',

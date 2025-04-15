@@ -13,14 +13,13 @@ export interface Prediction {
   access: AccessType[];
 }
 
-export interface Student {
+export interface Subscriber {
   cod_pessoa: string;
-  nome_aluno: string;
-  matricula: string;
-  ano_letivo: string;
+  nome_subscritor: string;
+  subscription: string;
+  ano_subscricao: string;
   data_extracao: string;
   churn: number;
-  courseUnitIds?: string[]; // Added this property
 }
 
 export type FeatureImpact = {
@@ -35,86 +34,10 @@ export interface ChurnTrend {
   value: number;
 }
 
-export interface StudentDetail {
-  studentId: string;
+export interface SubscriberDetail {
+  subscriberId: string;
   churnProbability: number;
   positiveReasons: FeatureImpact[];
   negativeReasons: FeatureImpact[];
   trends: ChurnTrend[];
-}
-
-// Tipos para as estatísticas
-export interface StatisticsData {
-  variable: string;
-  categories: string[];
-  percentages: number[];
-  counts: number[];
-}
-
-// Novos tipos para as estatísticas
-export interface PredictionComparison {
-  month: string;
-  predicted: number;
-  actual: number;
-}
-
-export interface RiskDistribution {
-  category: string;
-  count: number;
-  percentage: number;
-}
-
-export interface FactorFrequency {
-  factor: string;
-  count: number;
-  percentage: number;
-}
-
-export interface CourseUnit {
-  id: string;
-  name: string;
-  risk: number;
-  studentCount: number;
-  courseId?: string;
-  academicYear?: number; // Added academic year property
-}
-
-export interface AcademicYear {
-  id: string;
-  year: number;
-  courseId: string;
-  risk: number;
-  unitCount: number;
-  studentCount: number;
-}
-
-export interface Course {
-  id: string;
-  name: string;
-  risk: number;
-  unitCount: number;
-  studentCount: number;
-  units?: CourseUnit[];
-  schoolId?: string;
-  type?: string;
-  academicYears?: number[]; // Added academic years array
-}
-
-export interface School {
-  id: string;
-  name: string;
-  risk: number;
-  courseCount: number;
-  studentCount: number;
-  courses?: Course[];
-  institutionId?: string;
-}
-
-export interface Institution {
-  id: string;
-  name: string;
-  risk: number;
-  schoolCount: number;
-  studentCount: number;
-  schools?: School[];
 }

@@ -14,10 +14,10 @@ interface BreadcrumbProps {
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
   return (
-    <div className="flex flex-nowrap items-center whitespace-nowrap text-sm text-gray-500 mb-2 overflow-x-auto">
+    <div className="flex items-center overflow-x-auto whitespace-nowrap text-sm text-gray-500 mb-2">
       {items.map((item, index) => (
         <React.Fragment key={index}>
-          <div className="breadcrumb-item">
+          <div className="breadcrumb-item flex-shrink-0">
             {item.path ? (
               <Link to={item.path} className="hover:text-gray-800 transition-colors">
                 {item.label}

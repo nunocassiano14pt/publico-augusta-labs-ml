@@ -14,7 +14,7 @@ interface BreadcrumbProps {
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
   return (
-    <div className="flex items-center space-x-1 text-sm text-gray-500 mb-2">
+    <div className="flex items-center space-x-2 text-sm text-gray-500 mb-2">
       {items.map((item, index) => (
         <React.Fragment key={index}>
           <div className="breadcrumb-item">

@@ -73,3 +73,74 @@ export interface PredictionComparison {
   predicted: number;
   actual: number;
 }
+
+// Statistics types
+export interface FactorFrequency {
+  factor: string;
+  frequency: number;
+}
+
+export interface RiskDistribution {
+  risk_level: string;
+  student_count: number;
+}
+
+export interface Student {
+  id: string;
+  name: string;
+  email: string;
+  risk: number;
+}
+
+export interface StudentDetail {
+  studentId: string;
+  riskProbability: number;
+  positiveFactors: FactorFrequency[];
+  negativeFactors: FactorFrequency[];
+  trends: any[];
+}
+
+export interface AcademicYear {
+  id: string;
+  year: number;
+  unitCount: number;
+  studentCount: number;
+  risk: number;
+}
+
+export interface CourseUnit {
+  id: string;
+  code: string;
+  name: string;
+  semester: number;
+  year: number;
+  studentCount: number;
+  risk: number;
+}
+
+export interface Course {
+  id: string;
+  name: string;
+  code: string;
+  unitCount: number;
+  studentCount: number;
+  risk: number;
+}
+
+export interface School {
+  id: string;
+  name: string;
+  code: string;
+  courseCount: number;
+  studentCount: number;
+  risk: number;
+}
+
+export interface Institution {
+  id: string;
+  name: string;
+  code: string;
+  schoolCount: number;
+  studentCount: number;
+  risk: number;
+}

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../components/layout/Layout';
 import PageTitle from '../components/common/PageTitle';
 import PredictionHeader from '../components/predictions/PredictionHeader';
@@ -16,8 +16,9 @@ const Predictions = () => {
       return;
     }
     
+    // Filtrar por data
     const filtered = predictions.filter(
-      (prediction) => prediction.name.toLowerCase().includes(query.toLowerCase())
+      (prediction) => prediction.date.includes(query)
     );
     setFilteredPredictions(filtered);
   };
@@ -33,7 +34,7 @@ const Predictions = () => {
         <div className="dashboard-card mb-6">
           <div className="p-6">
             <PredictionHeader 
-              count={predictions.length} 
+              count={filteredPredictions.length} 
               onSearch={handleSearch} 
             />
             <PredictionTable predictions={filteredPredictions} />

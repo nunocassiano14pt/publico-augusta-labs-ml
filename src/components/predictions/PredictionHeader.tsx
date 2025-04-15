@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Input } from "@/components/ui/input";
-import { Search } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 interface PredictionHeaderProps {
   count: number;
@@ -18,9 +18,10 @@ const PredictionHeader: React.FC<PredictionHeaderProps> = ({ count, onSearch }) 
         </span>
       </div>
       <div className="relative">
-        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+        <Calendar className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
         <Input
-          placeholder="Pesquisar por nome..."
+          type="date"
+          placeholder="Filtrar por data..."
           className="pl-8 h-10 w-[260px]"
           onChange={(e) => onSearch(e.target.value)}
         />

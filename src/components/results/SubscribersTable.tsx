@@ -1,9 +1,10 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Subscriber } from '../../types';
-import { MoreHorizontal, ArrowDown, ArrowUp, Download } from 'lucide-react';
+import { MoreHorizontal, ArrowDown, ArrowUp, Search } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Input } from "@/components/ui/input";
+import { useNavigate } from 'react-router-dom';
 
 interface SubscribersTableProps {
   subscribers: Subscriber[];
@@ -12,8 +13,10 @@ interface SubscribersTableProps {
 
 const SubscribersTable: React.FC<SubscribersTableProps> = ({ subscribers, onExportCSV }) => {
   const navigate = useNavigate();
-  const [sortColumn, setSortColumn] = React.useState<keyof Subscriber>('churn');
-  const [sortDirection, setSortDirection] = React.useState<'asc' | 'desc'>('desc');
+  const [sortColumn, setSortColumn] = useState<keyof Subscriber>('churn');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+  const [filterValue, setFilterValue] = useState<string>('');
+  const [filteredSubscribers, setFilteredSubscribers] = useState<Subscriber[]>(subscribers);
 
   const handleSort = (column: keyof Subscriber) => {
     if (sortColumn === column) {
@@ -24,8 +27,22 @@ const SubscribersTable: React.FC<SubscribersTableProps> = ({ subscribers, onExpo
     }
   };
 
+  const handleFilterChange = (value: string) => {
+    setFilterValue(value);
+    if (!value.trim()) {
+      setFilteredSubscribers(subscribers);
+      return;
+    }
+
+    const filtered = subscribers.filter(subscriber => 
+      subscriber.nome_subscritor.toLowerCase().includes(value.toLowerCase()) ||
+      subscriber.cod_pessoa.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredSubscribers(filtered);
+  };
+
   const sortedSubscribers = React.useMemo(() => {
-    return [...subscribers].sort((a, b) => {
+    return [...filteredSubscribers].sort((a, b) => {
       const aValue = a[sortColumn];
       const bValue = b[sortColumn];
       
@@ -41,7 +58,7 @@ const SubscribersTable: React.FC<SubscribersTableProps> = ({ subscribers, onExpo
       
       return 0;
     });
-  }, [subscribers, sortColumn, sortDirection]);
+  }, [filteredSubscribers, sortColumn, sortDirection]);
 
   const handleRowClick = (subscriberId: string) => {
     navigate(`/details/${subscriberId}`);
@@ -53,16 +70,21 @@ const SubscribersTable: React.FC<SubscribersTableProps> = ({ subscribers, onExpo
         <div className="flex items-center space-x-2">
           <h2 className="text-lg font-medium">Subscritores</h2>
           <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full text-xs font-medium">
-            {subscribers.length}
+            {filteredSubscribers.length}
           </span>
         </div>
-        <div className="flex items-center">
-          <Button variant="outline" className="border-gray-200 text-gray-700 flex items-center" onClick={onExportCSV}>
-            <Download size={16} className="mr-1" />
-            CSV ({(36.51).toFixed(2)} KB)
-          </Button>
-        </div>
       </div>
+      
+      <div className="mb-4 relative max-w-md">
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
+        <Input
+          placeholder="Pesquisar por nome ou código..."
+          value={filterValue}
+          onChange={(e) => handleFilterChange(e.target.value)}
+          className="pl-9 pr-4 py-2"
+        />
+      </div>
+      
       <div className="overflow-hidden rounded-lg border border-gray-200">
         <table className="data-table">
           <thead>

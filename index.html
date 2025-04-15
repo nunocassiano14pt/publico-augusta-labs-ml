@@ -1,18 +1,111 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>visual-voyage-lab</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
-    <meta property="og:image" content="/og-image.png" />
+    <meta name="description" content="Powered by Lovable" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Georgia&display=swap" rel="stylesheet">
+    <title>Público - Dashboard de Subscrições</title>
+    <style>
+      @font-face {
+        font-family: 'Cheltenham';
+        src: url('https://fonts.gstatic.com/s/georgia/v18/4iCc6P5sD8izfBg.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      .risk-indicator {
+        display: flex;
+        align-items: center;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        width: fit-content;
+        font-weight: 500;
+      }
+      
+      .risk-indicator.high {
+        background-color: #FECACA;
+        color: #DC2626;
+      }
+      
+      .risk-indicator.medium {
+        background-color: #FEF3C7;
+        color: #D97706;
+      }
+      
+      .risk-indicator.low {
+        background-color: #D1FAE5;
+        color: #059669;
+      }
+      
+      .data-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+      
+      .data-table th {
+        text-align: left;
+        padding: 12px 16px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #4B5563;
+        border-bottom: 1px solid #E5E7EB;
+        background-color: #F9FAFB;
+      }
+      
+      .data-table td {
+        padding: 12px 16px;
+        font-size: 0.875rem;
+        border-bottom: 1px solid #F3F4F6;
+      }
+      
+      .data-table tr:last-child td {
+        border-bottom: none;
+      }
+      
+      .dashboard-card {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      
+      .status-badge {
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+      
+      .status-badge.success {
+        background-color: #D1FAE5;
+        color: #059669;
+      }
+      
+      .status-badge.pending {
+        background-color: #FEF3C7;
+        color: #D97706;
+      }
+      
+      .status-badge.failed {
+        background-color: #FECACA;
+        color: #DC2626;
+      }
+      
+      /* Add Cheltenham font fallback */
+      body {
+        font-family: 'Cheltenham', Georgia, serif;
+      }
+    </style>
   </head>
-
   <body>
     <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

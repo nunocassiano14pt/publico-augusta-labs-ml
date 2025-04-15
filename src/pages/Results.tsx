@@ -4,7 +4,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import PageTitle from '../components/common/PageTitle';
 import Breadcrumb from '../components/common/Breadcrumb';
-import SubscribersTable from '../components/results/SubscribersTable';
+import StudentsTable from '../components/results/StudentsTable';
 import { subscribersMock, predictionsMock } from '../data/mockData';
 import { toast } from 'sonner';
 
@@ -47,7 +47,7 @@ const Results = () => {
         
         <div className="dashboard-card mb-6">
           <div className="p-6">
-            <SubscribersTable 
+            <StudentsTable 
               subscribers={subscribersMock} 
               onExportCSV={handleExportCSV} 
             />

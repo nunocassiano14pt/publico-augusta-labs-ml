@@ -1,4 +1,3 @@
-
 import { 
   PredictionComparison, 
   RiskDistribution, 
@@ -31,27 +30,27 @@ export const predictionComparisonMock: PredictionComparison[] = [
 
 // Dados para distribuição de risco
 export const riskDistributionMock: RiskDistribution[] = [
-  { category: 'Risco Alto (>80%)', count: 32, percentage: 40 },
-  { category: 'Risco Médio (60-80%)', count: 25, percentage: 31.25 },
-  { category: 'Risco Baixo (<60%)', count: 23, percentage: 28.75 }
+  { category: 'Risco Alto (>80%)', count: 32, percentage: 40, risk_level: 'Alto', student_count: 32 },
+  { category: 'Risco Médio (60-80%)', count: 25, percentage: 31.25, risk_level: 'Médio', student_count: 25 },
+  { category: 'Risco Baixo (<60%)', count: 23, percentage: 28.75, risk_level: 'Baixo', student_count: 23 }
 ];
 
 // Fatores positivos mais frequentes
 export const positiveFactorsMock: FactorFrequency[] = [
-  { factor: 'Bom desempenho acadêmico', count: 38, percentage: 47.5 },
-  { factor: 'Participação em atividades extracurriculares', count: 32, percentage: 40 },
-  { factor: 'Presença regular nas aulas', count: 29, percentage: 36.25 },
-  { factor: 'Acesso a bolsas de estudo', count: 25, percentage: 31.25 },
-  { factor: 'Proximidade da residência', count: 18, percentage: 22.5 }
+  { factor: 'Bom desempenho acadêmico', count: 38, percentage: 47.5, frequency: 38 },
+  { factor: 'Participação em atividades extracurriculares', count: 32, percentage: 40, frequency: 32 },
+  { factor: 'Presença regular nas aulas', count: 29, percentage: 36.25, frequency: 29 },
+  { factor: 'Acesso a bolsas de estudo', count: 25, percentage: 31.25, frequency: 25 },
+  { factor: 'Proximidade da residência', count: 18, percentage: 22.5, frequency: 18 }
 ];
 
 // Fatores negativos mais frequentes
 export const negativeFactorsMock: FactorFrequency[] = [
-  { factor: 'Baixo desempenho acadêmico', count: 45, percentage: 56.25 },
-  { factor: 'Faltas frequentes', count: 38, percentage: 47.5 },
-  { factor: 'Dificuldades financeiras', count: 30, percentage: 37.5 },
-  { factor: 'Distância da residência', count: 27, percentage: 33.75 },
-  { factor: 'Dificuldade com disciplinas específicas', count: 24, percentage: 30 }
+  { factor: 'Baixo desempenho acadêmico', count: 45, percentage: 56.25, frequency: 45 },
+  { factor: 'Faltas frequentes', count: 38, percentage: 47.5, frequency: 38 },
+  { factor: 'Dificuldades financeiras', count: 30, percentage: 37.5, frequency: 30 },
+  { factor: 'Distância da residência', count: 27, percentage: 33.75, frequency: 27 },
+  { factor: 'Dificuldade com disciplinas específicas', count: 24, percentage: 30, frequency: 24 }
 ];
 
 // ============ ESCOLA SUPERIOR DE EDUCAÇÃO (ESE) ============

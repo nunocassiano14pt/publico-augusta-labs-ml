@@ -1,4 +1,3 @@
-
 // Tipos para as dashboards
 
 export type Status = 'Pendente' | 'Sucesso' | 'Falha';
@@ -77,18 +76,18 @@ export interface PredictionComparison {
 // Statistics types
 export interface FactorFrequency {
   factor: string;
-  frequency: number;
+  frequency?: number; // Make frequency optional
   count: number; 
-  percentage: number; // Added missing property
+  percentage: number;
 }
 
 export interface RiskDistribution {
-  risk_level: string;
-  student_count: number;
-  category: string;
-  count: number; // Added missing property
+  category: string; // Keep category for compatibility
+  count: number; // Keep count for compatibility
+  percentage: number; // Keep percentage for compatibility
+  risk_level?: string; // Make required properties optional
+  student_count?: number; // Make required properties optional
   color?: string; 
-  percentage?: number; 
 }
 
 export interface Student {

@@ -1,3 +1,4 @@
+
 // Tipos para as dashboards
 
 export type Status = 'Pendente' | 'Sucesso' | 'Falha';
@@ -76,17 +77,17 @@ export interface PredictionComparison {
 // Statistics types
 export interface FactorFrequency {
   factor: string;
-  frequency?: number; // Make frequency optional
+  frequency?: number;
   count: number; 
   percentage: number;
 }
 
 export interface RiskDistribution {
-  category: string; // Keep category for compatibility
-  count: number; // Keep count for compatibility
-  percentage: number; // Keep percentage for compatibility
-  risk_level?: string; // Make required properties optional
-  student_count?: number; // Make required properties optional
+  category: string;
+  count: number;
+  percentage: number;
+  risk_level?: string;
+  student_count?: number;
   color?: string; 
 }
 
@@ -156,3 +157,12 @@ export interface Institution {
   risk: number;
   schools?: School[];
 }
+
+// Portugal districts map types
+export interface DistrictData {
+  name: string;
+  users: number;
+  coordinates: [number, number];
+  color?: string;
+}
+

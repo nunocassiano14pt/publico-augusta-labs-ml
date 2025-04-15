@@ -12,14 +12,19 @@ import {
   ArrowRightCircle,
   Eye,
   Clock,
-  Activity
+  Activity,
+  MapPin
 } from 'lucide-react';
 import ChurnByAgeChart from '../components/dashboard/ChurnByAgeChart';
 import ChurnByTypeChart from '../components/dashboard/ChurnByTypeChart';
+import PortugalMap from '../components/dashboard/PortugalMap';
 import { churnMetrics } from '../data/dashboardMockData';
+import { getDistrictDataWithColors } from '../data/portugalMapData';
 import KpiCard from '../components/dashboard/KpiCard';
 
 const Index = () => {
+  const districtDataWithColors = getDistrictDataWithColors();
+  
   return (
     <Layout>
       <div className="max-w-7xl mx-auto animate-fadeIn">
@@ -152,11 +157,17 @@ const Index = () => {
           </Link>
         </div>
 
-        {/* Charts with enhanced styling */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        {/* Portugal Map and Charts */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition-all">
+            <PortugalMap districtData={districtDataWithColors} />
+          </div>
+          <div className="lg:col-span-2 bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition-all">
             <ChurnByAgeChart data={churnMetrics.por_idade} />
           </div>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-8">
           <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition-all">
             <ChurnByTypeChart data={churnMetrics.por_tipo} />
           </div>

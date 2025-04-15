@@ -140,33 +140,36 @@ export interface CourseUnit extends ContentCategory {
   // Alias para manter compatibilidade
   courseId?: string;
   academicYear?: number;
-  studentCount?: number; // Compatibilidade com CourseUnitsTable
+  subscriberCount: number; // Adicionado para compatibilidade
 }
 
 export interface AcademicYear extends SubscriptionPeriod {
   // Alias para manter compatibilidade
   year: number;
   courseId: string;
-  unitCount?: number; // Compatibilidade com AcademicYearView
-  studentCount?: number; // Compatibilidade com AcademicYearView
+  unitCount?: number; 
+  subscriberCount: number;
 }
 
 export interface Course extends Publication {
   // Alias para manter compatibilidade
   units?: CourseUnit[];
   schoolId?: string;
-  unitCount?: number; // Compatibilidade com CourseView
+  unitCount?: number;
+  subscriberCount: number;
 }
 
 export interface School extends Publisher {
   // Alias para manter compatibilidade
   courses?: Course[];
   institutionId?: string;
-  courseCount?: number; // Compatibilidade com SchoolView
+  courseCount?: number;
+  subscriberCount: number;
 }
 
 export interface Institution extends MediaGroup {
   // Alias para manter compatibilidade
   schools?: School[];
-  schoolCount?: number; // Compatibilidade com InstitutionView
+  schoolCount?: number;
+  subscriberCount: number;
 }

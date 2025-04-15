@@ -11,7 +11,7 @@ interface CourseUnitsTableProps {
 const CourseUnitsTable: React.FC<CourseUnitsTableProps> = ({ units, onUnitClick }) => {
   const [sortColumn, setSortColumn] = React.useState<keyof CourseUnit>('risk');
   const [sortDirection, setSortDirection] = React.useState<'asc' | 'desc'>('desc');
-
+  
   const handleSort = (column: keyof CourseUnit) => {
     if (sortColumn === column) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
@@ -20,7 +20,7 @@ const CourseUnitsTable: React.FC<CourseUnitsTableProps> = ({ units, onUnitClick 
       setSortDirection('asc');
     }
   };
-
+  
   const sortedUnits = React.useMemo(() => {
     return [...units].sort((a, b) => {
       const aValue = a[sortColumn];
@@ -47,21 +47,10 @@ const CourseUnitsTable: React.FC<CourseUnitsTableProps> = ({ units, onUnitClick 
           <tr>
             <th 
               className="cursor-pointer hover:bg-gray-100" 
-              onClick={() => handleSort('id')}
-            >
-              <div className="flex items-center">
-                Código 
-                {sortColumn === 'id' && (
-                  sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
-                )}
-              </div>
-            </th>
-            <th 
-              className="cursor-pointer hover:bg-gray-100" 
               onClick={() => handleSort('name')}
             >
               <div className="flex items-center">
-                Nome 
+                Nome da Unidade Curricular
                 {sortColumn === 'name' && (
                   sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
                 )}
@@ -98,7 +87,6 @@ const CourseUnitsTable: React.FC<CourseUnitsTableProps> = ({ units, onUnitClick 
               className="animate-fadeIn cursor-pointer hover:bg-gray-50"
               onClick={() => onUnitClick(unit.id)}
             >
-              <td>{unit.id}</td>
               <td>{unit.name}</td>
               <td>{unit.subscriberCount}</td>
               <td>

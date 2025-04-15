@@ -1,8 +1,8 @@
 
 import React from 'react';
+import { School, RiskDistribution, FactorFrequency, PredictionComparison } from '../../types';
 import RiskDetailGraphs from './RiskDetailGraphs';
 import PredictionComparisonChart from './PredictionComparisonChart';
-import { School, RiskDistribution, FactorFrequency, PredictionComparison } from '../../types';
 import { ArrowDown } from 'lucide-react';
 
 interface SchoolViewProps {
@@ -27,7 +27,9 @@ const SchoolView: React.FC<SchoolViewProps> = ({
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4">
-        {institutionName ? `Escolas de ${institutionName}` : "Estatísticas por Escola"}
+        {institutionName 
+          ? `Escolas de ${institutionName}` 
+          : "Estatísticas por Escola"}
       </h2>
       
       <div className="mb-6">
@@ -35,10 +37,9 @@ const SchoolView: React.FC<SchoolViewProps> = ({
           <table className="data-table">
             <thead>
               <tr>
-                <th>Código</th>
-                <th>Nome</th>
+                <th>Escola</th>
                 <th>Nº Cursos</th>
-                <th>Nº Alunos</th>
+                <th>Nº Assinantes</th>
                 <th>Risco Médio</th>
               </tr>
             </thead>
@@ -49,10 +50,9 @@ const SchoolView: React.FC<SchoolViewProps> = ({
                   className="animate-fadeIn cursor-pointer hover:bg-gray-50"
                   onClick={() => onSchoolClick(school.id)}
                 >
-                  <td>{school.id}</td>
                   <td>{school.name}</td>
                   <td>{school.courseCount}</td>
-                  <td>{school.studentCount}</td>
+                  <td>{school.subscriberCount}</td>
                   <td>
                     <div className="risk-indicator">
                       {school.risk >= 80 ? (

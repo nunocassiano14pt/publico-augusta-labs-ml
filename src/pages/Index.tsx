@@ -1,9 +1,18 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle, Users, TrendingDown, Award, Calendar } from 'lucide-react';
 import Layout from '../components/layout/Layout';
 import PageTitle from '../components/common/PageTitle';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card';
+import KpiCard from '../components/dashboard/KpiCard';
+import ChurnByTypeChart from '../components/dashboard/ChurnByTypeChart';
+import ChurnByAgeChart from '../components/dashboard/ChurnByAgeChart';
+import ChurnByModalityChart from '../components/dashboard/ChurnByModalityChart';
+import ModalityKpi from '../components/dashboard/ModalityKpi';
+import { churnMetrics, modalidadeMetrics } from '../data/dashboardMockData';
 
 const Index = () => {
   return (

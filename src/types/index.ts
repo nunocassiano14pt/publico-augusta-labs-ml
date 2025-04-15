@@ -78,15 +78,17 @@ export interface PredictionComparison {
 export interface FactorFrequency {
   factor: string;
   frequency: number;
-  count: number; // Added missing property
+  count: number; 
+  percentage: number; // Added missing property
 }
 
 export interface RiskDistribution {
   risk_level: string;
   student_count: number;
-  category: string; // Added missing property
-  color?: string; // Optional color property
-  percentage?: number; // Optional percentage property
+  category: string;
+  count: number; // Added missing property
+  color?: string; 
+  percentage?: number; 
 }
 
 export interface Student {
@@ -114,39 +116,44 @@ export interface AcademicYear {
 
 export interface CourseUnit {
   id: string;
-  code: string;
+  code?: string;
   name: string;
-  semester: number;
-  year: number;
+  semester?: number;
+  year?: number;
   studentCount: number;
   risk: number;
-  courseId: string; // Added missing property
+  courseId: string;
 }
 
 export interface Course {
   id: string;
   name: string;
-  code: string;
+  code?: string;
   unitCount: number;
   studentCount: number;
   risk: number;
-  units?: CourseUnit[]; // Added missing property
+  units?: CourseUnit[];
+  schoolId?: string;
+  type?: string;
 }
 
 export interface School {
   id: string;
   name: string;
-  code: string;
+  code?: string;
   courseCount: number;
   studentCount: number;
   risk: number;
+  courses?: Course[];
+  institutionId?: string;
 }
 
 export interface Institution {
   id: string;
   name: string;
-  code: string;
+  code?: string;
   schoolCount: number;
   studentCount: number;
   risk: number;
+  schools?: School[];
 }

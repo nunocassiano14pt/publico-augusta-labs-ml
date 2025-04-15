@@ -64,7 +64,14 @@ const CourseUnitView: React.FC<CourseUnitViewProps> = ({
           
           <div className="mb-6">
             <StudentsTable 
-              subscribers={[]} // Pass empty array instead of students
+              subscribers={students.map(student => ({
+                cod_pessoa: student.id,
+                nome_subscritor: student.name,
+                subscription: student.email,
+                ano_subscricao: '',
+                data_extracao: '',
+                churn: student.risk
+              }))}
               onExportCSV={onExportCSV} 
             />
           </div>

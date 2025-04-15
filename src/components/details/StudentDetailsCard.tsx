@@ -1,16 +1,16 @@
 
 import React, { useState } from 'react';
-import { SubscriberDetail } from '../../types';
+import { StudentDetail } from '../../types';
 import { HelpCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import ChurnTrendChart from './ChurnTrendChart';
 
-interface SubscriberDetailsCardProps {
-  details: SubscriberDetail;
+interface StudentDetailsCardProps {
+  details: StudentDetail;
 }
 
-const SubscriberDetailsCard: React.FC<SubscriberDetailsCardProps> = ({ details }) => {
+const StudentDetailsCard: React.FC<StudentDetailsCardProps> = ({ details }) => {
   const [activeTab, setActiveTab] = useState('chart');
 
   return (
@@ -175,4 +175,4 @@ const SubscriberDetailsCard: React.FC<SubscriberDetailsCardProps> = ({ details }
   );
 };
 
-export default SubscriberDetailsCard;
+export default StudentDetailsCard;

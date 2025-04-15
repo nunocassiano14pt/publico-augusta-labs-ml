@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { Institution, RiskDistribution, FactorFrequency, PredictionComparison } from '../../types';
 import RiskDetailGraphs from './RiskDetailGraphs';
 import PredictionComparisonChart from './PredictionComparisonChart';
+import { Institution, RiskDistribution, FactorFrequency, PredictionComparison } from '../../types';
 import { ArrowDown } from 'lucide-react';
 
 interface InstitutionViewProps {
@@ -12,6 +12,7 @@ interface InstitutionViewProps {
   negativeFactorsData: FactorFrequency[];
   predictionComparisonData: PredictionComparison[];
   onInstitutionClick: (institutionId: string) => void;
+  institutionName?: string;
 }
 
 const InstitutionView: React.FC<InstitutionViewProps> = ({
@@ -21,19 +22,23 @@ const InstitutionView: React.FC<InstitutionViewProps> = ({
   negativeFactorsData,
   predictionComparisonData,
   onInstitutionClick,
+  institutionName
 }) => {
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">Estatísticas por Instituição</h2>
+      <h2 className="text-xl font-semibold mb-4">
+        {institutionName ? `Escolas de ${institutionName}` : "Estatísticas por Instituição"}
+      </h2>
       
       <div className="mb-6">
         <div className="overflow-hidden rounded-lg border border-gray-200">
           <table className="data-table">
             <thead>
               <tr>
-                <th>Instituição</th>
+                <th>Código</th>
+                <th>Nome</th>
                 <th>Nº Escolas</th>
-                <th>Nº Assinantes</th>
+                <th>Nº Alunos</th>
                 <th>Risco Médio</th>
               </tr>
             </thead>
@@ -44,9 +49,10 @@ const InstitutionView: React.FC<InstitutionViewProps> = ({
                   className="animate-fadeIn cursor-pointer hover:bg-gray-50"
                   onClick={() => onInstitutionClick(institution.id)}
                 >
+                  <td>{institution.id}</td>
                   <td>{institution.name}</td>
                   <td>{institution.schoolCount}</td>
-                  <td>{institution.subscriberCount}</td>
+                  <td>{institution.studentCount}</td>
                   <td>
                     <div className="risk-indicator">
                       {institution.risk >= 80 ? (

@@ -3,7 +3,7 @@
 
 export type Status = 'Pendente' | 'Sucesso' | 'Falha';
 
-export type AccessType = 'Utilizador' | 'Editor' | 'Administrador';
+export type AccessType = 'Utilizador' | 'Docente' | 'Administrador';
 
 export interface Prediction {
   id: string;
@@ -13,14 +13,14 @@ export interface Prediction {
   access: AccessType[];
 }
 
-export interface Subscriber {
+export interface Student {
   cod_pessoa: string;
-  nome_assinante: string;
-  plano_assinatura: string;
-  data_inicio: string;
+  nome_aluno: string;
+  matricula: string;
+  ano_letivo: string;
   data_extracao: string;
   churn: number;
-  contentCategoryIds?: string[]; // Categorias de conteúdo preferidas
+  courseUnitIds?: string[]; // Added this property
 }
 
 export type FeatureImpact = {
@@ -35,8 +35,8 @@ export interface ChurnTrend {
   value: number;
 }
 
-export interface SubscriberDetail {
-  subscriberId: string;
+export interface StudentDetail {
+  studentId: string;
   churnProbability: number;
   positiveReasons: FeatureImpact[];
   negativeReasons: FeatureImpact[];
@@ -70,108 +70,51 @@ export interface FactorFrequency {
   percentage: number;
 }
 
-export interface ContentCategory {
+export interface CourseUnit {
   id: string;
   name: string;
   risk: number;
-  subscriberCount: number;
-  publicationId?: string;
-  periodId?: number; // Período de assinatura
-}
-
-export interface SubscriptionPeriod {
-  id: string;
-  period: number;
-  publicationId: string;
-  risk: number;
-  categoryCount: number;
-  subscriberCount: number;
-  unitCount?: number; // Compatibilidade com AcademicYearView
-}
-
-export interface Publication {
-  id: string;
-  name: string;
-  risk: number;
-  categoryCount?: number;
-  subscriberCount: number;
-  unitCount?: number; // Compatibilidade com CourseView
-  categories?: ContentCategory[];
-  publisherId?: string;
-  type?: string;
-  subscriptionPeriods?: number[]; // Períodos de assinatura disponíveis
-  academicYears?: number[]; // Para compatibilidade com Statistics.tsx
-}
-
-export interface Publisher {
-  id: string;
-  name: string;
-  risk: number;
-  publicationCount?: number;
-  courseCount?: number; // Compatibilidade com SchoolView
-  subscriberCount: number;
-  studentCount?: number; // Compatibilidade com SchoolView
-  publications?: Publication[];
-  mediaGroupId?: string;
-}
-
-export interface MediaGroup {
-  id: string;
-  name: string;
-  risk: number;
-  publisherCount?: number;
-  schoolCount?: number; // Compatibilidade com InstitutionView
-  subscriberCount: number;
-  studentCount?: number; // Compatibilidade com InstitutionView
-  publishers?: Publisher[];
-}
-
-// Mantendo os tipos antigos para compatibilidade, podemos removê-los depois
-export interface Student extends Subscriber {
-  // Alias para manter compatibilidade
-  courseUnitIds?: string[];
-}
-
-export interface StudentDetail extends SubscriberDetail {
-  // Alias para manter compatibilidade
-  studentId: string;
-}
-
-export interface CourseUnit extends ContentCategory {
-  // Alias para manter compatibilidade
+  studentCount: number;
   courseId?: string;
-  academicYear?: number;
-  subscriberCount: number; // Adicionado para compatibilidade
+  academicYear?: number; // Added academic year property
 }
 
-export interface AcademicYear extends SubscriptionPeriod {
-  // Alias para manter compatibilidade
+export interface AcademicYear {
+  id: string;
   year: number;
   courseId: string;
-  unitCount?: number; 
-  subscriberCount: number;
+  risk: number;
+  unitCount: number;
+  studentCount: number;
 }
 
-export interface Course extends Publication {
-  // Alias para manter compatibilidade
+export interface Course {
+  id: string;
+  name: string;
+  risk: number;
+  unitCount: number;
+  studentCount: number;
   units?: CourseUnit[];
   schoolId?: string;
-  unitCount?: number;
-  subscriberCount: number;
-  academicYears?: number[]; // Anos acadêmicos do curso
+  type?: string;
+  academicYears?: number[]; // Added academic years array
 }
 
-export interface School extends Publisher {
-  // Alias para manter compatibilidade
+export interface School {
+  id: string;
+  name: string;
+  risk: number;
+  courseCount: number;
+  studentCount: number;
   courses?: Course[];
   institutionId?: string;
-  courseCount?: number;
-  subscriberCount: number;
 }
 
-export interface Institution extends MediaGroup {
-  // Alias para manter compatibilidade
+export interface Institution {
+  id: string;
+  name: string;
+  risk: number;
+  schoolCount: number;
+  studentCount: number;
   schools?: School[];
-  schoolCount?: number;
-  subscriberCount: number;
 }

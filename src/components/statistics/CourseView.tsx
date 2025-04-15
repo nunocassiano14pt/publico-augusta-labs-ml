@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { Course, RiskDistribution, FactorFrequency, PredictionComparison } from '../../types';
 import RiskDetailGraphs from './RiskDetailGraphs';
 import PredictionComparisonChart from './PredictionComparisonChart';
+import { Course, RiskDistribution, FactorFrequency, PredictionComparison } from '../../types';
 import { ArrowDown } from 'lucide-react';
 
 interface CourseViewProps {
@@ -31,7 +31,9 @@ const CourseView: React.FC<CourseViewProps> = ({
       <h2 className="text-xl font-semibold mb-4">
         {schoolName && courseTypeName 
           ? `${courseTypeName} de ${schoolName}` 
-          : "Estatísticas por Curso"}
+          : schoolName 
+            ? `Cursos de ${schoolName}` 
+            : "Estatísticas por Curso"}
       </h2>
       
       <div className="mb-6">
@@ -39,9 +41,10 @@ const CourseView: React.FC<CourseViewProps> = ({
           <table className="data-table">
             <thead>
               <tr>
-                <th>Curso</th>
+                <th>Código</th>
+                <th>Nome</th>
                 <th>Nº UCs</th>
-                <th>Nº Assinantes</th>
+                <th>Nº Alunos</th>
                 <th>Risco Médio</th>
               </tr>
             </thead>
@@ -52,9 +55,10 @@ const CourseView: React.FC<CourseViewProps> = ({
                   className="animate-fadeIn cursor-pointer hover:bg-gray-50"
                   onClick={() => onCourseClick(course.id)}
                 >
+                  <td>{course.id}</td>
                   <td>{course.name}</td>
                   <td>{course.unitCount}</td>
-                  <td>{course.subscriberCount}</td>
+                  <td>{course.studentCount}</td>
                   <td>
                     <div className="risk-indicator">
                       {course.risk >= 80 ? (
@@ -83,7 +87,7 @@ const CourseView: React.FC<CourseViewProps> = ({
       </div>
       
       <div className="mt-8 mb-8">
-        <h3 className="text-lg font-medium mb-4">Comparação de Previsões por Curso</h3>
+        <h3 className="text-lg font-medium mb-4">Comparação de Previsões para {courseTypeName}</h3>
         <PredictionComparisonChart data={predictionComparisonData} />
       </div>
       

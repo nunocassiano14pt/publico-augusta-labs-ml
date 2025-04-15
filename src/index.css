@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -141,4 +140,31 @@ h1, h2, h3, h4, h5, h6 {
   @apply bg-green-100 text-green-800;
 }
 
-/* Removed district map tooltip styles */
+/* Custom tab styling with gradient underline */
+.custom-tab-trigger {
+  position: relative;
+}
+
+.custom-tab-trigger::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(to right, #d92323, #a30000);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: all 0.3s ease;
+}
+
+.custom-tab-trigger[data-state="active"]::after {
+  transform: scaleX(1);
+}
+
+/* Custom tabs list styling */
+.custom-tabs-list {
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 1rem;
+}

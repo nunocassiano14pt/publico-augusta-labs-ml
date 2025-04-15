@@ -64,9 +64,9 @@ const Index = () => {
           </div>
           
           <Tabs defaultValue="tipos" className="mb-6">
-            <TabsList>
-              <TabsTrigger value="tipos">Por Período</TabsTrigger>
-              <TabsTrigger value="modalidades">Por Modalidade</TabsTrigger>
+            <TabsList className="custom-tabs-list">
+              <TabsTrigger value="tipos" className="custom-tab-trigger">Por Período</TabsTrigger>
+              <TabsTrigger value="modalidades" className="custom-tab-trigger">Por Modalidade</TabsTrigger>
             </TabsList>
             <TabsContent value="tipos" className="space-y-6 mt-4">
               <ChurnByTypeChart data={churnMetrics.por_tipo} />

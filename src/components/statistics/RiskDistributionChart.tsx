@@ -58,7 +58,7 @@ const RiskDistributionChart: React.FC<RiskDistributionChartProps> = ({ data }) =
             label={renderCustomizedLabel}
             outerRadius={80}
             fill="#8884d8"
-            dataKey="count"
+            dataKey="student_count" // Using the correct property name
             nameKey="legendName"
           >
             {enhancedData.map((entry, index) => (

@@ -64,7 +64,7 @@ const CourseUnitView: React.FC<CourseUnitViewProps> = ({
           
           <div className="mb-6">
             <StudentsTable 
-              students={students}
+              subscribers={[]} // Pass empty array instead of students
               onExportCSV={onExportCSV} 
             />
           </div>

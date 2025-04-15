@@ -1,14 +1,11 @@
 
 import React from 'react';
-import { Input } from "@/components/ui/input";
-import { Calendar } from 'lucide-react';
 
 interface PredictionHeaderProps {
   count: number;
-  onSearch: (query: string) => void;
 }
 
-const PredictionHeader: React.FC<PredictionHeaderProps> = ({ count, onSearch }) => {
+const PredictionHeader: React.FC<PredictionHeaderProps> = ({ count }) => {
   return (
     <div className="flex items-center justify-between mb-4">
       <div className="flex items-center space-x-2">
@@ -17,15 +14,7 @@ const PredictionHeader: React.FC<PredictionHeaderProps> = ({ count, onSearch }) 
           {count}
         </span>
       </div>
-      <div className="relative">
-        <Calendar className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
-        <Input
-          type="date"
-          placeholder="Filtrar por data..."
-          className="pl-8 h-10 w-[260px]"
-          onChange={(e) => onSearch(e.target.value)}
-        />
-      </div>
+      {/* Date filter removed as requested */}
     </div>
   );
 };

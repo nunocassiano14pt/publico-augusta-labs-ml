@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
       <div className="flex items-center">
         <Link to="/" className="flex items-center mr-8">
           <img 
-            src="/lovable-uploads/f47dd1d6-1d36-4d1e-bb85-aa183d1bb92a.png" 
+            src="/lovable-uploads/2781a604-204d-4870-b838-486600f9ea89.png" 
             alt="Público Logo" 
             className="h-10 mr-3"
             onError={(e) => {
@@ -41,9 +41,7 @@ const Navbar: React.FC = () => {
           </Link>
         </nav>
       </div>
-      <div>
-        <span className="text-sm text-white font-medium">Público</span>
-      </div>
+      {/* Removed the "Público" text from here */}
     </div>
   );
 };

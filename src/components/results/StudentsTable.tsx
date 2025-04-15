@@ -1,21 +1,21 @@
 
 import React from 'react';
-import { Student } from '../../types';
+import { Subscriber } from '../../types';
 import { MoreHorizontal, ArrowDown, ArrowUp, Download } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useNavigate, useLocation } from 'react-router-dom';
 
-interface StudentsTableProps {
-  students: Student[];
+interface SubscribersTableProps {
+  subscribers: Subscriber[];
   onExportCSV: () => void;
 }
 
-const StudentsTable: React.FC<StudentsTableProps> = ({ students, onExportCSV }) => {
+const SubscribersTable: React.FC<SubscribersTableProps> = ({ subscribers, onExportCSV }) => {
   const navigate = useNavigate();
-  const [sortColumn, setSortColumn] = React.useState<keyof Student>('churn');
+  const [sortColumn, setSortColumn] = React.useState<keyof Subscriber>('churn');
   const [sortDirection, setSortDirection] = React.useState<'asc' | 'desc'>('desc');
 
-  const handleSort = (column: keyof Student) => {
+  const handleSort = (column: keyof Subscriber) => {
     if (sortColumn === column) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
@@ -24,8 +24,8 @@ const StudentsTable: React.FC<StudentsTableProps> = ({ students, onExportCSV }) 
     }
   };
 
-  const sortedStudents = React.useMemo(() => {
-    return [...students].sort((a, b) => {
+  const sortedSubscribers = React.useMemo(() => {
+    return [...subscribers].sort((a, b) => {
       const aValue = a[sortColumn];
       const bValue = b[sortColumn];
       
@@ -41,19 +41,19 @@ const StudentsTable: React.FC<StudentsTableProps> = ({ students, onExportCSV }) 
       
       return 0;
     });
-  }, [students, sortColumn, sortDirection]);
+  }, [subscribers, sortColumn, sortDirection]);
 
-  const handleRowClick = (studentId: string) => {
-    navigate(`/details/${studentId}`);
+  const handleRowClick = (subscriberId: string) => {
+    navigate(`/details/${subscriberId}`);
   };
 
   return (
     <div className="animate-fadeIn">
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center space-x-2">
-          <h2 className="text-lg font-medium">Alunos</h2>
+          <h2 className="text-lg font-medium">Assinantes</h2>
           <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full text-xs font-medium">
-            {students.length}
+            {subscribers.length}
           </span>
         </div>
         <div className="flex items-center">
@@ -80,33 +80,33 @@ const StudentsTable: React.FC<StudentsTableProps> = ({ students, onExportCSV }) 
               </th>
               <th 
                 className="cursor-pointer hover:bg-gray-100" 
-                onClick={() => handleSort('nome_aluno')}
+                onClick={() => handleSort('nome_assinante')}
               >
                 <div className="flex items-center">
                   Nome 
-                  {sortColumn === 'nome_aluno' && (
+                  {sortColumn === 'nome_assinante' && (
                     sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
                   )}
                 </div>
               </th>
               <th 
                 className="cursor-pointer hover:bg-gray-100" 
-                onClick={() => handleSort('matricula')}
+                onClick={() => handleSort('plano_assinatura')}
               >
                 <div className="flex items-center">
-                  Matrícula 
-                  {sortColumn === 'matricula' && (
+                  Plano de Assinatura 
+                  {sortColumn === 'plano_assinatura' && (
                     sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
                   )}
                 </div>
               </th>
               <th 
                 className="cursor-pointer hover:bg-gray-100" 
-                onClick={() => handleSort('ano_letivo')}
+                onClick={() => handleSort('data_inicio')}
               >
                 <div className="flex items-center">
-                  Ano Letivo 
-                  {sortColumn === 'ano_letivo' && (
+                  Data de Início 
+                  {sortColumn === 'data_inicio' && (
                     sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
                   )}
                 </div>
@@ -126,32 +126,32 @@ const StudentsTable: React.FC<StudentsTableProps> = ({ students, onExportCSV }) 
             </tr>
           </thead>
           <tbody>
-            {sortedStudents.map((student) => (
+            {sortedSubscribers.map((subscriber) => (
               <tr 
-                key={student.cod_pessoa} 
+                key={subscriber.cod_pessoa} 
                 className="animate-fadeIn cursor-pointer hover:bg-gray-50"
-                onClick={() => handleRowClick(student.cod_pessoa)}
+                onClick={() => handleRowClick(subscriber.cod_pessoa)}
               >
-                <td>{student.cod_pessoa}</td>
-                <td>{student.nome_aluno}</td>
-                <td>{student.matricula}</td>
-                <td>{student.ano_letivo}</td>
+                <td>{subscriber.cod_pessoa}</td>
+                <td>{subscriber.nome_assinante}</td>
+                <td>{subscriber.plano_assinatura}</td>
+                <td>{subscriber.data_inicio}</td>
                 <td>
                   <div className="risk-indicator">
-                    {student.churn >= 80 ? (
+                    {subscriber.churn >= 80 ? (
                       <div className="risk-indicator high">
                         <ArrowDown size={14} className="mr-1 transform rotate-180" />
-                        {student.churn.toFixed(2)}%
+                        {subscriber.churn.toFixed(2)}%
                       </div>
-                    ) : student.churn >= 70 ? (
+                    ) : subscriber.churn >= 70 ? (
                       <div className="risk-indicator medium">
                         <span className="mr-1 font-bold">—</span>
-                        {student.churn.toFixed(2)}%
+                        {subscriber.churn.toFixed(2)}%
                       </div>
                     ) : (
                       <div className="risk-indicator low">
                         <ArrowDown size={14} className="mr-1" />
-                        {student.churn.toFixed(2)}%
+                        {subscriber.churn.toFixed(2)}%
                       </div>
                     )}
                   </div>
@@ -170,4 +170,4 @@ const StudentsTable: React.FC<StudentsTableProps> = ({ students, onExportCSV }) 
   );
 };
 
-export default StudentsTable;
+export default SubscribersTable;

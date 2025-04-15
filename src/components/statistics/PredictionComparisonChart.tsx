@@ -118,8 +118,8 @@ const PredictionComparisonChart: React.FC<PredictionComparisonChartProps> = ({ d
             />
             <Legend 
               payload={[
-                { value: 'Alunos Previstos', type: 'line', color: '#ff6b6b' },
-                { value: 'Alunos Reais', type: 'line', color: '#3b82f6' }
+                { value: 'Assinantes Previstos', type: 'line', color: '#ff6b6b' },
+                { value: 'Assinantes Reais', type: 'line', color: '#3b82f6' }
               ]}
             />
             <Area 
@@ -136,7 +136,7 @@ const PredictionComparisonChart: React.FC<PredictionComparisonChartProps> = ({ d
                     const predicted = data.payload.predicted;
                     const actual = data.payload.actual;
                     const diff = ((predicted - actual) / predicted * 100).toFixed(1);
-                    alert(`Mês: ${month}\nPrevistos: ${predicted} alunos\nReais: ${actual} alunos\nDiferença: ${diff}%`);
+                    alert(`Mês: ${month}\nPrevistos: ${predicted} assinantes\nReais: ${actual} assinantes\nDiferença: ${diff}%`);
                   }
                 }
               }}
@@ -156,7 +156,7 @@ const PredictionComparisonChart: React.FC<PredictionComparisonChartProps> = ({ d
                     const predicted = data.payload.predicted;
                     const actual = data.payload.actual;
                     const diff = ((predicted - actual) / predicted * 100).toFixed(1);
-                    alert(`Mês: ${month}\nPrevistos: ${predicted} alunos\nReais: ${actual} alunos\nDiferença: ${diff}%`);
+                    alert(`Mês: ${month}\nPrevistos: ${predicted} assinantes\nReais: ${actual} assinantes\nDiferença: ${diff}%`);
                   }
                 }
               }}

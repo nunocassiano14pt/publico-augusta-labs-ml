@@ -26,8 +26,8 @@ const Predictions = () => {
     <Layout>
       <div className="max-w-7xl mx-auto">
         <PageTitle 
-          title="Previsão de Abandono Escolar" 
-          subtitle="Analise e monitorize informações dos alunos para prever e prevenir o abandono."
+          title="Previsão de Abandono de Assinaturas" 
+          subtitle="Analise e monitorize informações dos assinantes para prever e prevenir o cancelamento."
         />
         
         <div className="dashboard-card mb-6">

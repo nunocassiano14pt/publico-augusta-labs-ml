@@ -2,82 +2,96 @@
 import { useState } from 'react';
 
 export function useStatisticsNavigation() {
-  const [selectedInstitution, setSelectedInstitution] = useState<string | null>(null);
-  const [selectedSchool, setSelectedSchool] = useState<string | null>(null);
-  const [selectedCourseType, setSelectedCourseType] = useState<string | null>(null);
-  const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
-  const [selectedAcademicYear, setSelectedAcademicYear] = useState<number | null>(null);
-  const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
+  const [selectedMediaGroup, setSelectedMediaGroup] = useState<string | null>(null);
+  const [selectedPublisher, setSelectedPublisher] = useState<string | null>(null);
+  const [selectedPublicationType, setSelectedPublicationType] = useState<string | null>(null);
+  const [selectedPublication, setSelectedPublication] = useState<string | null>(null);
+  const [selectedSubscriptionPeriod, setSelectedSubscriptionPeriod] = useState<number | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const handleInstitutionClick = (institutionId: string) => {
-    setSelectedInstitution(institutionId);
-    setSelectedSchool(null);
-    setSelectedCourseType(null);
-    setSelectedCourse(null);
-    setSelectedAcademicYear(null);
-    setSelectedUnit(null);
+  const handleMediaGroupClick = (mediaGroupId: string) => {
+    setSelectedMediaGroup(mediaGroupId);
+    setSelectedPublisher(null);
+    setSelectedPublicationType(null);
+    setSelectedPublication(null);
+    setSelectedSubscriptionPeriod(null);
+    setSelectedCategory(null);
   };
   
-  const handleSchoolClick = (schoolId: string) => {
-    setSelectedSchool(schoolId);
-    setSelectedCourseType(null);
-    setSelectedCourse(null);
-    setSelectedAcademicYear(null);
-    setSelectedUnit(null);
+  const handlePublisherClick = (publisherId: string) => {
+    setSelectedPublisher(publisherId);
+    setSelectedPublicationType(null);
+    setSelectedPublication(null);
+    setSelectedSubscriptionPeriod(null);
+    setSelectedCategory(null);
   };
   
-  const handleCourseTypeClick = (courseType: string) => {
-    setSelectedCourseType(courseType);
-    setSelectedCourse(null);
-    setSelectedAcademicYear(null);
-    setSelectedUnit(null);
+  const handlePublicationTypeClick = (publicationType: string) => {
+    setSelectedPublicationType(publicationType);
+    setSelectedPublication(null);
+    setSelectedSubscriptionPeriod(null);
+    setSelectedCategory(null);
   };
   
-  const handleCourseClick = (courseId: string) => {
-    setSelectedCourse(courseId);
-    setSelectedAcademicYear(null);
-    setSelectedUnit(null);
+  const handlePublicationClick = (publicationId: string) => {
+    setSelectedPublication(publicationId);
+    setSelectedSubscriptionPeriod(null);
+    setSelectedCategory(null);
   };
   
-  const handleAcademicYearClick = (year: number) => {
-    setSelectedAcademicYear(year);
-    setSelectedUnit(null);
+  const handleSubscriptionPeriodClick = (period: number) => {
+    setSelectedSubscriptionPeriod(period);
+    setSelectedCategory(null);
   };
   
-  const handleUnitClick = (unitId: string) => {
-    setSelectedUnit(unitId);
+  const handleCategoryClick = (categoryId: string) => {
+    setSelectedCategory(categoryId);
   };
   
   const handleBackClick = () => {
     // Determine which level to go back to
-    if (selectedUnit) {
-      setSelectedUnit(null);
-    } else if (selectedAcademicYear) {
-      setSelectedAcademicYear(null);
-    } else if (selectedCourse) {
-      setSelectedCourse(null);
-    } else if (selectedCourseType) {
-      setSelectedCourseType(null);
-    } else if (selectedSchool) {
-      setSelectedSchool(null);
-    } else if (selectedInstitution) {
-      setSelectedInstitution(null);
+    if (selectedCategory) {
+      setSelectedCategory(null);
+    } else if (selectedSubscriptionPeriod) {
+      setSelectedSubscriptionPeriod(null);
+    } else if (selectedPublication) {
+      setSelectedPublication(null);
+    } else if (selectedPublicationType) {
+      setSelectedPublicationType(null);
+    } else if (selectedPublisher) {
+      setSelectedPublisher(null);
+    } else if (selectedMediaGroup) {
+      setSelectedMediaGroup(null);
     }
   };
 
   return {
-    selectedInstitution,
-    selectedSchool,
-    selectedCourseType,
-    selectedCourse,
-    selectedAcademicYear,
-    selectedUnit,
-    handleInstitutionClick,
-    handleSchoolClick,
-    handleCourseTypeClick,
-    handleCourseClick,
-    handleAcademicYearClick,
-    handleUnitClick,
-    handleBackClick
+    selectedMediaGroup,
+    selectedPublisher,
+    selectedPublicationType,
+    selectedPublication,
+    selectedSubscriptionPeriod,
+    selectedCategory,
+    handleMediaGroupClick,
+    handlePublisherClick,
+    handlePublicationTypeClick,
+    handlePublicationClick,
+    handleSubscriptionPeriodClick,
+    handleCategoryClick,
+    handleBackClick,
+    
+    // Compatibilidade com os nomes antigos para reutilização dos componentes existentes
+    selectedInstitution: selectedMediaGroup,
+    selectedSchool: selectedPublisher,
+    selectedCourseType: selectedPublicationType,
+    selectedCourse: selectedPublication,
+    selectedAcademicYear: selectedSubscriptionPeriod,
+    selectedUnit: selectedCategory,
+    handleInstitutionClick: handleMediaGroupClick,
+    handleSchoolClick: handlePublisherClick,
+    handleCourseTypeClick: handlePublicationTypeClick,
+    handleCourseClick: handlePublicationClick,
+    handleAcademicYearClick: handleSubscriptionPeriodClick,
+    handleUnitClick: handleCategoryClick
   };
 }

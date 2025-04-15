@@ -1,13 +1,13 @@
 
 import React, { useState } from 'react';
-import { StudentDetail } from '../../types';
+import { SubscriberDetail } from '../../types';
 import { HelpCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import ChurnTrendChart from './ChurnTrendChart';
 
 interface StudentDetailsCardProps {
-  details: StudentDetail;
+  details: SubscriberDetail;
 }
 
 const StudentDetailsCard: React.FC<StudentDetailsCardProps> = ({ details }) => {

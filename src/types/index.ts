@@ -24,7 +24,11 @@ export interface Subscriber {
   tempo_subscricao?: number;
   valor_medio_fatura?: number;
   tipo_subscricao?: string;
+  modalidade?: SubscriptionModality;
 }
+
+export type SubscriptionPeriod = 'Trimestral' | 'Semestral' | 'Anual';
+export type SubscriptionModality = 'Digital' | 'Papel + Digital' | 'Empresas' | 'Estudantes';
 
 export type FeatureImpact = {
   feature: string;

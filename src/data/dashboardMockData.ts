@@ -5,8 +5,8 @@ export const churnMetrics: ChurnMetrics = {
   probabilidade_media: 24.7,
   total_subscritores: 52837,
   churn_ultimo_mes: 6.8,
-  melhor_retencao: 'Premium Anual',
-  pior_retencao: 'Básico Mensal',
+  melhor_retencao: 'Anual',
+  pior_retencao: 'Trimestral',
   por_idade: [
     { faixa_etaria: '18-24', probabilidade: 38.5, total_subscritores: 7842 },
     { faixa_etaria: '25-34', probabilidade: 32.1, total_subscritores: 15268 },
@@ -16,11 +16,17 @@ export const churnMetrics: ChurnMetrics = {
     { faixa_etaria: '65+', probabilidade: 12.6, total_subscritores: 1939 }
   ],
   por_tipo: [
-    { tipo: 'Básico Mensal', probabilidade: 41.2, total_subscritores: 18762 },
-    { tipo: 'Standard Mensal', probabilidade: 27.8, total_subscritores: 14925 },
-    { tipo: 'Premium Mensal', probabilidade: 19.6, total_subscritores: 8534 },
-    { tipo: 'Básico Anual', probabilidade: 18.2, total_subscritores: 5123 },
-    { tipo: 'Standard Anual', probabilidade: 12.8, total_subscritores: 3945 },
-    { tipo: 'Premium Anual', probabilidade: 7.5, total_subscritores: 1548 }
+    { tipo: 'Trimestral', probabilidade: 41.2, total_subscritores: 18762 },
+    { tipo: 'Semestral', probabilidade: 27.8, total_subscritores: 14925 },
+    { tipo: 'Anual', probabilidade: 19.6, total_subscritores: 8534 }
+  ]
+};
+
+export const modalidadeMetrics = {
+  por_modalidade: [
+    { tipo: 'Digital', probabilidade: 32.4, total_subscritores: 24850 },
+    { tipo: 'Papel + Digital', probabilidade: 24.6, total_subscritores: 15982 },
+    { tipo: 'Empresas', probabilidade: 18.3, total_subscritores: 8712 },
+    { tipo: 'Estudantes', probabilidade: 29.8, total_subscritores: 3293 }
   ]
 };

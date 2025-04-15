@@ -5,6 +5,7 @@ import { MoreHorizontal, ArrowDown, ArrowUp, Search } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from 'react-router-dom';
+import { Badge } from "@/components/ui/badge";
 
 interface SubscribersTableProps {
   subscribers: Subscriber[];
@@ -64,6 +65,21 @@ const SubscribersTable: React.FC<SubscribersTableProps> = ({ subscribers, onExpo
     navigate(`/details/${subscriberId}`);
   };
 
+  const getModalityBadgeVariant = (modalidade?: string) => {
+    switch (modalidade) {
+      case 'Digital':
+        return 'secondary';
+      case 'Papel + Digital':
+        return 'default';
+      case 'Empresas':
+        return 'outline';
+      case 'Estudantes':
+        return 'destructive';
+      default:
+        return 'default';
+    }
+  };
+
   return (
     <div className="animate-fadeIn">
       <div className="flex justify-between items-center mb-4">
@@ -113,22 +129,22 @@ const SubscribersTable: React.FC<SubscribersTableProps> = ({ subscribers, onExpo
               </th>
               <th 
                 className="cursor-pointer hover:bg-gray-100" 
-                onClick={() => handleSort('subscription')}
+                onClick={() => handleSort('tipo_subscricao')}
               >
                 <div className="flex items-center">
-                  Subscrição 
-                  {sortColumn === 'subscription' && (
+                  Período 
+                  {sortColumn === 'tipo_subscricao' && (
                     sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
                   )}
                 </div>
               </th>
               <th 
                 className="cursor-pointer hover:bg-gray-100" 
-                onClick={() => handleSort('ano_subscricao')}
+                onClick={() => handleSort('modalidade')}
               >
                 <div className="flex items-center">
-                  Ano Subscrição 
-                  {sortColumn === 'ano_subscricao' && (
+                  Modalidade 
+                  {sortColumn === 'modalidade' && (
                     sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
                   )}
                 </div>
@@ -156,8 +172,14 @@ const SubscribersTable: React.FC<SubscribersTableProps> = ({ subscribers, onExpo
               >
                 <td>{subscriber.cod_pessoa}</td>
                 <td>{subscriber.nome_subscritor}</td>
-                <td>{subscriber.subscription}</td>
-                <td>{subscriber.ano_subscricao}</td>
+                <td>{subscriber.tipo_subscricao}</td>
+                <td>
+                  {subscriber.modalidade && (
+                    <Badge variant={getModalityBadgeVariant(subscriber.modalidade)}>
+                      {subscriber.modalidade}
+                    </Badge>
+                  )}
+                </td>
                 <td>
                   <div className="risk-indicator">
                     {subscriber.churn >= 80 ? (

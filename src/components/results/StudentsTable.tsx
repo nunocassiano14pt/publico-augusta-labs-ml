@@ -65,7 +65,7 @@ const StudentsTable: React.FC<StudentsTableProps> = ({ subscribers, onExportCSV 
   };
 
   return (
-    <div className="overflow-hidden rounded-lg border border-gray-200">
+    <div className="overflow-hidden rounded-lg border border-gray-200 publico-gradient-card">
       <div className="p-4 border-b border-gray-200 bg-gray-50">
         <div className="relative max-w-md">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
@@ -152,7 +152,7 @@ const StudentsTable: React.FC<StudentsTableProps> = ({ subscribers, onExportCSV 
               <td>
                 <div className="risk-indicator">
                   {subscriber.churn >= 80 ? (
-                    <div className="risk-indicator high">
+                    <div className="risk-indicator high publico-gradient-bg text-white">
                       <ArrowDown size={14} className="mr-1 transform rotate-180" />
                       {subscriber.churn.toFixed(2)}%
                     </div>

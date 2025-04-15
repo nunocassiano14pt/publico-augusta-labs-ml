@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -167,4 +168,47 @@ h1, h2, h3, h4, h5, h6 {
 .custom-tabs-list {
   border-bottom: 1px solid #e2e8f0;
   margin-bottom: 1rem;
+}
+
+/* Publico gradient styles for reuse */
+.publico-gradient-bg {
+  background: linear-gradient(to right, #d92323, #a30000);
+}
+
+.publico-gradient-text {
+  background: linear-gradient(to right, #d92323, #a30000);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.publico-gradient-border {
+  border-image: linear-gradient(to right, #d92323, #a30000) 1;
+  border-image-slice: 1;
+}
+
+.publico-gradient-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.publico-gradient-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #d92323, #a30000);
+}
+
+/* Chart gradient definitions */
+.chart-area-gradient-red stop:first-child {
+  stop-color: #ff6b6b;
+  stop-opacity: 0.8;
+}
+
+.chart-area-gradient-red stop:last-child {
+  stop-color: #ff6b6b;
+  stop-opacity: 0.1;
 }

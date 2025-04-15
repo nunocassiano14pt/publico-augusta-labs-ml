@@ -30,7 +30,7 @@ const SubscriberDetails = () => {
           />
         </div>
         
-        <div className="dashboard-card mb-6">
+        <div className="dashboard-card mb-6 publico-gradient-card">
           <div className="p-6">
             <SubscriberDetailsCard details={subscriberDetailMock} />
           </div>

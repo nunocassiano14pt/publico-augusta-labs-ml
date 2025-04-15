@@ -39,10 +39,10 @@ const PredictionComparisonChart: React.FC<PredictionComparisonChartProps> = ({ d
   return (
     <div className="space-y-4">
       {/* KPI showing percentage difference */}
-      <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
+      <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 publico-gradient-card">
         <h3 className="text-sm font-medium text-gray-500 mb-1">Diferença percentual (último mês)</h3>
         <div className="flex items-center">
-          <div className={`text-2xl font-bold ${isPositiveDiff ? 'text-red-500' : 'text-green-500'}`}>
+          <div className={`text-2xl font-bold ${isPositiveDiff ? 'publico-gradient-text' : 'text-green-500'}`}>
             {isPositiveDiff ? '+' : ''}{latestDifference}%
           </div>
           <div className="ml-2 text-sm text-gray-500">
@@ -68,8 +68,8 @@ const PredictionComparisonChart: React.FC<PredictionComparisonChartProps> = ({ d
           >
             <defs>
               <linearGradient id="colorPredicted" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#ff6b6b" stopOpacity={0.8}/>
-                <stop offset="95%" stopColor="#ff6b6b" stopOpacity={0.1}/>
+                <stop offset="5%" stopColor="#d92323" stopOpacity={0.8}/>
+                <stop offset="95%" stopColor="#d92323" stopOpacity={0.1}/>
               </linearGradient>
               <linearGradient id="colorActual" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8}/>
@@ -106,7 +106,7 @@ const PredictionComparisonChart: React.FC<PredictionComparisonChartProps> = ({ d
                       <p className="text-sm">Previstos: <span className="font-semibold">{predicted}</span></p>
                       <p className="text-sm">Reais: <span className="font-semibold">{actual}</span></p>
                       <p className="text-sm mt-1">
-                        Diferença: <span className={`font-semibold ${isPositive ? 'text-red-500' : 'text-green-500'}`}>
+                        Diferença: <span className={`font-semibold ${isPositive ? 'publico-gradient-text' : 'text-green-500'}`}>
                           {isPositive ? '+' : ''}{diff}%
                         </span>
                       </p>
@@ -118,14 +118,14 @@ const PredictionComparisonChart: React.FC<PredictionComparisonChartProps> = ({ d
             />
             <Legend 
               payload={[
-                { value: 'Alunos Previstos', type: 'line', color: '#ff6b6b' },
+                { value: 'Alunos Previstos', type: 'line', color: '#d92323' },
                 { value: 'Alunos Reais', type: 'line', color: '#3b82f6' }
               ]}
             />
             <Area 
               type="monotone" 
               dataKey="predicted" 
-              stroke="#ff6b6b" 
+              stroke="#d92323" 
               fillOpacity={1}
               fill="url(#colorPredicted)" 
               activeDot={{ 

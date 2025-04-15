@@ -21,7 +21,7 @@ const RiskDetailGraphs: React.FC<RiskDetailGraphsProps> = ({
     let color = '#10b981'; // Default green for low risk
     
     if (item.category.includes('Alto')) {
-      color = '#d92323'; // Red for high risk - using Público color
+      color = '#f43f5e'; // Red for high risk
     } else if (item.category.includes('Médio')) {
       color = '#f59e0b'; // Yellow/amber for medium risk
     }
@@ -31,7 +31,7 @@ const RiskDetailGraphs: React.FC<RiskDetailGraphsProps> = ({
 
   return (
     <div className="space-y-6">
-      <Card className="publico-gradient-card pl-4">
+      <Card>
         <CardHeader>
           <CardTitle>Distribuição por Previsão de Desistência</CardTitle>
         </CardHeader>
@@ -41,7 +41,7 @@ const RiskDetailGraphs: React.FC<RiskDetailGraphsProps> = ({
           </div>
           <div className="flex justify-center mt-4 gap-4">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#d92323]"></div>
+              <div className="w-3 h-3 rounded-full bg-[#f43f5e]"></div>
               <span className="text-sm">Alto Risco</span>
             </div>
             <div className="flex items-center gap-2">
@@ -56,7 +56,7 @@ const RiskDetailGraphs: React.FC<RiskDetailGraphsProps> = ({
         </CardContent>
       </Card>
       
-      <Card className="publico-gradient-card pl-4">
+      <Card>
         <CardHeader>
           <CardTitle>Fatores Positivos Mais Frequentes</CardTitle>
         </CardHeader>
@@ -71,7 +71,7 @@ const RiskDetailGraphs: React.FC<RiskDetailGraphsProps> = ({
         </CardContent>
       </Card>
       
-      <Card className="publico-gradient-card pl-4">
+      <Card>
         <CardHeader>
           <CardTitle>Fatores Negativos Mais Frequentes</CardTitle>
         </CardHeader>
@@ -80,7 +80,7 @@ const RiskDetailGraphs: React.FC<RiskDetailGraphsProps> = ({
             <FactorsBarChart 
               data={negativeFactorsData} 
               title="Fatores Negativos Mais Frequentes" 
-              color="#d92323"
+              color="#f43f5e"
             />
           </div>
         </CardContent>

@@ -11,9 +11,9 @@ interface CountChartProps {
   color?: string;
 }
 
-const CountChart: React.FC<CountChartProps> = ({ data, title, color = '#d92323' }) => {
+const CountChart: React.FC<CountChartProps> = ({ data, title, color = '#3ABAB4' }) => {
   return (
-    <div className="h-64 publico-gradient-card pl-4">
+    <div className="h-64">
       <h3 className="text-sm font-medium text-gray-500 mb-2">{title}</h3>
       <ResponsiveContainer width="100%" height="90%">
         <BarChart

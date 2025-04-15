@@ -9,7 +9,7 @@ interface ChurnTrendChartProps {
 
 const ChurnTrendChart: React.FC<ChurnTrendChartProps> = ({ data }) => {
   return (
-    <div className="dashboard-card publico-gradient-card mt-6">
+    <div className="dashboard-card mt-6">
       <h3 className="text-lg font-medium mb-4">Evolução do Risco de Abandono</h3>
       <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">
@@ -19,8 +19,8 @@ const ChurnTrendChart: React.FC<ChurnTrendChartProps> = ({ data }) => {
           >
             <defs>
               <linearGradient id="colorRed" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#d92323" stopOpacity={0.8}/>
-                <stop offset="95%" stopColor="#a30000" stopOpacity={0.1}/>
+                <stop offset="5%" stopColor="#ff6b6b" stopOpacity={0.8}/>
+                <stop offset="95%" stopColor="#ff6b6b" stopOpacity={0.1}/>
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" vertical={false} />
@@ -42,7 +42,7 @@ const ChurnTrendChart: React.FC<ChurnTrendChartProps> = ({ data }) => {
             <Area 
               type="monotone" 
               dataKey="value" 
-              stroke="#d92323" 
+              stroke="#ff6b6b" 
               fillOpacity={1}
               fill="url(#colorRed)" 
               activeDot={{ r: 8 }}

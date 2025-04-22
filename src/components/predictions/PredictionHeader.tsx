@@ -1,11 +1,14 @@
 
 import React from 'react';
+import { Input } from "@/components/ui/input";
+import { Search } from 'lucide-react';
 
 interface PredictionHeaderProps {
   count: number;
+  onSearch: (query: string) => void;
 }
 
-const PredictionHeader: React.FC<PredictionHeaderProps> = ({ count }) => {
+const PredictionHeader: React.FC<PredictionHeaderProps> = ({ count, onSearch }) => {
   return (
     <div className="flex items-center justify-between mb-4">
       <div className="flex items-center space-x-2">
@@ -14,7 +17,14 @@ const PredictionHeader: React.FC<PredictionHeaderProps> = ({ count }) => {
           {count}
         </span>
       </div>
-      {/* Date filter removed as requested */}
+      <div className="relative">
+        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+        <Input
+          placeholder="Pesquisar por nome..."
+          className="pl-8 h-10 w-[260px]"
+          onChange={(e) => onSearch(e.target.value)}
+        />
+      </div>
     </div>
   );
 };

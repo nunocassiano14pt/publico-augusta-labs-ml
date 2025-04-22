@@ -14,10 +14,10 @@ interface BreadcrumbProps {
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
   return (
-    <div className="flex items-center overflow-x-auto whitespace-nowrap text-sm text-gray-500 mb-2">
+    <div className="breadcrumb">
       {items.map((item, index) => (
         <React.Fragment key={index}>
-          <div className="breadcrumb-item flex-shrink-0">
+          <div className="breadcrumb-item">
             {item.path ? (
               <Link to={item.path} className="hover:text-gray-800 transition-colors">
                 {item.label}
@@ -27,7 +27,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
             )}
           </div>
           {index < items.length - 1 && (
-            <ChevronRight size={14} className="text-gray-400 mx-2 flex-shrink-0" />
+            <ChevronRight size={14} className="breadcrumb-separator" />
           )}
         </React.Fragment>
       ))}

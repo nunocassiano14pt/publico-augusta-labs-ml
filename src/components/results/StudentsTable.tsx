@@ -1,24 +1,21 @@
 
-import React, { useState } from 'react';
-import { Subscriber } from '../../types';
-import { MoreHorizontal, ArrowDown, ArrowUp, Search } from 'lucide-react';
+import React from 'react';
+import { Student } from '../../types';
+import { MoreHorizontal, ArrowDown, ArrowUp, Download } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface StudentsTableProps {
-  subscribers: Subscriber[];
+  students: Student[];
   onExportCSV: () => void;
 }
 
-const StudentsTable: React.FC<StudentsTableProps> = ({ subscribers, onExportCSV }) => {
+const StudentsTable: React.FC<StudentsTableProps> = ({ students, onExportCSV }) => {
   const navigate = useNavigate();
-  const [sortColumn, setSortColumn] = useState<keyof Subscriber>('churn');
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
-  const [filterValue, setFilterValue] = useState<string>('');
-  const [filteredSubscribers, setFilteredSubscribers] = useState<Subscriber[]>(subscribers);
+  const [sortColumn, setSortColumn] = React.useState<keyof Student>('churn');
+  const [sortDirection, setSortDirection] = React.useState<'asc' | 'desc'>('desc');
 
-  const handleSort = (column: keyof Subscriber) => {
+  const handleSort = (column: keyof Student) => {
     if (sortColumn === column) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
@@ -27,22 +24,8 @@ const StudentsTable: React.FC<StudentsTableProps> = ({ subscribers, onExportCSV 
     }
   };
 
-  const handleFilterChange = (value: string) => {
-    setFilterValue(value);
-    if (!value.trim()) {
-      setFilteredSubscribers(subscribers);
-      return;
-    }
-
-    const filtered = subscribers.filter(subscriber => 
-      subscriber.nome_subscritor.toLowerCase().includes(value.toLowerCase()) ||
-      subscriber.cod_pessoa.toLowerCase().includes(value.toLowerCase())
-    );
-    setFilteredSubscribers(filtered);
-  };
-
-  const sortedSubscribers = React.useMemo(() => {
-    return [...filteredSubscribers].sort((a, b) => {
+  const sortedStudents = React.useMemo(() => {
+    return [...students].sort((a, b) => {
       const aValue = a[sortColumn];
       const bValue = b[sortColumn];
       
@@ -58,126 +41,131 @@ const StudentsTable: React.FC<StudentsTableProps> = ({ subscribers, onExportCSV 
       
       return 0;
     });
-  }, [filteredSubscribers, sortColumn, sortDirection]);
+  }, [students, sortColumn, sortDirection]);
 
-  const handleRowClick = (subscriberId: string) => {
-    navigate(`/details/${subscriberId}`);
+  const handleRowClick = (studentId: string) => {
+    navigate(`/details/${studentId}`);
   };
 
   return (
-    <div className="overflow-hidden rounded-lg border border-gray-200">
-      <div className="p-4 border-b border-gray-200 bg-gray-50">
-        <div className="relative max-w-md">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
-          <Input
-            placeholder="Pesquisar por nome ou código..."
-            value={filterValue}
-            onChange={(e) => handleFilterChange(e.target.value)}
-            className="pl-9 pr-4 py-2"
-          />
+    <div className="animate-fadeIn">
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex items-center space-x-2">
+          <h2 className="text-lg font-medium">Alunos</h2>
+          <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full text-xs font-medium">
+            {students.length}
+          </span>
+        </div>
+        <div className="flex items-center">
+          <Button variant="outline" className="border-gray-200 text-gray-700 flex items-center" onClick={onExportCSV}>
+            <Download size={16} className="mr-1" />
+            CSV ({(36.51).toFixed(2)} KB)
+          </Button>
         </div>
       </div>
-      <table className="data-table">
-        <thead>
-          <tr>
-            <th 
-              className="cursor-pointer hover:bg-gray-100" 
-              onClick={() => handleSort('cod_pessoa')}
-            >
-              <div className="flex items-center">
-                Código
-                {sortColumn === 'cod_pessoa' && (
-                  sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
-                )}
-              </div>
-            </th>
-            <th 
-              className="cursor-pointer hover:bg-gray-100" 
-              onClick={() => handleSort('nome_subscritor')}
-            >
-              <div className="flex items-center">
-                Nome
-                {sortColumn === 'nome_subscritor' && (
-                  sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
-                )}
-              </div>
-            </th>
-            <th 
-              className="cursor-pointer hover:bg-gray-100" 
-              onClick={() => handleSort('subscription')}
-            >
-              <div className="flex items-center">
-                Subscrição
-                {sortColumn === 'subscription' && (
-                  sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
-                )}
-              </div>
-            </th>
-            <th 
-              className="cursor-pointer hover:bg-gray-100" 
-              onClick={() => handleSort('ano_subscricao')}
-            >
-              <div className="flex items-center">
-                Ano Subscrição
-                {sortColumn === 'ano_subscricao' && (
-                  sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
-                )}
-              </div>
-            </th>
-            <th 
-              className="cursor-pointer hover:bg-gray-100" 
-              onClick={() => handleSort('churn')}
-            >
-              <div className="flex items-center">
-                Risco de Desistência
-                {sortColumn === 'churn' && (
-                  sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
-                )}
-              </div>
-            </th>
-            <th className="w-10"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedSubscribers.map((subscriber) => (
-            <tr 
-              key={subscriber.cod_pessoa} 
-              className="animate-fadeIn cursor-pointer hover:bg-gray-50"
-              onClick={() => handleRowClick(subscriber.cod_pessoa)}
-            >
-              <td>{subscriber.cod_pessoa}</td>
-              <td>{subscriber.nome_subscritor}</td>
-              <td>{subscriber.subscription}</td>
-              <td>{subscriber.ano_subscricao}</td>
-              <td>
-                <div className="risk-indicator">
-                  {subscriber.churn >= 80 ? (
-                    <div className="risk-indicator high">
-                      <ArrowDown size={14} className="mr-1 transform rotate-180" />
-                      {subscriber.churn.toFixed(2)}%
-                    </div>
-                  ) : subscriber.churn >= 70 ? (
-                    <div className="risk-indicator medium">
-                      <span className="mr-1 font-bold">—</span>
-                      {subscriber.churn.toFixed(2)}%
-                    </div>
-                  ) : (
-                    <div className="risk-indicator low">
-                      <ArrowDown size={14} className="mr-1" />
-                      {subscriber.churn.toFixed(2)}%
-                    </div>
+      <div className="overflow-hidden rounded-lg border border-gray-200">
+        <table className="data-table">
+          <thead>
+            <tr>
+              <th 
+                className="cursor-pointer hover:bg-gray-100" 
+                onClick={() => handleSort('cod_pessoa')}
+              >
+                <div className="flex items-center">
+                  Código 
+                  {sortColumn === 'cod_pessoa' && (
+                    sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
                   )}
                 </div>
-              </td>
-              <td onClick={(e) => e.stopPropagation()}>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
-                  <MoreHorizontal size={16} />
-                </Button>
-              </td>
+              </th>
+              <th 
+                className="cursor-pointer hover:bg-gray-100" 
+                onClick={() => handleSort('nome_aluno')}
+              >
+                <div className="flex items-center">
+                  Nome 
+                  {sortColumn === 'nome_aluno' && (
+                    sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
+                  )}
+                </div>
+              </th>
+              <th 
+                className="cursor-pointer hover:bg-gray-100" 
+                onClick={() => handleSort('matricula')}
+              >
+                <div className="flex items-center">
+                  Matrícula 
+                  {sortColumn === 'matricula' && (
+                    sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
+                  )}
+                </div>
+              </th>
+              <th 
+                className="cursor-pointer hover:bg-gray-100" 
+                onClick={() => handleSort('ano_letivo')}
+              >
+                <div className="flex items-center">
+                  Ano Letivo 
+                  {sortColumn === 'ano_letivo' && (
+                    sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
+                  )}
+                </div>
+              </th>
+              <th 
+                className="cursor-pointer hover:bg-gray-100" 
+                onClick={() => handleSort('churn')}
+              >
+                <div className="flex items-center">
+                  Risco de Abandono 
+                  {sortColumn === 'churn' && (
+                    sortDirection === 'asc' ? <ArrowUp size={14} className="ml-1" /> : <ArrowDown size={14} className="ml-1" />
+                  )}
+                </div>
+              </th>
+              <th className="w-10"></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {sortedStudents.map((student) => (
+              <tr 
+                key={student.cod_pessoa} 
+                className="animate-fadeIn cursor-pointer hover:bg-gray-50"
+                onClick={() => handleRowClick(student.cod_pessoa)}
+              >
+                <td>{student.cod_pessoa}</td>
+                <td>{student.nome_aluno}</td>
+                <td>{student.matricula}</td>
+                <td>{student.ano_letivo}</td>
+                <td>
+                  <div className="risk-indicator">
+                    {student.churn >= 80 ? (
+                      <div className="risk-indicator high">
+                        <ArrowDown size={14} className="mr-1 transform rotate-180" />
+                        {student.churn.toFixed(2)}%
+                      </div>
+                    ) : student.churn >= 70 ? (
+                      <div className="risk-indicator medium">
+                        <span className="mr-1 font-bold">—</span>
+                        {student.churn.toFixed(2)}%
+                      </div>
+                    ) : (
+                      <div className="risk-indicator low">
+                        <ArrowDown size={14} className="mr-1" />
+                        {student.churn.toFixed(2)}%
+                      </div>
+                    )}
+                  </div>
+                </td>
+                <td onClick={(e) => e.stopPropagation()}>
+                  <Button variant="ghost" size="icon" className="h-8 w-8">
+                    <MoreHorizontal size={16} />
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

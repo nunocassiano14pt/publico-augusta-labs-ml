@@ -1,5 +1,4 @@
-
-import { Prediction, Subscriber, SubscriberDetail, ChurnTrend, SubscriptionPeriod, SubscriptionModality } from '../types';
+import { Prediction, Student, StudentDetail, StatisticsData, ChurnTrend } from '../types';
 
 // Mock data para o histórico de previsões
 export const predictionsMock: Prediction[] = [
@@ -75,282 +74,398 @@ export const predictionsMock: Prediction[] = [
   },
 ];
 
-// Mock data para resultados de previsão com variação de fatores e valores
-export const subscribersMock: Subscriber[] = [
+// Mock data para resultados de previsão
+export const studentsMock: Student[] = [
   {
     cod_pessoa: '122300',
-    nome_subscritor: 'Ana Silva',
-    subscription: 'Subscrição Premium Anual',
-    ano_subscricao: '2023/2024',
+    nome_aluno: 'Ana Silva',
+    matricula: 'Licenciatura em Comunicação Audiovisual e Multimédia',
+    ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 87.5,
-    idade: 32,
-    tempo_subscricao: 1.5,
-    valor_medio_fatura: 120.5,
-    tipo_subscricao: 'Anual',
-    modalidade: 'Papel + Digital'
+    courseUnitIds: ['UC001', 'UC002', 'UC003']
   },
   {
     cod_pessoa: '330041',
-    nome_subscritor: 'João Oliveira',
-    subscription: 'Subscrição Premium Anual',
-    ano_subscricao: '2023/2024',
+    nome_aluno: 'João Oliveira',
+    matricula: 'Licenciatura em Comunicação Audiovisual e Multimédia',
+    ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 72.4,
-    idade: 45,
-    tempo_subscricao: 2.7,
-    valor_medio_fatura: 135.8,
-    tipo_subscricao: 'Anual',
-    modalidade: 'Digital'
+    courseUnitIds: ['UC001', 'UC004', 'UC005']
   },
   {
     cod_pessoa: '263480',
-    nome_subscritor: 'Maria Costa',
-    subscription: 'Subscrição Premium Anual',
-    ano_subscricao: '2023/2024',
+    nome_aluno: 'Maria Costa',
+    matricula: 'Licenciatura em Comunicação Audiovisual e Multimédia',
+    ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 58.7,
-    idade: 29,
-    tempo_subscricao: 3.2,
-    valor_medio_fatura: 118.3,
-    tipo_subscricao: 'Trimestral',
-    modalidade: 'Papel + Digital'
+    courseUnitIds: ['UC002', 'UC004', 'UC006']
   },
   {
     cod_pessoa: '344035',
-    nome_subscritor: 'Pedro Santos',
-    subscription: 'Subscrição Digital',
-    ano_subscricao: '2023/2024',
+    nome_aluno: 'Pedro Santos',
+    matricula: 'Licenciatura em Educação Básica',
+    ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 73.9,
-    idade: 38,
-    tempo_subscricao: 1.2,
-    valor_medio_fatura: 79.9,
-    tipo_subscricao: 'Trimestral',
-    modalidade: 'Digital'
+    courseUnitIds: ['UC007', 'UC008', 'UC009']
   },
   {
     cod_pessoa: '295719',
-    nome_subscritor: 'Clara Mendes',
-    subscription: 'Subscrição Digital',
-    ano_subscricao: '2023/2024',
+    nome_aluno: 'Clara Mendes',
+    matricula: 'Licenciatura em Educação Básica',
+    ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 81.3,
-    idade: 26,
-    tempo_subscricao: 0.8,
-    valor_medio_fatura: 69.5,
-    tipo_subscricao: 'Anual',
-    modalidade: 'Estudantes'
+    courseUnitIds: ['UC007', 'UC010', 'UC011']
   },
   {
     cod_pessoa: '206340',
-    nome_subscritor: 'Bruno Ferreira',
-    subscription: 'Subscrição Mensal',
-    ano_subscricao: '2023/2024',
+    nome_aluno: 'Bruno Ferreira',
+    matricula: 'Licenciatura em Animação Cultural',
+    ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 65.8,
-    idade: 41,
-    tempo_subscricao: 1.3,
-    valor_medio_fatura: 45.9,
-    tipo_subscricao: 'Semestral',
-    modalidade: 'Empresas'
+    courseUnitIds: ['UC012', 'UC013', 'UC014']
   },
   {
     cod_pessoa: '189756',
-    nome_subscritor: 'Rita Fonseca',
-    subscription: 'Subscrição Mensal',
-    ano_subscricao: '2023/2024',
+    nome_aluno: 'Rita Fonseca',
+    matricula: 'Licenciatura em Animação Cultural',
+    ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 52.3,
-    idade: 52,
-    tempo_subscricao: 3.5,
-    valor_medio_fatura: 49.2,
-    tipo_subscricao: 'Semestral',
-    modalidade: 'Digital'
+    courseUnitIds: ['UC012', 'UC015', 'UC016']
   },
   {
     cod_pessoa: '254387',
-    nome_subscritor: 'Miguel Andrade',
-    subscription: 'Subscrição Premium Semestral',
-    ano_subscricao: '2023/2024',
+    nome_aluno: 'Miguel Andrade',
+    matricula: 'Licenciatura em Engenharia Agronómica',
+    ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 76.4,
-    idade: 36,
-    tempo_subscricao: 1.7,
-    valor_medio_fatura: 85.0,
-    tipo_subscricao: 'Semestral',
-    modalidade: 'Papel + Digital'
   },
   {
     cod_pessoa: '321456',
-    nome_subscritor: 'Sofia Rodrigues',
-    subscription: 'Subscrição Premium Semestral',
-    ano_subscricao: '2023/2024',
+    nome_aluno: 'Sofia Rodrigues',
+    matricula: 'Licenciatura em Engenharia Agronómica',
+    ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 68.7,
-    idade: 33,
-    tempo_subscricao: 2.1,
-    valor_medio_fatura: 87.5,
-    tipo_subscricao: 'Anual',
-    modalidade: 'Estudantes'
   },
   {
     cod_pessoa: '176543',
-    nome_subscritor: 'André Martins',
-    subscription: 'Subscrição Digital Plus',
-    ano_subscricao: '2023/2024',
+    nome_aluno: 'André Martins',
+    matricula: 'Licenciatura em Engenharia Zootécnica',
+    ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 79.2,
-    idade: 28,
-    tempo_subscricao: 0.9,
-    valor_medio_fatura: 89.9,
-    tipo_subscricao: 'Trimestral',
-    modalidade: 'Digital'
   },
   {
     cod_pessoa: '287654',
-    nome_subscritor: 'Beatriz Nunes',
-    subscription: 'Subscrição Digital Plus',
-    ano_subscricao: '2023/2024',
+    nome_aluno: 'Beatriz Nunes',
+    matricula: 'Licenciatura em Engenharia Zootécnica',
+    ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 72.5,
-    idade: 31,
-    tempo_subscricao: 1.4,
-    valor_medio_fatura: 92.0,
-    tipo_subscricao: 'Semestral',
-    modalidade: 'Empresas'
   },
   {
     cod_pessoa: '312876',
-    nome_subscritor: 'Carlos Lopes',
-    subscription: 'Subscrição Premium Anual',
-    ano_subscricao: '2023/2024',
+    nome_aluno: 'Carlos Lopes',
+    matricula: 'Licenciatura em Engenharia Alimentar',
+    ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 65.3,
-    idade: 47,
-    tempo_subscricao: 4.2,
-    valor_medio_fatura: 128.5,
-    tipo_subscricao: 'Anual',
-    modalidade: 'Papel + Digital'
   },
   {
     cod_pessoa: '198765',
-    nome_subscritor: 'Diana Mendes',
-    subscription: 'Subscrição Premium Anual',
-    ano_subscricao: '2023/2024',
+    nome_aluno: 'Diana Mendes',
+    matricula: 'Licenciatura em Engenharia Alimentar',
+    ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 58.9,
-    idade: 39,
-    tempo_subscricao: 3.8,
-    valor_medio_fatura: 122.0,
-    tipo_subscricao: 'Anual',
-    modalidade: 'Empresas'
   },
   {
     cod_pessoa: '276543',
-    nome_subscritor: 'Eduardo Santos',
-    subscription: 'Subscrição Digital',
-    ano_subscricao: '2023/2024',
+    nome_aluno: 'Eduardo Santos',
+    matricula: 'Licenciatura em Engenharia Informática',
+    ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 82.7,
-    idade: 25,
-    tempo_subscricao: 0.6,
-    valor_medio_fatura: 72.8,
-    tipo_subscricao: 'Trimestral',
-    modalidade: 'Estudantes'
   },
   {
     cod_pessoa: '354321',
-    nome_subscritor: 'Francisca Oliveira',
-    subscription: 'Subscrição Digital',
-    ano_subscricao: '2023/2024',
+    nome_aluno: 'Francisca Oliveira',
+    matricula: 'Licenciatura em Engenharia Informática',
+    ano_letivo: '2023/2024',
     data_extracao: '01/06/2024',
     churn: 74.5,
-    idade: 23,
-    tempo_subscricao: 0.5,
-    valor_medio_fatura: 65.9,
-    tipo_subscricao: 'Semestral',
-    modalidade: 'Estudantes'
+  },
+  {
+    cod_pessoa: '234567',
+    nome_aluno: 'Gonçalo Pereira',
+    matricula: 'Licenciatura em Engenharia Civil',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 77.8,
+  },
+  {
+    cod_pessoa: '345678',
+    nome_aluno: 'Helena Costa',
+    matricula: 'Licenciatura em Engenharia Civil',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 69.3,
+  },
+  {
+    cod_pessoa: '456789',
+    nome_aluno: 'Igor Fernandes',
+    matricula: 'Licenciatura em Design de Produto',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 61.2,
+  },
+  {
+    cod_pessoa: '567890',
+    nome_aluno: 'Joana Ribeiro',
+    matricula: 'Licenciatura em Design de Produto',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 53.7,
+  },
+  {
+    cod_pessoa: '678901',
+    nome_aluno: 'Luís Carvalho',
+    matricula: 'Licenciatura em Enfermagem',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 59.8,
+  },
+  {
+    cod_pessoa: '789012',
+    nome_aluno: 'Mariana Almeida',
+    matricula: 'Licenciatura em Enfermagem',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 66.4,
+  },
+  {
+    cod_pessoa: '890123',
+    nome_aluno: 'Nuno Gomes',
+    matricula: 'Licenciatura em Fisioterapia',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 72.1,
+  },
+  {
+    cod_pessoa: '901234',
+    nome_aluno: 'Olívia Santos',
+    matricula: 'Licenciatura em Fisioterapia',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 63.5,
+  },
+  {
+    cod_pessoa: '112233',
+    nome_aluno: 'Paulo Castro',
+    matricula: 'Licenciatura em Contabilidade e Fiscalidade',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 74.9,
+  },
+  {
+    cod_pessoa: '223344',
+    nome_aluno: 'Quim Torres',
+    matricula: 'Licenciatura em Contabilidade e Fiscalidade',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 68.2,
+  },
+  {
+    cod_pessoa: '334455',
+    nome_aluno: 'Raquel Lima',
+    matricula: 'Licenciatura em Gestão da Distribuição e Logística',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 63.7,
+  },
+  {
+    cod_pessoa: '445566',
+    nome_aluno: 'Sérgio Martins',
+    matricula: 'Licenciatura em Gestão da Distribuição e Logística',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 58.3,
+  },
+  {
+    cod_pessoa: '556677',
+    nome_aluno: 'Teresa Azevedo',
+    matricula: 'Licenciatura em Marketing e Comunicação Empresarial',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 55.9,
+  },
+  {
+    cod_pessoa: '667788',
+    nome_aluno: 'Ulisses Pinto',
+    matricula: 'Licenciatura em Marketing e Comunicação Empresarial',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 61.4,
+  },
+  {
+    cod_pessoa: '778899',
+    nome_aluno: 'Vera Moreira',
+    matricula: 'Licenciatura em Organização e Gestão Empresariais',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 69.8,
+  },
+  {
+    cod_pessoa: '889900',
+    nome_aluno: 'Xavier Costa',
+    matricula: 'Licenciatura em Organização e Gestão Empresariais',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 64.2,
+  },
+  {
+    cod_pessoa: '998877',
+    nome_aluno: 'Yara Sousa',
+    matricula: 'Licenciatura em Desporto e Lazer',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 52.7,
+  },
+  {
+    cod_pessoa: '887766',
+    nome_aluno: 'Zacarias Fernandes',
+    matricula: 'Licenciatura em Desporto e Lazer',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 57.3,
+  },
+  {
+    cod_pessoa: '776655',
+    nome_aluno: 'Anabela Marques',
+    matricula: 'Licenciatura em Exercício e Saúde',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 61.8,
+  },
+  {
+    cod_pessoa: '665544',
+    nome_aluno: 'Bernardo Silva',
+    matricula: 'Licenciatura em Exercício e Saúde',
+    ano_letivo: '2023/2024',
+    data_extracao: '01/06/2024',
+    churn: 67.2,
   }
 ];
 
-// Mock data para tendências mensais com mais variação
+// Mock data para tendências mensais
 export const churnTrendMock: ChurnTrend[] = [
-  { month: 'Janeiro 2024', value: 62.7 },
+  { month: 'Janeiro 2024', value: 65.2 },
   { month: 'Fevereiro 2024', value: 68.5 },
-  { month: 'Março 2024', value: 64.9 },
-  { month: 'Abril 2024', value: 71.2 },
-  { month: 'Maio 2024', value: 69.5 },
+  { month: 'Março 2024', value: 71.3 },
+  { month: 'Abril 2024', value: 74.8 },
+  { month: 'Maio 2024', value: 73.1 },
   { month: 'Junho 2024', value: 73.9 }
 ];
 
-// Mock data para detalhes do subscritor com fatores de probabilidade e valores de tendência variados
-export const subscriberDetailMock: SubscriberDetail = {
-  subscriberId: '344035',
+// Mock data para detalhes do estudante
+export const studentDetailMock: StudentDetail = {
+  studentId: '344035',
   churnProbability: 73.91,
   positiveReasons: [
     {
-      feature: 'tipo_subscricao',
-      description: 'Subscrição Digital',
-      value: 'Digital',
+      feature: 'regime_ingresso',
+      description: 'Contingentes especiais Madeira',
       impact: 16.40,
     },
     {
       feature: 'idade',
-      description: 'Faixa etária',
-      value: 38,
-      impact: 12.80,
+      description: '22',
+      impact: 3.60,
     },
     {
-      feature: 'tempo_subscricao',
-      description: 'Tempo de subscrição curto',
-      value: '1.2 anos',
-      impact: 8.50,
+      feature: 'sexo',
+      description: 'Masculino',
+      impact: 1.70,
     },
-    {
-      feature: 'frequencia_acesso',
-      description: 'Baixa frequência de acesso',
-      value: '2x por semana',
-      impact: 7.20,
-    },
-    {
-      feature: 'comportamento_pagamento',
-      description: 'Histórico de atrasos',
-      value: '30%',
-      impact: 5.90,
-    }
   ],
   negativeReasons: [
     {
-      feature: 'conteudo_exclusivo_visto',
-      description: 'Acesso a conteúdo exclusivo',
-      value: '75%',
+      feature: 'ocupacao',
+      description: 'Estudante',
       impact: -9.10,
     },
     {
-      feature: 'engajamento_app',
-      description: 'Uso frequente do aplicativo',
-      value: '5 dias/semana',
-      impact: -7.60,
+      feature: 'ano_curricular',
+      description: '5',
+      impact: -1.30,
     },
     {
-      feature: 'preferencia_categoria',
-      description: 'Alta leitura de notícias políticas',
-      value: '45%',
-      impact: -6.30,
+      feature: 'faculdade',
+      description: 'FFUP',
+      impact: -0.90,
     },
-    {
-      feature: 'opiniao_enviada',
-      description: 'Participação em pesquisas',
-      value: 'Sim',
-      impact: -3.80,
-    },
-    {
-      feature: 'multidevice',
-      description: 'Acesso em múltiplos dispositivos',
-      value: '3 dispositivos',
-      impact: -2.40,
-    }
   ],
   trends: churnTrendMock
 };
+
+// Mock data para estatísticas
+export const sexoStatisticsMock: StatisticsData = {
+  variable: 'sexo',
+  categories: ['Feminino', 'Masculino'],
+  percentages: [20.04, 79.96],
+  counts: [24, 15],
+};
+
+export const idadeStatisticsMock: StatisticsData = {
+  variable: 'idade',
+  categories: ['17', '18', '19', '20', '21', '22', '24', '25', '26', '29', '37'],
+  percentages: [0.35, 18.24, 28.62, 18.24, 73.91, 73.91, 18.01, 0.35, 0.35, 0.35, 0.35],
+  counts: [1, 5, 7, 10, 3, 5, 3, 1, 1, 2, 1],
+};
+
+export const cursoStatisticsMock: StatisticsData = {
+  variable: 'curso',
+  categories: ['Gestão', 'Informática', 'Turismo', 'Educação', 'Design'],
+  percentages: [35.2, 28.7, 15.3, 12.1, 8.7],
+  counts: [48, 39, 21, 16, 12],
+};
+
+export const anoLetivosStatisticsMock: StatisticsData = {
+  variable: 'ano_letivo',
+  categories: ['1º Ano', '2º Ano', '3º Ano', 'Mestrado'],
+  percentages: [42.5, 31.2, 18.7, 7.6],
+  counts: [57, 42, 25, 10],
+};
+
+export const localResidenciaStatisticsMock: StatisticsData = {
+  variable: 'local_residencia',
+  categories: ['Viana do Castelo', 'Braga', 'Porto', 'Outros'],
+  percentages: [62.3, 18.5, 12.7, 6.5],
+  counts: [84, 25, 17, 9],
+};
+
+// Lista de variáveis disponíveis para análise
+export const availableVariables = [
+  'ano_letivo',
+  'sexo',
+  'idade',
+  'curso',
+  'local_residencia',
+  'escolaridade_pais',
+  'bolsa_estudos',
+  'deslocado',
+  'trabalhador_estudante',
+  'media_entrada'
+];
+
+
+
+

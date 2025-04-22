@@ -13,22 +13,15 @@ export interface Prediction {
   access: AccessType[];
 }
 
-export interface Subscriber {
+export interface Student {
   cod_pessoa: string;
-  nome_subscritor: string;
-  subscription: string;
-  ano_subscricao: string;
+  nome_aluno: string;
+  matricula: string;
+  ano_letivo: string;
   data_extracao: string;
   churn: number;
-  idade?: number;
-  tempo_subscricao?: number;
-  valor_medio_fatura?: number;
-  tipo_subscricao?: string;
-  modalidade?: SubscriptionModality;
+  courseUnitIds?: string[]; // Added this property
 }
-
-export type SubscriptionPeriod = 'Trimestral' | 'Semestral' | 'Anual';
-export type SubscriptionModality = 'Digital' | 'Papel + Digital' | 'Empresas' | 'Estudantes';
 
 export type FeatureImpact = {
   feature: string;
@@ -42,112 +35,77 @@ export interface ChurnTrend {
   value: number;
 }
 
-export interface SubscriberDetail {
-  subscriberId: string;
+export interface StudentDetail {
+  studentId: string;
   churnProbability: number;
   positiveReasons: FeatureImpact[];
   negativeReasons: FeatureImpact[];
   trends: ChurnTrend[];
 }
 
-export interface AgeGroupChurn {
-  faixa_etaria: string;
-  probabilidade: number;
-  total_subscritores: number;
+// Tipos para as estatísticas
+export interface StatisticsData {
+  variable: string;
+  categories: string[];
+  percentages: number[];
+  counts: number[];
 }
 
-export interface SubscriptionTypeChurn {
-  tipo: string;
-  probabilidade: number;
-  total_subscritores: number;
-}
-
-export interface ChurnMetrics {
-  probabilidade_media: number;
-  total_subscritores: number;
-  churn_ultimo_mes: number;
-  melhor_retencao: string;
-  pior_retencao: string;
-  por_idade: AgeGroupChurn[];
-  por_tipo: SubscriptionTypeChurn[];
-}
-
+// Novos tipos para as estatísticas
 export interface PredictionComparison {
   month: string;
   predicted: number;
   actual: number;
 }
 
-// Statistics types
-export interface FactorFrequency {
-  factor: string;
-  frequency?: number;
-  count: number; 
-  percentage: number;
-}
-
 export interface RiskDistribution {
   category: string;
   count: number;
   percentage: number;
-  risk_level?: string;
-  student_count?: number;
-  color?: string; 
 }
 
-export interface Student {
+export interface FactorFrequency {
+  factor: string;
+  count: number;
+  percentage: number;
+}
+
+export interface CourseUnit {
   id: string;
   name: string;
-  email: string;
   risk: number;
-}
-
-export interface StudentDetail {
-  studentId: string;
-  riskProbability: number;
-  positiveFactors: FactorFrequency[];
-  negativeFactors: FactorFrequency[];
-  trends: any[];
+  studentCount: number;
+  courseId?: string;
+  academicYear?: number; // Added academic year property
 }
 
 export interface AcademicYear {
   id: string;
   year: number;
+  courseId: string;
+  risk: number;
   unitCount: number;
   studentCount: number;
-  risk: number;
-}
-
-export interface CourseUnit {
-  id: string;
-  code?: string;
-  name: string;
-  semester?: number;
-  year?: number;
-  studentCount: number;
-  risk: number;
-  courseId: string;
 }
 
 export interface Course {
   id: string;
   name: string;
-  code?: string;
+  risk: number;
   unitCount: number;
   studentCount: number;
-  risk: number;
   units?: CourseUnit[];
   schoolId?: string;
   type?: string;
+  academicYears?: number[]; // Added academic years array
 }
 
 export interface School {
   id: string;
   name: string;
-  code?: string;
+  risk: number;
   courseCount: number;
   studentCount: number;
-  risk: number;
   courses?: Course[];
   institutionId?: string;
 }
@@ -155,9 +113,8 @@ export interface School {
 export interface Institution {
   id: string;
   name: string;
-  code?: string;
+  risk: number;
   schoolCount: number;
   studentCount: number;
-  risk: number;
   schools?: School[];
 }

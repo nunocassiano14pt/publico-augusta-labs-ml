@@ -7,20 +7,36 @@ import PredictionTable from '../components/predictions/PredictionTable';
 import { predictionsMock } from '../data/mockData';
 
 const Predictions = () => {
-  const [predictions] = useState(predictionsMock);
+  const [predictions, setPredictions] = useState(predictionsMock);
+  const [filteredPredictions, setFilteredPredictions] = useState(predictionsMock);
+
+  const handleSearch = (query: string) => {
+    if (!query) {
+      setFilteredPredictions(predictions);
+      return;
+    }
+    
+    const filtered = predictions.filter(
+      (prediction) => prediction.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredPredictions(filtered);
+  };
 
   return (
     <Layout>
       <div className="max-w-7xl mx-auto">
         <PageTitle 
-          title="Previsão de Desistências de Subscrições" 
-          subtitle="Analise e monitorize informações dos subscritores para prever e prevenir desistências."
+          title="Previsão de Abandono Escolar" 
+          subtitle="Analise e monitorize informações dos alunos para prever e prevenir o abandono."
         />
         
         <div className="dashboard-card mb-6">
           <div className="p-6">
-            <PredictionHeader count={predictions.length} />
-            <PredictionTable predictions={predictions} />
+            <PredictionHeader 
+              count={predictions.length} 
+              onSearch={handleSearch} 
+            />
+            <PredictionTable predictions={filteredPredictions} />
           </div>
         </div>
       </div>
